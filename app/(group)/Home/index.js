@@ -6,7 +6,7 @@ import {HearFrom} from './components/HearFrom'
 import {RecentCohorts} from './components/recentCohorts'
 import {YoutubeSnippet} from '../../components/youtubeSnippet'
 import {AsShowcased} from '../../components/AsShowcased'
-import {Footer} from '../../components/Footer/page'
+import {Footer} from '../../components/Footer/footer'
 
 export function HomeIndex() {
   return (

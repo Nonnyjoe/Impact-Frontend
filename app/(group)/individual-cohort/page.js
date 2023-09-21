@@ -1,5 +1,4 @@
-import Image from 'next/image'
-import {Footer} from '../../components/Footer/page'
+import {Footer} from '../../components/Footer/footer'
 import {YoutubeSnippet} from '../../components/youtubeSnippet'
 import {AsShowcased} from '../../components/AsShowcased'
 import {PhotoGallery} from './components/photo-gallery'
