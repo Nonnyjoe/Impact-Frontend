@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 export function ImpactSpread() {
   return (
-    <div className=" mt-20 md:mt-0 relative flex flex-col items-center justify-center md:min-h-screen ">
+    <div className=" mt-20 md:mt-[90px] relative flex flex-col items-center justify-center ">
       <div className='p-4 md:p-6 lg:p-[80px] mx-2 md:mx-[8%] rounded-3xl flex flex-col items-center justify-center'>
         <p className='text-3xl md:text-6xl mb-4 md:mb-10 font-bold font-poppins'>
           <span className='text-black'>Our</span> <span className='text-[#FA1011]'>Impact Spread</span>

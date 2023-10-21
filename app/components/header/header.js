@@ -33,27 +33,17 @@ export function Header() {
                   Home
                 </p>
               </Link>
-              <Link href="/cohort-stories">
+              <Link href="/Stories">
                 <p className="text-gray-900 hover:text-red-500 px-3 py-2 rounded-md text-base font-poppins font-medium">
-                  Dapp
+                  Stories
                 </p>
               </Link>
-              <Link href="/individual-cohort">
+              <Link href="/cohorts">
                 <p className="text-gray-900 hover:text-red-500 px-3 py-2 rounded-md text-base font-poppins font-medium">
-                  Team
+                  Cohorts
                 </p>
               </Link>
-              <Link href="/verify">
-                <p className="text-gray-900 hover:text-red-500 px-3 py-2 rounded-md text-base font-poppins font-medium">
-                  Portfolio
-                </p>
-              </Link>
-              <Link href="/verify">
-                <p className="text-gray-900 hover:text-red-500 px-3 py-2 rounded-md text-base font-poppins font-medium">
-                  Blog
-                </p>
-              </Link>
-              <Link href="/verify">
+              <Link href="/Hire-us">
                 <p className="text-gray-900 hover:text-red-500 px-3 py-2 rounded-md text-base font-poppins font-medium">
                   Hire Us
                 </p>
@@ -109,32 +99,22 @@ export function Header() {
       </div>
       <div className={`${isOpen ? 'block' : 'hidden'} md:hidden z-50 bg-white border-b border-[#FA1011]`}>
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-          <Link href="/">
+          <Link href="/" onClick={toggleNavbar}>
             <p className="text-gray-900 hover:text-red-500 block px-3 py-2 rounded-md text-base font-medium">
               Home
             </p>
           </Link>
-          <Link href="/cohort-stories">
+          <Link href="/Stories" onClick={toggleNavbar}>
             <p className="text-gray-900 hover:text-red-500 block px-3 py-2 rounded-md text-base font-medium">
-              Dapp
+              Stories
             </p>
           </Link>
-          <Link href="/individual-cohort">
+          <Link href="/cohorts" onClick={toggleNavbar}>
             <p className="text-gray-900 hover:text-red-500 block px-3 py-2 rounded-md text-base font-medium">
-              Team
+              Cohorts
             </p>
           </Link>
-          <Link href="/verify">
-            <p className="text-gray-900 hover:text-red-500 block px-3 py-2 rounded-md text-base font-medium">
-              Portfolio
-            </p>
-          </Link>
-          <Link href="/verify">
-            <p className="text-gray-900 hover:text-red-500 block px-3 py-2 rounded-md text-base font-medium">
-              Blog
-            </p>
-          </Link>
-          <Link href="/verify">
+          <Link href="/Hire-us" onClick={toggleNavbar}>
             <p className="text-gray-900 hover:text-red-500 block px-3 py-2 rounded-md text-base font-medium">
               Hire Us
             </p>

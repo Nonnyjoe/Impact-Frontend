@@ -9,7 +9,7 @@ import {Copyright} from './components/copyright'
 export function Footer() {
   return (
       <div className='bg-white'>
-        <div className="flex flex-col md:flex-row gap-10 relative text-black px-6 mt-20 md:mt-0 md:px-[100px] mb-20">
+        <div className="flex flex-col md:flex-row gap-10 relative text-black px-6 mt-20 md:mt-[120px] md:px-[100px] mb-20">
           <div className='flex flex-row gap-10 md:w-2/5'>
             <div className='w-1/2 md:w-2/3'>
               <Socials />

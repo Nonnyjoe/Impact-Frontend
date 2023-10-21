@@ -19,7 +19,7 @@ function CarouselComponent() {
 
 export function HearFrom() {
   return (
-    <div className="relative flex flex-col mt-20 md:mt-[180px] px-4 md:px-10 mb-20">
+    <div className="relative flex flex-col mt-20 md:mt-[180px] px-4 md:px-10 mb-0">
       <div className='px-4 md:px-[80px] pb-4 md:pb-10 rounded-3xl flex flex-col'>
         <p className='text-3xl md:text-6xl mb-4 md:mb-10 font-bold font-poppins'>
           <span className='text-black'> Hear from our </span> <span className='text-[#FA1011]'>Alumni</span>

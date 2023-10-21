@@ -9,7 +9,7 @@ export function YoutubeSnippet() {
         </p>
       </div>
       <div className='mt-5 items-center justify-center flex mb-[4rem] md:mb-[100px] '>
-        <Image src="/Images/YouTubeEmbed.png" alt="Team Member" className="w-[90vw] md:w-[50vw] object-contain" />
+        <Image src="/Images/YouTubeEmbed.png" width={1000} height={1000} alt="Team Member" className="w-[90vw] md:w-[50vw] object-contain" />
       </div>
     </div>
   );
