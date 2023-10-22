@@ -57,9 +57,9 @@ const UserSchema = new mongoose.Schema(
       student: { type: Boolean, default: false },
     },
     socialLinks: {
-      twitter: { type: String, lowercase: true, trim: true },
-      linkedin: { type: String, lowercase: true, trim: true },
-      github: { String, lowercase: true, trim: true },
+twitter: { type: String, lowercase: true, trim: true },
+linkedin: { type: String, lowercase: true, trim: true },
+github: { String, lowercase: true, trim: true },
     },
     cohortId: {
       type: mongoose.Schema.Types.ObjectId,
