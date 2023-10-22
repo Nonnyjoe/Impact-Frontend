@@ -1,4 +1,4 @@
-# To Configure Husky, RUN
+### To Configure Husky, RUN
 
 ```bash
 yarn
