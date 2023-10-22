@@ -1,4 +1,4 @@
-"use client"
+'use client';
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -17,12 +17,7 @@ export function Header() {
           <div className="flex-shrink-0">
             <Link href="/">
               <div>
-                <Image
-                  src="/Images/Logo.png"
-                  alt="Logo"
-                  width={150}
-                  height={20}
-                />
+                <Image src="/Images/Logo.png" alt="Logo" width={150} height={20} />
               </div>
             </Link>
           </div>
@@ -51,8 +46,8 @@ export function Header() {
             </div>
           </div>
 
-          <div className='hidden md:block'>
-                <p className=' font-poppins text-base text-black'>EN</p>
+          <div className="hidden md:block">
+            <p className=" font-poppins text-base text-black">EN</p>
           </div>
 
           <div className="-mr-2 flex md:hidden">
@@ -97,7 +92,11 @@ export function Header() {
           </div>
         </div>
       </div>
-      <div className={`${isOpen ? 'block' : 'hidden'} md:hidden z-50 bg-white border-b border-[#FA1011]`}>
+      <div
+        className={`${
+          isOpen ? 'block' : 'hidden'
+        } md:hidden z-50 bg-white border-b border-[#FA1011]`}
+      >
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
           <Link href="/" onClick={toggleNavbar}>
             <p className="text-gray-900 hover:text-red-500 block px-3 py-2 rounded-md text-base font-medium">
@@ -123,6 +122,4 @@ export function Header() {
       </div>
     </nav>
   );
-};
-
-
+}
