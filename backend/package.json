@@ -5,6 +5,14 @@
   "main": "index.js",
   "author": "Samson Ajulor",
   "license": "MIT",
+  "husky": {
+    "hooks": {
+      "applypatch-msg": "echo \"[Husky] applypatch-msg\"",
+      "pre-applypatch": "echo \"[Husky] pre-applypatch\"",
+      "post-applypatch": "echo \"[Husky] post-applypatch\"",
+      "pre-commit": "echo \"[Husky] pre-commit\""
+    }
+  },
   "scripts": {
     "lint": "eslint \"src/**/*.ts\"",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
