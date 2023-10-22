@@ -1,9 +1,9 @@
 import User from '../models/user';
-import { StatusCode, UserInterface } from '../@types';
+import { StatusCode, RegisterType, UserInterface } from '../@types';
 import { ApiError } from '../utils';
 
 class UserService {
-  async createUser(userData: UserInterface) {
+  async createUser(userData: RegisterType) {
     try {
       const user = new User(userData);
       await user.save();
@@ -42,6 +42,21 @@ class UserService {
         'impact api',
         error as string,
         'getUserByEmail',
+        StatusCode.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
+
+  async getUserByUsername(username: string) {
+    try {
+      const user = User.findOne({ username });
+      if (!user) throw new Error('User not found');
+      return user;
+    } catch (error) {
+      throw new ApiError(
+        'impact api',
+        error as string,
+        'getUserByUsername',
         StatusCode.INTERNAL_SERVER_ERROR
       );
     }

@@ -1,10 +1,16 @@
 import { Document } from 'mongoose';
 
+// gender enum
+export enum Gender {
+  male = 'male',
+  female = 'female',
+  preferNotToSay = 'prefer not to say',
+}
 export interface UserInterface extends Document {
-  firstName?: string;
-  lastName?: string;
+  firstname?: string;
+  lastname?: string;
   username?: string;
-  gender: 'male' | 'female';
+  gender: Gender;
   email?: string;
   isActive: boolean;
   address?: string;
@@ -13,7 +19,7 @@ export interface UserInterface extends Document {
   country: string;
   dob?: string;
   phoneNumber?: string;
-  password?: string;
+  emailToken?: string;
   image?: string;
   role: {
     super?: boolean;
@@ -33,10 +39,12 @@ export interface UserInterface extends Document {
 }
 
 export type RegisterType = {
-  phoneNumber: string;
   email: string;
-  firstName: string;
-  lastName: string;
-  password: string;
+  username: string;
+  cohortId: string;
+  firstname: string;
+  lastname: string;
   dob: string;
+  gender: Gender;
+  hasOnboarded?: boolean;
 };

@@ -17,6 +17,7 @@ export default class ApiError extends Error {
     this.log = log;
     if (methodName) this.methodName = methodName;
     this.httpCode = httpCode;
+    this.message = <string>message;
 
     Error.captureStackTrace(this);
   }

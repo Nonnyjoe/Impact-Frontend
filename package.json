@@ -9,7 +9,7 @@
     "lint": "eslint \"src/**/*.ts\"",
     "build-ts": "tsc",
     "format": "cross-env prettier --write ./**/*.{js,ts,md,json} --config ./.prettierrc",
-    "prepare": "husky install && npx husky set .husky/pre-commit \"yarn format\""
+    "prepare": "husky install && npx husky set .husky/pre-commit \"yarn format && git add .\""
   },
   "repository": {
     "type": "git",

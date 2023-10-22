@@ -7,6 +7,7 @@ const UserSchema = new mongoose.Schema(
     username: {
       type: String,
       required: [true, 'Please include username'],
+      unique: true,
     },
     firstName: {
       type: String,
@@ -37,9 +38,9 @@ const UserSchema = new mongoose.Schema(
       type: String,
       match: [/\d{10}$/, 'Please include valid phone number'],
     },
-    password: {
+    emailToken: {
       type: String,
-      required: [true, 'Please include password'],
+      required: [false, 'Please include emailToken'],
     },
     image: String,
     role: {
@@ -54,8 +55,8 @@ const UserSchema = new mongoose.Schema(
       github: { type: String },
     },
     cohortId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Cohort',
+      type: String,
+      required: [true, 'Please include cohortId'],
     },
     about: String,
     isBlocked: {

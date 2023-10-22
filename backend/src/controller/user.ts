@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { ResponseCode, StatusCode } from '../@types';
 import { Toolbox, sendEmail } from '../utils';
 import { env } from '../config';
-import PreboardService from '../service/preboard';
+import { PreboardService, UserService } from '../service';
 
 const { createToken } = Toolbox;
 const { FRONTEND_URL } = env;
@@ -13,13 +13,10 @@ export async function onboardUser(req: Request, res: Response) {
 
     const preboarder = await PreboardService.getOnboarder(email);
 
-    console.log(preboarder, '<<<<preboarder>>>>');
-
     if (!preboarder) {
-      return res.status(StatusCode.NO_CONTENT).json({
+      return res.status(StatusCode.BAD_REQUEST).json({
         status: !!ResponseCode.SUCCESS,
-        message: 'Email not found',
-        data: null,
+        message: 'You are not onboarded. Please onboard first.',
       });
     }
 
@@ -27,7 +24,6 @@ export async function onboardUser(req: Request, res: Response) {
       return res.status(StatusCode.OK).json({
         status: !!ResponseCode.SUCCESS,
         message: 'Email already onboarded',
-        data: null,
       });
     }
     const token = createToken({ email }, '48h');
@@ -40,11 +36,31 @@ export async function onboardUser(req: Request, res: Response) {
       data: null,
     });
   } catch (error: any) {
-    console.log(error);
     return res.status(error.statusCode || StatusCode.INTERNAL_SERVER_ERROR).json({
       status: !!ResponseCode.FAILURE,
       message: error.message || 'Something went wrong',
       data: null,
+    });
+  }
+}
+
+export async function createUser(req: Request, res: Response) {
+  try {
+    await UserService.createUser({
+      ...req.body,
+      hasOnboarded: true,
+    });
+
+    return res.status(StatusCode.OK).json({
+      status: !!ResponseCode.SUCCESS,
+      message: 'User created successfully',
+      data: null,
+    });
+  } catch (error: any) {
+    console.log(error);
+    return res.status(error.statusCode || StatusCode.INTERNAL_SERVER_ERROR).json({
+      status: !!ResponseCode.FAILURE,
+      message: error.message || 'Something went wrong',
     });
   }
 }
