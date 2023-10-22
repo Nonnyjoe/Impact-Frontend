@@ -11,7 +11,6 @@ const { NODE_ENV, SECRET } = env;
  */
 const Tools = {
   createToken(payload: object, expiresIn: string = '5m'): string {
-    console.log(expiresIn, '<<<<<<<<<expiresIn>>>>>>>>>>');
     return jwt.sign(payload, SECRET as string, { expiresIn });
   },
 
@@ -36,12 +35,12 @@ const Tools = {
     );
   },
 
-  async verifyToken(token: string): Promise<string | JwtPayload> {
+  async verifyToken(token: string): Promise<string | JwtPayload | boolean> {
     try {
       const response = jwt.verify(token, SECRET as string);
       return response;
     } catch (err) {
-      throw new ApiError('toolbox', 'Invalid Token', 'verifyToken');
+      return false;
     }
   },
 

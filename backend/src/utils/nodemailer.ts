@@ -1,5 +1,5 @@
 import nodemailer from 'nodemailer';
-import { env } from '../config';
+import { env, logger } from '../config';
 
 const {
   NODEMAILER_SERVICE,
@@ -32,7 +32,7 @@ export const sendEmail = async (to: string, subject: string, html: string) => {
       subject,
       html,
     });
-    console.log('Message sent: %s', info.messageId);
+    logger('info', `Message sent: ${info.messageId}`);
     return info;
   } catch (error) {
     console.log(error);

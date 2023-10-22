@@ -1,12 +1,12 @@
 import { Router } from 'express';
-import { onboardUser } from '../controller/user';
+import { onboardUser, createUser } from '../controller/user';
 import { UserMiddleware } from '../middleware/';
 
-const { inspectUserOnboarding } = UserMiddleware;
+const { inspectUserOnboarding, inspectCreateUser } = UserMiddleware;
 
 const router = Router();
 
-router.post('/create');
+router.post('/onboard/:token', [inspectCreateUser], createUser);
 router.post('/onboard', [inspectUserOnboarding], onboardUser);
 
 export default router;
