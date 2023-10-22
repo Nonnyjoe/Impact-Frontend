@@ -7,26 +7,18 @@ const UserSchema = new mongoose.Schema(
     username: {
       type: String,
       required: [true, 'Please include username'],
-      trim: true,
-      lowercase: true,
     },
     firstName: {
       type: String,
-      trim: true,
-      lowercase: true,
     },
     lastName: {
       type: String,
-      trim: true,
-      lowercase: true,
     },
     email: {
       type: String,
       unique: true,
       validate: [isEmail, 'Please add a valid email address'],
       sparse: true,
-      lowercase: true,
-      trim: true,
     },
     isActive: {
       type: Boolean,
@@ -57,9 +49,9 @@ const UserSchema = new mongoose.Schema(
       student: { type: Boolean, default: false },
     },
     socialLinks: {
-      twitter: { type: String, lowercase: true, trim: true },
-      linkedin: { type: String, lowercase: true, trim: true },
-      github: { String, lowercase: true, trim: true },
+      twitter: { type: String },
+      linkedin: { type: String },
+      github: { type: String },
     },
     cohortId: {
       type: mongoose.Schema.Types.ObjectId,
