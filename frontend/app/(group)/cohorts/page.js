@@ -8,9 +8,6 @@ import { Gallery } from './components/gallery';
 const CohortStories = () => {
   return (
     <div className="flex flex-col bg-white">
-
-
-
       <Stories />
       <Gallery />
       <Goal />
