@@ -1,5 +1,4 @@
-import mongoose from 'mongoose';
-import Validator from 'validator';
+import { mongoose, Validator } from './imports';
 
 const { isEmail } = Validator;
 
@@ -52,10 +51,10 @@ const UserSchema = new mongoose.Schema(
     },
     image: String,
     role: {
-      super: { type: String, lowercase: true, trim: true },
-      admin: { type: String, lowercase: true, trim: true },
-      user: { type: String, lowercase: true, trim: true },
-      student: { type: String, lowercase: true, trim: true },
+      super: { type: Boolean, default: false },
+      admin: { type: Boolean, default: false },
+      user: { type: Boolean, default: true },
+      student: { type: Boolean, default: false },
     },
     socialLinks: {
       twitter: { type: String, lowercase: true, trim: true },

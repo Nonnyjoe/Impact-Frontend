@@ -15,7 +15,12 @@ export interface UserInterface extends Document {
   phoneNumber?: string;
   password?: string;
   image?: string;
-  role: 'superAdmin' | 'admin' | 'student' | 'user';
+  role: {
+    super?: boolean;
+    admin?: boolean;
+    user?: boolean;
+    student?: boolean;
+  };
   socialLinks?: {
     twitter?: string;
     linkedin?: string;

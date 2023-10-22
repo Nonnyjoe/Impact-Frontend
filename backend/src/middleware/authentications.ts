@@ -57,7 +57,11 @@ const Authentications = {
             'authorizeRoles',
             StatusCode.UNAUTHORIZED
           );
-        if (!roles.includes(user.role))
+        const userRoles: string[] = Object.keys(user.role);
+        const filteredRoles = userRoles.filter((role) => user.role[role] === true);
+        const hasRole = roles.some((role) => filteredRoles.includes(role));
+
+        if (!hasRole)
           throw new ApiError(
             'Authentications',
             'Not authorized',

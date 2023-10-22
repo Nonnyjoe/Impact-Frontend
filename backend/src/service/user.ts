@@ -10,7 +10,7 @@ class UserService {
       return user;
     } catch (error) {
       throw new ApiError(
-        'core mobile api',
+        'impact api',
         error as string,
         'createUser',
         StatusCode.INTERNAL_SERVER_ERROR
@@ -24,7 +24,7 @@ class UserService {
       return user;
     } catch (error) {
       throw new ApiError(
-        'core mobile api',
+        'impact api',
         error as string,
         'getUserById',
         StatusCode.INTERNAL_SERVER_ERROR
@@ -39,7 +39,7 @@ class UserService {
       return user;
     } catch (error) {
       throw new ApiError(
-        'core mobile api',
+        'impact api',
         error as string,
         'getUserByEmail',
         StatusCode.INTERNAL_SERVER_ERROR
@@ -56,7 +56,7 @@ class UserService {
       return user;
     } catch (error) {
       throw new ApiError(
-        'core mobile api',
+        'impact api',
         error as string,
         'updateUser',
         StatusCode.INTERNAL_SERVER_ERROR
@@ -71,7 +71,7 @@ class UserService {
       return user;
     } catch (error) {
       throw new ApiError(
-        'core mobile api',
+        'impact api',
         error as string,
         'deleteUser',
         StatusCode.INTERNAL_SERVER_ERROR
@@ -85,7 +85,7 @@ class UserService {
       return users;
     } catch (error) {
       throw new ApiError(
-        'core mobile api',
+        'impact api',
         error as string,
         'getAllUsers',
         StatusCode.INTERNAL_SERVER_ERROR
