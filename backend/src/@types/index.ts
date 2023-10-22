@@ -15,8 +15,7 @@ export type GenericType = {
 
 export type GenericAnyType = any;
 
-
 export enum ResponseCode {
   SUCCESS = 1,
   FAILURE = 0,
-};
+}

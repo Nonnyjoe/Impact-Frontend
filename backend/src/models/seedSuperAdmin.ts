@@ -1,5 +1,5 @@
 import User from '../models/user';
-import { env, logger } from "../config";
+import { env, logger } from '../config';
 
 const { SUPER_ADMIN_EMAIL, SUPER_ADMIN_PASSWORD, SUPER_ADMIN_USERNAME } = env;
 
@@ -8,7 +8,7 @@ export const seedSuperAdmin = async () => {
     const user = (await User.findOne({ email: SUPER_ADMIN_EMAIL })) as keyof typeof User;
 
     if (user) {
-     logger('seedSuperAdmin', 'Super admin already exists');
+      logger('seedSuperAdmin', 'Super admin already exists');
       return;
     }
     const superAdmin = {
@@ -23,6 +23,6 @@ export const seedSuperAdmin = async () => {
 
     logger('seedSuperAdmin', 'Super admin seeded successfully :)');
   } catch (err) {
-   logger('seedSuperAdmin', 'Error seeding database :(');
+    logger('seedSuperAdmin', 'Error seeding database :(');
   }
 };

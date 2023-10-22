@@ -42,13 +42,7 @@ app.use('/v1.0', routes);
 
 //greet
 app.get('/', (req: Request, res: Response) => {
-  res.send(
-    `${
-      process.env.environment === 'production'
-        ? 'test is up'
-        : 'live is up ad'
-    }`
-  );
+  res.send(`${process.env.environment === 'production' ? 'test is up' : 'live is up ad'}`);
 });
 
 app.all('/*', (req: Request, res: Response, next: NextFunction) => {

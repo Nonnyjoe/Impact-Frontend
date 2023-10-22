@@ -8,18 +8,26 @@ const UserSchema = new mongoose.Schema(
     username: {
       type: String,
       required: [true, 'Please include username'],
+      trim: true,
+      lowercase: true,
     },
     firstName: {
       type: String,
+      trim: true,
+      lowercase: true,
     },
     lastName: {
       type: String,
+      trim: true,
+      lowercase: true,
     },
     email: {
       type: String,
       unique: true,
       validate: [isEmail, 'Please add a valid email address'],
       sparse: true,
+      lowercase: true,
+      trim: true,
     },
     isActive: {
       type: Boolean,
@@ -44,14 +52,15 @@ const UserSchema = new mongoose.Schema(
     },
     image: String,
     role: {
-      type: String,
-      enum: ['superAdmin', 'admin', 'student', 'user'],
-      default: 'user',
+      super: { type: String, lowercase: true, trim: true },
+      admin: { type: String, lowercase: true, trim: true },
+      user: { type: String, lowercase: true, trim: true },
+      student: { type: String, lowercase: true, trim: true },
     },
     socialLinks: {
-      twitter: String,
-      linkedin: String,
-      github: String,
+      twitter: { type: String, lowercase: true, trim: true },
+      linkedin: { type: String, lowercase: true, trim: true },
+      github: { String, lowercase: true, trim: true },
     },
     cohortId: {
       type: mongoose.Schema.Types.ObjectId,
@@ -70,6 +79,5 @@ const UserSchema = new mongoose.Schema(
   },
   { toJSON: { virtuals: true }, toObject: { virtuals: true }, timestamps: true }
 );
-
 
 export default mongoose.model('User', UserSchema);

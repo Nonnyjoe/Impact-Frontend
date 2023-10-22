@@ -25,17 +25,17 @@ const config = {
 const transporter = nodemailer.createTransport(config);
 
 export const sendEmail = async (to: string, subject: string, html: string) => {
- try {
-  const info = await transporter.sendMail({
-   from: `"${NODEMAILER_NAME}" <${NODEMAILER_EMAIL}>`,
-   to,
-   subject,
-   html
-  });
-  console.log('Message sent: %s', info.messageId);
-  return info;
- } catch (error) {
-  console.log(error);
-  return error;
- }
-}
+  try {
+    const info = await transporter.sendMail({
+      from: `"${NODEMAILER_NAME}" <${NODEMAILER_EMAIL}>`,
+      to,
+      subject,
+      html,
+    });
+    console.log('Message sent: %s', info.messageId);
+    return info;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};

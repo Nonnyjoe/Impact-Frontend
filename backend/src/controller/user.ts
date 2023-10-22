@@ -4,9 +4,8 @@ import { Toolbox } from '../utils';
 
 export async function user(req: Request, res: Response) {
   try {
-
-    return
+    return;
   } catch (error) {
-      return 
+    return;
   }
 }

@@ -26,7 +26,7 @@ const Authentications = {
           StatusCode.UNAUTHORIZED
         );
       const decoded: any = await verifyToken(tokenString);
-      const user = await User.findOne({email: decoded}).exec();
+      const user = await User.findOne({ email: decoded }).exec();
 
       if (!decoded || !user)
         throw new ApiError(
@@ -73,7 +73,7 @@ const Authentications = {
         });
       }
     };
-  }
+  },
 };
 
 export default Authentications;

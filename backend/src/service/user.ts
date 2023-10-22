@@ -64,7 +64,7 @@ class UserService {
     }
   }
 
-  deleteUser = async(userId: string) => {
+  deleteUser = async (userId: string) => {
     try {
       const user = await User.findByIdAndDelete(userId);
       if (!user) throw new Error('User not found');
@@ -77,9 +77,9 @@ class UserService {
         StatusCode.INTERNAL_SERVER_ERROR
       );
     }
-  }
+  };
 
-  getAllUsers = async() => {
+  getAllUsers = async () => {
     try {
       const users = await User.find();
       return users;
@@ -91,7 +91,7 @@ class UserService {
         StatusCode.INTERNAL_SERVER_ERROR
       );
     }
-  }
+  };
 }
 
 export default new UserService();

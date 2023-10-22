@@ -1,5 +1,3 @@
 import userValidations from './user';
 
-export {
-  userValidations,
-};
+export { userValidations };
