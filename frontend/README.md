@@ -3,6 +3,9 @@
 ### Getting Started
 
 ```bash
+   # Run yarn on home directory first
+   yarn
+
    # Move to Frontend Directory
    cd frontend
 
