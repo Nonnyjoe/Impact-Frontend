@@ -7,26 +7,18 @@ const UserSchema = new mongoose.Schema(
     username: {
       type: String,
       required: [true, 'Please include username'],
-      
-      
     },
     firstName: {
       type: String,
-      
-      
     },
     lastName: {
       type: String,
-      
-      
     },
     email: {
       type: String,
       unique: true,
       validate: [isEmail, 'Please add a valid email address'],
       sparse: true,
-      
-      
     },
     isActive: {
       type: Boolean,
