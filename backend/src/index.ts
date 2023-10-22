@@ -38,7 +38,7 @@ if (!production) {
 }
 
 app.use(express.static('assets'));
-app.use('/v1.0', routes);
+app.use('/api', routes);
 
 //greet
 app.get('/', (req: Request, res: Response) => {
@@ -46,7 +46,10 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.all('/*', (req: Request, res: Response, next: NextFunction) => {
-  next(new Error('Resource unavailable'));
+  return res.status(404).send({
+    success: false,
+    message: 'Route not found',
+    });
 });
 
 app.use((err: any, req: Request, res: Response) => {

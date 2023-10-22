@@ -1,7 +1,33 @@
-import User from '../models/user';
+import User from './user';
+import Onboard from './preboard';
 import { env, logger } from '../config';
 
 const { SUPER_ADMIN_EMAIL, SUPER_ADMIN_PASSWORD, SUPER_ADMIN_USERNAME } = env;
+
+export const seedOnboarders = async () => {
+  try {
+    const onboarders = [
+      {
+        cohortId: 'I',
+        email: 'samsonajulor@gmail.com',
+        isBlacklisted: false,
+      },
+      {
+        cohortId: 'II',
+        email: 'samuel@gmail.com',
+        isBlacklisted: true,
+      }
+    ];
+
+    await Onboard.deleteMany({});
+
+    await Onboard.insertMany(onboarders);
+
+    logger('seedOnboarders', 'onboarders seeded successfully :)');
+  } catch (err) {
+    logger('seedOnboarders', 'Error seeding database :(');
+  }
+};
 
 export const seedSuperAdmin = async () => {
   try {

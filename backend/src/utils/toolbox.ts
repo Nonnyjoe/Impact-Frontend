@@ -3,15 +3,15 @@ import { Request } from 'express';
 import { env } from '../config';
 import ApiError from './apiError';
 
-const { TEST_SECRET, LIVE_SECRET, NODE_ENV } = env;
+const { NODE_ENV, SECRET } = env;
 
 /**
  * Function for api tools methods
  * @function Toolbox
  */
 const Tools = {
-  createToken(payload: string, expiresIn: string | number = '5m'): string {
-    const SECRET = NODE_ENV === 'TEST' ? TEST_SECRET : LIVE_SECRET;
+  createToken(payload: object, expiresIn: string = '5m'): string {
+    console.log(expiresIn, '<<<<<<<<<expiresIn>>>>>>>>>>')
     return jwt.sign(payload, SECRET as string, { expiresIn });
   },
 
@@ -38,9 +38,7 @@ const Tools = {
 
   async verifyToken(token: string): Promise<string | JwtPayload> {
     try {
-      const SECRET = NODE_ENV === 'TEST' ? (TEST_SECRET as string) : (LIVE_SECRET as string);
-
-      const response = jwt.verify(token, SECRET);
+      const response = jwt.verify(token, SECRET as string);
       return response;
     } catch (err) {
       throw new ApiError('toolbox', 'Invalid Token', 'verifyToken');
