@@ -1,7 +1,7 @@
-# Configure Husky
+# To Configure Husky, RUN
 
 ```bash
 yarn
 ```
 
-## Husky should be fired on commit.
+#### Husky would be fired on commit.
