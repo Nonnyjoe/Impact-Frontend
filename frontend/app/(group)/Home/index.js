@@ -8,15 +8,19 @@ import { YoutubeSnippet } from '../../components/youtubeSnippet';
 import { RecentCohortStories } from '../../components/recentCohortStories';
 import { AsShowcased } from '../../components/AsShowcased';
 import { Footer } from '../../components/Footer/footer';
+import LayoutWrapper from '@/app/components/LayoutWrapper';
 
 export function HomeIndex() {
   return (
     <div className="flex flex-col">
-      <Hero />
-      <Goal />
-      <ImpactSpread />
-      <HearFrom />
-      <RecentCohortStories />
+      <LayoutWrapper>
+        <Hero />
+        <Goal />
+        <ImpactSpread />
+        <HearFrom />
+        <RecentCohortStories />
+      </LayoutWrapper>
+
       <YoutubeSnippet />
       <AsShowcased />
       <Footer />
