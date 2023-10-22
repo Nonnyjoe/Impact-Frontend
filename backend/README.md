@@ -1,4 +1,5 @@
 # Code Structure.
+
 - All services should follow the format in the codebase.Create as many services as you will need in the /service/{name}.ts. Try not to import a model from a controller.
 - Validate all incoming requests using the /validations/{name}.ts
 - Create a corresponding middleware for all validations and add it to the route.
@@ -15,11 +16,11 @@ return res.status(error.statusCode || StatusCode.INTERNAL_SERVER_ERROR).json({
           data: null,
         });
 ```
+
 ```typescript
 return res.status(StatusCode.OK).json({
-          status: !!ResponseCode.SUCCESS,
-          message,
-          data,
-        });
-
+  status: !!ResponseCode.SUCCESS,
+  message,
+  data,
+});
 ```
