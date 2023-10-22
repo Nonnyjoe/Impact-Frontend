@@ -5,4 +5,3 @@ export interface OnboardInterface extends Document {
   email: string;
   isBlacklisted: boolean;
 }
-

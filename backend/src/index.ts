@@ -49,7 +49,7 @@ app.all('/*', (req: Request, res: Response, next: NextFunction) => {
   return res.status(404).send({
     success: false,
     message: 'Route not found',
-    });
+  });
 });
 
 app.use((err: any, req: Request, res: Response) => {

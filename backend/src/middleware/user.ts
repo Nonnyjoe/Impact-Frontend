@@ -9,7 +9,7 @@ const UserMiddleware = {
       await userValidations.validateUserOnboarding(req.body);
       next();
     } catch (error: any) {
-      console.log(error, 'middleware')
+      console.log(error, 'middleware');
       return res.status(error.statusCode || StatusCode.INTERNAL_SERVER_ERROR).json({
         status: !!ResponseCode.FAILURE,
         message: error,

@@ -16,7 +16,7 @@ export const seedOnboarders = async () => {
         cohortId: 'II',
         email: 'samuel@gmail.com',
         isBlacklisted: true,
-      }
+      },
     ];
 
     await Onboard.deleteMany({});

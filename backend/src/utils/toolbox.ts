@@ -11,7 +11,7 @@ const { NODE_ENV, SECRET } = env;
  */
 const Tools = {
   createToken(payload: object, expiresIn: string = '5m'): string {
-    console.log(expiresIn, '<<<<<<<<<expiresIn>>>>>>>>>>')
+    console.log(expiresIn, '<<<<<<<<<expiresIn>>>>>>>>>>');
     return jwt.sign(payload, SECRET as string, { expiresIn });
   },
 
