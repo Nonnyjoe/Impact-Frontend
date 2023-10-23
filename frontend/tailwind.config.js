@@ -7,6 +7,15 @@ module.exports = {
   ],
   theme: {
     extend: {
+      backgroundColor: {
+        'web3Bridge-red': '#FA1011',
+      },
+      textColor: {
+        'web3Bridge-red': '#FA1011',
+      },
+      borderColor: {
+        'web3Bridge-red': '#FA1011',
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
