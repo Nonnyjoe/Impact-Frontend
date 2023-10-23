@@ -11,8 +11,8 @@ export function Header() {
   };
 
   return (
-    <nav className="bg-white shadow-lg fixed z-50 w-screen h-[70px] md:h-[90px] border-b border-[#FA1011]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8  h-[70px] md:h-[90px]  ">
+    <nav className="bg-white shadow-lg fixed z-50 w-screen border-b border-w3b-red">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-[70px] md:h-[90px]">
           <div className="flex-shrink-0">
             <Link href="/">
@@ -24,22 +24,22 @@ export function Header() {
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-4">
               <Link href="/">
-                <p className="text-gray-900 hover:text-red-500 px-3 py-2 rounded-md text-base font-poppins font-medium">
+                <p className="text-w3b-black hover:text-w3b-red px-3 py-2 rounded-md text-base font-poppins font-medium">
                   Home
                 </p>
               </Link>
               <Link href="/Stories">
-                <p className="text-gray-900 hover:text-red-500 px-3 py-2 rounded-md text-base font-poppins font-medium">
+                <p className="text-w3b-black hover:text-w3b-red px-3 py-2 rounded-md text-base font-poppins font-medium">
                   Stories
                 </p>
               </Link>
               <Link href="/cohorts">
-                <p className="text-gray-900 hover:text-red-500 px-3 py-2 rounded-md text-base font-poppins font-medium">
+                <p className="text-w3b-black hover:text-w3b-red px-3 py-2 rounded-md text-base font-poppins font-medium">
                   Cohorts
                 </p>
               </Link>
               <Link href="/Hire-us">
-                <p className="text-gray-900 hover:text-red-500 px-3 py-2 rounded-md text-base font-poppins font-medium">
+                <p className="text-w3b-black hover:text-w3b-red px-3 py-2 rounded-md text-base font-poppins font-medium">
                   Hire Us
                 </p>
               </Link>
@@ -54,7 +54,7 @@ export function Header() {
             <button
               onClick={toggleNavbar}
               type="button"
-              className="bg-white p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-red-500"
+              className="bg-white p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-w3b-red"
               aria-expanded="false"
             >
               <span className="sr-only">Open main menu</span>
@@ -93,28 +93,26 @@ export function Header() {
         </div>
       </div>
       <div
-        className={`${
-          isOpen ? 'block' : 'hidden'
-        } md:hidden z-50 bg-white border-b border-[#FA1011]`}
+        className={`${isOpen ? 'block' : 'hidden'} md:hidden z-50 bg-white border-b border-w3b-red`}
       >
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
           <Link href="/" onClick={toggleNavbar}>
-            <p className="text-gray-900 hover:text-red-500 block px-3 py-2 rounded-md text-base font-medium">
+            <p className="text-w3b-black hover:text-w3b-red block px-3 py-2 rounded-md text-base font-medium">
               Home
             </p>
           </Link>
           <Link href="/Stories" onClick={toggleNavbar}>
-            <p className="text-gray-900 hover:text-red-500 block px-3 py-2 rounded-md text-base font-medium">
+            <p className="text-w3b-black hover:text-w3b-red block px-3 py-2 rounded-md text-base font-medium">
               Stories
             </p>
           </Link>
           <Link href="/cohorts" onClick={toggleNavbar}>
-            <p className="text-gray-900 hover:text-red-500 block px-3 py-2 rounded-md text-base font-medium">
+            <p className="text-w3b-black hover:text-w3b-red block px-3 py-2 rounded-md text-base font-medium">
               Cohorts
             </p>
           </Link>
           <Link href="/Hire-us" onClick={toggleNavbar}>
-            <p className="text-gray-900 hover:text-red-500 block px-3 py-2 rounded-md text-base font-medium">
+            <p className="text-w3b-black hover:text-w3b-red block px-3 py-2 rounded-md text-base font-medium">
               Hire Us
             </p>
           </Link>

@@ -14,16 +14,18 @@ export function HomeIndex() {
   return (
     <div className="flex flex-col">
       <LayoutWrapper>
-        <Hero />
-        <Goal />
-        <ImpactSpread />
-        <HearFrom />
-        <RecentCohortStories />
+        <div className="grid gap-24 lg:gap-36">
+          <Hero />
+          <Goal />
+          <ImpactSpread />
+          {/*  <HearFrom />
+        <RecentCohortStories /> */}
+        </div>
       </LayoutWrapper>
 
-      <YoutubeSnippet />
+      {/* <YoutubeSnippet />
       <AsShowcased />
-      <Footer />
+      <Footer /> */}
     </div>
   );
 }

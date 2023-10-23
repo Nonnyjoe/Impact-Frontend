@@ -6,7 +6,7 @@ export function RecentCohortStories() {
       <div className="md:mx-[8%] rounded-3xl flex flex-col items-center justify-center">
         <p className="text-3xl md:text-6xl px-10 mb-5 md:mb-20 font-bold font-poppins">
           <span className="text-black"> Recent </span>{' '}
-          <span className="text-[#FA1011]">Cohort Stories...</span>
+          <span className="text-w3b-red">Cohort Stories...</span>
         </p>
       </div>
       <div className="flex flex-col-reverse md:flex-row gap-2 md:gap-10 mt-5">
@@ -22,7 +22,7 @@ export function RecentCohortStories() {
             unlike any other. Quantum computing had finally reached a level of maturity that could
             potentially change everything we knew about computing and problem-solving.
           </p>
-          <button className="rounded-3xl border border-[#FA1011] text-[#FA1011] px-4 md:px-[45px] py-2 md:py-[9px] gap-2 md:gap-10 items-start mt-4 md:mt-10 font-poppins text-sm md:text-[18px]">
+          <button className="rounded-3xl border border-w3b-red text-w3b-red px-4 md:px-[45px] py-2 md:py-[9px] gap-2 md:gap-10 items-start mt-4 md:mt-10 font-poppins text-sm md:text-[18px]">
             Continue Reading...
           </button>
         </div>
@@ -67,7 +67,7 @@ export function RecentCohortStories() {
         </div>
       </div>
       <div className=" md:mt-5">
-        <button className="rounded-3xl border-2 border-[#FA1011] text-[#FA1011] px-4 md:px-[45px] py-2 md:py-[9px] gap-2 md:gap-10 items-start mt-4 md:mt-10 font-poppins font-bold text-sm md:text-[18px]">
+        <button className="rounded-3xl border-2 border-w3b-red text-w3b-red px-4 md:px-[45px] py-2 md:py-[9px] gap-2 md:gap-10 items-start mt-4 md:mt-10 font-poppins font-bold text-sm md:text-[18px]">
           View other Cohort Stories...
         </button>
       </div>

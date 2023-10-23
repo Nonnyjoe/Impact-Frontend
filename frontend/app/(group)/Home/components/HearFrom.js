@@ -23,7 +23,7 @@ export function HearFrom() {
       <div className="px-4 md:px-[80px] pb-4 md:pb-10 rounded-3xl flex flex-col">
         <p className="text-3xl md:text-6xl mb-4 md:mb-10 font-bold font-poppins">
           <span className="text-black"> Hear from our </span>{' '}
-          <span className="text-[#FA1011]">Alumni</span>
+          <span className="text-w3b-red">Alumni</span>
         </p>
       </div>
       <div className="px-4 md:px-[80px] pt-[-30px]">

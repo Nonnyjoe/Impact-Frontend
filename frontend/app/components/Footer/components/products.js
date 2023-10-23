@@ -3,7 +3,7 @@ import Link from 'next/link';
 export function Products() {
   return (
     <div className="flex flex-col gap-2 md:gap-5">
-      <p className="text-[#FA1011] text-sm md:text-base  font-bold font-poppins">Products</p>
+      <p className="text-w3b-red text-sm md:text-base  font-bold font-poppins">Products</p>
       <Link className="font-poppins text-sm md:text-base " href="/">
         SafeKeep
       </Link>
