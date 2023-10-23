@@ -14,7 +14,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-white`}>
+      <body className={`${inter.className} bg-white no-scrollbar`}>
         <Header />
         <div className="pt-[70px] md:pt-[90px]">{children}</div>
       </body>

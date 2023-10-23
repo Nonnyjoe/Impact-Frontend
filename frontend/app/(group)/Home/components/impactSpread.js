@@ -13,8 +13,8 @@ export function ImpactSpread() {
           technologies. We have a spread of 20+ countries.
         </p>
       </div>
-      <div className="">
-        <Image src="/Images/WorldMap.png" alt="My Image" width={1000} height={750} />
+      <div className="w-full xl:w-[90%] mx-auto">
+        <Image src="/Images/WorldMap.png" alt="My Image" width={1800} height={750} />
       </div>
       <div className="absolute right-0 translate-y-3/4 hidden lg:block">
         <Image src="/Images/Vector-2.png" alt="My Image" width={150} height={50} />

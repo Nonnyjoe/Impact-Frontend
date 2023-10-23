@@ -14,6 +14,7 @@ module.exports = {
         white: '#FFFFFF',
         black: '#000000',
         'hero-bg': '#312A2A',
+        'base-opacity': '#11131e45',
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

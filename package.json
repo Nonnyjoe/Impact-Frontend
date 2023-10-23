@@ -25,7 +25,8 @@
   "dependencies": {
     "cross-env": "^7.0.3",
     "husky": "^8.0.1",
-    "lint-staged": "^15.0.2"
+    "lint-staged": "^15.0.2",
+    "react-icons": "^4.11.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.17.10",

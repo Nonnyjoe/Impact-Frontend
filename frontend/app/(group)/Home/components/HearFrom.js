@@ -1,33 +1,59 @@
-import Image from 'next/image';
-import { QuotesData } from '../../../../utils/usersQuotes';
-
-function CarouselComponent() {
-  let quotesData = QuotesData();
-  console.log(quotesData);
-  return (
-    <div className="text-black flex flex-col md:flex-row gap-8 md:gap-10">
-      {quotesData.map((data, index) => (
-        <div className="p-6 md:p-10 rounded-lg shadow-xl ring-gray-300 border mb-4" key={index}>
-          <h2 className="text-2xl font-poppins font-bold mb-3">{data.name}</h2>
-          <p className="mb-3 font-poppins text-sm">{data.quote}</p>
-          <p className="text-gray-500 font-poppins text-sm">{data.cohort}</p>
-        </div>
-      ))}
-    </div>
-  );
-}
+'use client';
+import LayoutWrapper from '@/app/components/LayoutWrapper';
+import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
+import { useEffect, useRef, useState } from 'react';
+import { CarouselComponent } from './CarouselComponent';
 
 export function HearFrom() {
+  const carouselRef = useRef(null);
+  const [disableBtn, setDisableBtn] = useState({
+    left: true,
+    right: false,
+  });
+
+  useEffect(() => {
+    const runScroll = () => {
+      const maxScroll = carouselRef.current?.scrollWidth - carouselRef.current?.clientWidth;
+      const scrollLeft = carouselRef.current?.scrollLeft;
+      setDisableBtn(() => ({
+        left: scrollLeft === 0,
+        right: scrollLeft === maxScroll,
+      }));
+    };
+    carouselRef.current?.addEventListener('scroll', runScroll);
+
+    return () => carouselRef.current?.removeEventListener('scroll', runScroll);
+  }, []);
+
   return (
-    <div className="relative flex flex-col mt-20 md:mt-[180px] px-4 md:px-10 mb-0">
-      <div className="px-4 md:px-[80px] pb-4 md:pb-10 rounded-3xl flex flex-col">
-        <p className="text-3xl md:text-6xl mb-4 md:mb-10 font-bold font-poppins">
-          <span className="text-black"> Hear from our </span>{' '}
+    <div className="grid gap-16 relative pb-20">
+      <LayoutWrapper>
+        <h2 className="text-3xl md:text-6xl font-bold font-poppins">
+          <span className="text-black"> Hear from some of our </span>
           <span className="text-w3b-red">Alumni</span>
-        </p>
-      </div>
-      <div className="px-4 md:px-[80px] pt-[-30px]">
+        </h2>
+      </LayoutWrapper>
+
+      <div
+        className="overflow-x-auto z-20 w-screen pb-6 xl:px-[calc(50vw-720px)] 3xl:px-[calc(50vw-900px)] no-scrollbar"
+        ref={carouselRef}
+      >
         <CarouselComponent />
+
+        <div className="flex gap-5 items-center absolute bottom-4">
+          <AiOutlineArrowLeft
+            className={`w-12 h-12 text-base-opacity ${
+              disableBtn.left ? 'text-base-opacity cursor-none' : 'text-w3b-red'
+            }`}
+            onClick={() => (carouselRef.current.scrollLeft -= 450)}
+          />
+          <AiOutlineArrowRight
+            className={`w-12 h-12 ${
+              disableBtn.right ? 'text-base-opacity  cursor-none' : 'text-w3b-red'
+            }`}
+            onClick={() => (carouselRef.current.scrollLeft += 450)}
+          />
+        </div>
       </div>
     </div>
   );
