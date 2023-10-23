@@ -19,7 +19,7 @@ export interface UserInterface extends Document {
   country: string;
   dob?: string;
   phoneNumber?: string;
-  emailToken?: string;
+  otp?: number;
   image?: string;
   role: {
     super?: boolean;
@@ -35,6 +35,7 @@ export interface UserInterface extends Document {
   cohortId?: string;
   about?: string;
   isBlocked: boolean;
+  token?: string;
   requestStatus?: 'pending' | 'approved' | 'rejected' | 'expired';
 }
 
@@ -47,4 +48,37 @@ export type RegisterType = {
   dob: string;
   gender: Gender;
   hasOnboarded?: boolean;
+};
+
+export type UpdateUserType = {
+  firstname?: string;
+  lastname?: string;
+  username?: string;
+  gender?: Gender;
+  email?: string;
+  isActive?: boolean;
+  address?: string;
+  city?: string;
+  state?: string;
+  country?: string;
+  dob?: string;
+  phoneNumber?: string;
+  otp?: number;
+  image?: string;
+  role?: {
+    super?: boolean;
+    admin?: boolean;
+    user?: boolean;
+    student?: boolean;
+  };
+  socialLinks?: {
+    twitter?: string;
+    linkedin?: string;
+    github?: string;
+  };
+  cohortId?: string;
+  about?: string;
+  isBlocked?: boolean;
+  requestStatus?: 'pending' | 'approved' | 'rejected' | 'expired';
+  token?: string;
 };

@@ -1,19 +1,20 @@
-import Image from 'next/image';
-
+import LayoutWrapper from '@/app/components/LayoutWrapper';
 export function Goal() {
   return (
-    <div className="mb-12 md:mb-0 relative mt-20 px-5 md:px-20 md:p-5 z-10 flex flex-col md:h-[90vh] w-full lg:items-center justify-between font-mono text-sm lg:flex gap-20">
-      <div className="lg:w-[100%] p-6 lg:p-[80px] mx-2 lg:mx-[8%] bg-w3b-red rounded-3xl items-center justify-center shadow-2xl ring-w3b-red mb-[4erm] md:mb-0">
-        <p className="text-sm md:text-base lg:text-xl text-center font-poppins mb-[3rem] md:mb-[8rem]">
-          Web3bridge is a program created in 2019 to train Web3 developers in Africa. We are working
-          on building a sustainable Web3 economy in Africa through remote and onsite Web3
-          development training, supporting web3 developers and startups, and lowering barriers of
-          entry into the Web3 ecosystem.
-        </p>
+    <LayoutWrapper>
+      <div className="mt-20 relative flex flex-col items-center justify-between mb-40 md:mb-80">
+        <div className="lg:w-[100%] md:p-[60px] lg:p-[80px] mx-2 md:mx-[4%] lg:mx-[8%] p-6 bg-web3Bridge-red rounded-3xl">
+          <p className="text-xs md:text-base lg:text-lg text-center font-poppins mb-[3rem] md:mb-[8rem]">
+            Web3bridge is a program created in 2019 to train Web3 developers in Africa. We are
+            working on building a sustainable Web3 economy in Africa through remote and onsite Web3
+            development training, supporting web3 developers and startups, and lowering barriers of
+            entry into the Web3 ecosystem.
+          </p>
+        </div>
+        <div className="absolute mt-20 pt-20">
+          <img src="/Images/Frame.png" alt="My Image" className="w-full h-full object-cover" />
+        </div>
       </div>
-      <div className="absolute md:bottom-[-35vh] bottom-[-9rem]">
-        <Image src="/Images/Frame.png" alt="My Image" width={1000} height={750} />
-      </div>
-    </div>
+    </LayoutWrapper>
   );
 }

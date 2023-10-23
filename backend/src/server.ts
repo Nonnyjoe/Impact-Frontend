@@ -10,8 +10,8 @@ async function startApp() {
 
     logger('connect:', 'connected to database');
 
-    seedSuperAdmin();
     seedOnboarders();
+    seedSuperAdmin();
 
     const server: any = app.listen(process.env.PORT || 5000, () => {
       const { port, address } = server.address() as AddressInfo;

@@ -1,5 +1,6 @@
 export * from './user';
 export * from './onboard';
+export * from './cohort';
 
 export enum StatusCode {
   OK = 200,

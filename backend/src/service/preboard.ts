@@ -31,6 +31,20 @@ class PreboardService {
       );
     }
   }
+
+  async updateOnboarder(email: string, update: any) {
+    try {
+      const onboarder = await Preboard.findOneAndUpdate({ email }, { ...update }, { new: true });
+      return onboarder;
+    } catch (error) {
+      throw new ApiError(
+        'impact api',
+        error as string,
+        'updateOnboarder',
+        StatusCode.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
 }
 
 export default new PreboardService();
