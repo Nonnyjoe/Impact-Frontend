@@ -18,11 +18,12 @@ export function HomeIndex() {
           <Hero />
           <Goal />
           <ImpactSpread />
-
-          {/*    <RecentCohortStories /> */}
         </div>
       </LayoutWrapper>
       <HearFrom />
+      <LayoutWrapper>
+        <RecentCohortStories />
+      </LayoutWrapper>
 
       {/* <YoutubeSnippet />
       <AsShowcased />
