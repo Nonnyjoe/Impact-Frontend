@@ -45,7 +45,38 @@ class CohortService {
     }
   }
 
-  // cohort details should be updatable
+  async updateCohort(cohortId: string, updatedData: CohortInterface) {
+    try {
+      const cohort = await Cohort.findByIdAndUpdate(cohortId, updatedData, { new: true });
+
+      if (!cohort) {
+        // Throw an error if the cohort is not found
+        throw new Error('Cohort not found');
+      }
+
+      return cohort;
+    } catch (error) {
+      // Handle any errors and rethrow them with additional context
+      throw ServerError(error, 'impact API', 'updateCohort', StatusCode.INTERNAL_SERVER_ERROR);
+    }
+  }
+  async deleteCohort(cohortId: string) {
+    try {
+      const cohort = await Cohort.findByIdAndDelete(cohortId);
+
+      if (!cohort) {
+        // Throw an error if the cohort is not found
+        throw new Error('Cohort not found');
+      }
+
+      cohort?.deleteOne();
+
+      return null;
+    } catch (error) {
+      // Handle any errors and rethrow them with additional context
+      throw ServerError(error, 'impact API', 'updateCohort', StatusCode.INTERNAL_SERVER_ERROR);
+    }
+  }
 }
 
 export default new CohortService();
