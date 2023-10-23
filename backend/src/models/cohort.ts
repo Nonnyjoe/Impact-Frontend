@@ -1,14 +1,27 @@
-import { mongoose, Validator } from './imports';
-
-const { isEmail } = Validator;
+import { mongoose } from './imports';
 
 const CohortSchema = new mongoose.Schema(
   {
     name: {
       type: String,
       unique: true,
-      validate: [isEmail, 'Please add a valid email address'],
-      sparse: true,
+      required: [true, 'Cohort name is required'],
+    },
+    alias: {
+      type: Number,
+    },
+    isActive: {
+      type: Boolean,
+      default: false,
+      required: [true, 'Specify active status'],
+    },
+    startDate: {
+      type: String,
+      required: [true, 'Cohort start date is required'],
+    },
+    endDate: {
+      type: String,
+      required: [true, 'Cohort end date is required'],
     },
   },
   { toJSON: { virtuals: true }, toObject: { virtuals: true }, timestamps: true }
