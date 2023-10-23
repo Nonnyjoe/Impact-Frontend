@@ -32,6 +32,7 @@ export async function onboardUser(req: Request, res: Response) {
     const token = createToken({ email }, '48h');
     const link = `${FRONTEND_URL}/verify?token=${token}`;
     const message = `Hello ${email}, please click on the link below to get onboarded: ${link}`;
+    // const message = await verfify({ url: link, year: new Date().getFullYear() });
     await sendEmail(email, 'Verify your account', message);
     return res.status(StatusCode.OK).json({
       status: !!ResponseCode.SUCCESS,
@@ -55,6 +56,9 @@ export async function createUser(req: Request, res: Response) {
 
     // update preboarder
     await PreboardService.updateOnboarder(user.email as string, { hasOnboarded: true });
+
+    // todo
+    // send a welcome mail
 
     return res.status(StatusCode.OK).json({
       status: !!ResponseCode.SUCCESS,
@@ -134,7 +138,7 @@ export async function getOTP(req: Request, res: Response) {
 
     const message = `Hello ${email}, your OTP is ${otp}`;
 
-    await sendEmail(email as string, 'Your otp is here', message);
+    await sendEmail(email as string, 'Your otp is here', message); //  todo
 
     await UserService.updateUser(user._id.toString(), { otp: Number(otp) });
 

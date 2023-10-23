@@ -39,7 +39,7 @@ const Authentications = {
     }
   },
 
-  async authorize(roles: string[]) {
+  authorize(roles: string[]) {
     return (req: Request, res: Response, next: NextFunction) => {
       try {
         const user = res.locals.user;
