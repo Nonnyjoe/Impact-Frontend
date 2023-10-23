@@ -44,6 +44,8 @@ class CohortService {
       throw ServerError(error, 'impact API', 'createCohort', StatusCode.INTERNAL_SERVER_ERROR);
     }
   }
+
+  // cohort details should be updatable
 }
 
 export default new CohortService();

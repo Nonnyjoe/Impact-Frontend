@@ -63,4 +63,6 @@ export const getCohort = async (req: Request, res: Response) => {
       message: err.message || 'Server Error',
     });
   }
+
+  // lets add update cohort details.
 };
