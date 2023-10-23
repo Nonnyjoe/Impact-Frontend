@@ -1,5 +1,5 @@
 import User from '../models/user';
-import { StatusCode, RegisterType, UserInterface } from '../@types';
+import { StatusCode, RegisterType, UpdateUserType } from '../@types';
 import { ApiError } from '../utils';
 
 class UserService {
@@ -62,7 +62,7 @@ class UserService {
     }
   }
 
-  async updateUser(userId: string, userData: UserInterface) {
+  async updateUser(userId: string, userData: UpdateUserType) {
     try {
       const user = await User.findByIdAndUpdate(userId, userData, {
         new: true,

@@ -4,7 +4,7 @@ import { ApiError, StatusCode } from '../utils';
 
 const ServerError = (error: any, projName: string, fnName: string, statusCode: StatusCode) => {
   return new ApiError(projName, error as string, fnName, statusCode);
-};
+}; // lets move this in to the ApiError file and export it from there then import it here.
 
 class CohortService {
   async getAllCohort() {

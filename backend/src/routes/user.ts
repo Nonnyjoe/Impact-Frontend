@@ -1,12 +1,12 @@
 import { Router } from 'express';
-import { onboardUser, createUser } from '../controller/user';
+import { onboardUser, createUser, getOTP, logIn } from '../controller/user';
 import { UserMiddleware } from '../middleware/';
 
 const { inspectUserOnboarding, inspectCreateUser } = UserMiddleware;
 
 const router = Router();
 
-router.post('/onboard/:token', [inspectCreateUser], createUser);
-router.post('/onboard', [inspectUserOnboarding], onboardUser);
+router.post('/logout');
+router.post('/refresh');
 
 export default router;
