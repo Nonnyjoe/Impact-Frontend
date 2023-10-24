@@ -9,6 +9,6 @@ const router = Router();
 
 router.use('/user', authenticate, user);
 router.use('/auth', auth);
-router.use('/', cohort);
+router.use('/', authenticate, cohort);
 
 export default router;

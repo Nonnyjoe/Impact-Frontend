@@ -4,15 +4,15 @@ import { CohortService } from '../service';
 
 export const createCohort = async (req: Request, res: Response) => {
   try {
+    console.log(req.body);
     await CohortService.createCohort({
       ...req.body,
     });
-    console.log(res);
+    // console.log(res);
 
     return res.status(StatusCode.OK).json({
       status: !!ResponseCode.SUCCESS,
       message: 'Cohort created successfully',
-      data: res.json(),
     });
   } catch (err: any) {
     return res.status(err.statusCode || StatusCode.INTERNAL_SERVER_ERROR).json({
@@ -91,6 +91,31 @@ export const updateCohort = async (req: Request, res: Response) => {
       message: err.message || 'Server Error',
     });
   }
+};
 
-  // lets add update cohort details.
+export const deleteCohort = async (req: Request, res: Response) => {
+  try {
+    const { cohortId } = req.params;
+
+    const deletedCohort = await CohortService.deleteCohort(cohortId);
+
+    if (!deleteCohort) {
+      return res.status(StatusCode.NOT_FOUND).json({
+        status: ResponseCode.FAILURE,
+        message: 'Cohort not found',
+        data: null,
+      });
+    }
+
+    return res.status(StatusCode.OK).json({
+      status: ResponseCode.SUCCESS,
+      message: 'Cohort deleted successfully',
+      data: deletedCohort,
+    });
+  } catch (err: any) {
+    return res.status(err.status || StatusCode.INTERNAL_SERVER_ERROR).json({
+      status: ResponseCode.FAILURE,
+      message: err.message || 'Server Error',
+    });
+  }
 };
