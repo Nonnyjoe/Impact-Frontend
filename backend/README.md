@@ -69,16 +69,16 @@ Create a refreshToken endpoint that generates a new token for any logged in user
 
 create admin endpoint - post - /users/admin (only by admin)
 
-edit user details (by user) - put - /users
+edit user details (by user) - put - /users (Mayowa - DONE)
 
 edit user details (by admin) - put - /users/admin (only by admin)
 
 request confirmation endpoint. - put - /users/status (only by admin)
 
 get users with filters (cohort, role, requestStatus, username,
-firstname, lastname, email, id, isBlocked) - get - /users
+firstname, lastname, email, id, isBlocked) - get - /users (Mayowa - DONE)
 
-get one user - get - /users/:id (DONE)
+get one user - get - /users/:id (Mayowa - DONE)
 
 Create cohort with cohortId (number based), startDate, endDate, numberOfStudents, isActive, description. (only by admin) (Mayowa - Done)
 
