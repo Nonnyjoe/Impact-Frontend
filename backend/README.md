@@ -78,10 +78,10 @@ request confirmation endpoint. - put - /users/status (only by admin)
 get users with filters (cohort, role, requestStatus, username,
 firstname, lastname, email, id, isBlocked) - get - /users
 
-get one user - get - /users/:id
+get one user - get - /users/:id (DONE)
 
-Create cohort with cohortId (number based), startDate, endDate, numberOfStudents, isActive, description. (only by admin)
+Create cohort with cohortId (number based), startDate, endDate, numberOfStudents, isActive, description. (only by admin) (Mayowa - Done)
 
-get all cohorts
+get all cohorts (Mayowa - Done)
 
-get one cohort
+get one cohort (Mayowa - Done)
