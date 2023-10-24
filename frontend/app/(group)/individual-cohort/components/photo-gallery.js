@@ -154,7 +154,7 @@ export function PhotoGallery() {
         <img src={item.image} alt={item.alt} class="w-full h-auto md:h-full" />
         <div className="flex flex-col items-center  md:items-start">
           <p class="text text-black font-poppins mt-2 text-lg">{item.name}</p>
-          <p class="text text-web3Bridge-red font-poppins text-sm">{item.text}</p>{' '}
+          <p class="text text-w3b-red font-poppins text-sm">{item.text}</p>{' '}
         </div>
       </div>
     );
@@ -165,7 +165,7 @@ export function PhotoGallery() {
       <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4 md:gap-10 mt-0 mb-10 md:mb-20 md:mt-3 px-8 md:px-[110px]">
         {renderedPhotoGallery}
       </div>
-      <button class="mt-10 md:mt-[80px] border text-web3Bridge-red border-web3Bridge-red bg-white px-6 py-3 rounded-xl hover:bg-web3Bridge-red hover:text-white transition duration-300 ease-in-out">
+      <button class="mt-10 md:mt-[80px] border text-w3b-red border-w3b-red bg-white px-6 py-3 rounded-xl hover:bg-w3b-red hover:text-white transition duration-300 ease-in-out">
         See Next Cohort...
       </button>
     </div>
