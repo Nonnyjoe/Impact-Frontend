@@ -40,7 +40,7 @@ export function Footer() {
           </div>
         </div>
       </LayoutWrapper>
-      <div className="border-t border-[#FA1011] mt-20 md:mt-[150px] pt-10 md:pt-20">
+      <div className="border-t border-w3b-red mt-20 md:mt-[150px] pt-10 md:pt-20">
         <LayoutWrapper>
           <Copyright />
         </LayoutWrapper>

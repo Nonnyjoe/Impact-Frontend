@@ -3,7 +3,7 @@ import Link from 'next/link';
 export function Contact() {
   return (
     <div className="flex flex-col  gap-1 md:gap-5">
-      <p className="text-[#FA1011] font-poppins text-sm md:text-base  font-bold">Contact</p>
+      <p className="text-w3b-red font-poppins text-sm md:text-base  font-bold">Contact</p>
       <Link href="/" className="font-poppins text-sm md:text-base ">
         support@web3bridge.com
       </Link>

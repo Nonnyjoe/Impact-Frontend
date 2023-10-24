@@ -6,7 +6,7 @@ export function Hireus() {
       <div className=" lg:w-[100%] md:mt-20 p-2 lg:px-[80px] mx-2 lg:mx-[8%] text-center items-center justify-center">
         <p className="text-3xl md:text-6xl font-poppins font-bold mb-5 mt-5">
           {' '}
-          <span className="text-black">Hire</span> <span className="text-[#FA1011]">Us</span>
+          <span className="text-black">Hire</span> <span className="text-w3b-red">Us</span>
         </p>
         <p className=" text-sm md:text-base text-black lg:text-[18px] text-center font-poppins md:mx-[10rem]">
           LET US BUILD YOUR PROECTS
