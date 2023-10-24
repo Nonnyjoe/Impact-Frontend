@@ -102,6 +102,8 @@ export function HearFromOthers() {
         <h3 className="text-black text-2xl md:text-4xl font-poppins font-bold mb-4 items-center justify-center mx-auto mt-10">
           Hear from Others
         </h3>
+
+        <article></article>
       </section>
     </LayoutWrapper>
   );
