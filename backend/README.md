@@ -1,4 +1,4 @@
-# Code Structure.
+# Code Structure
 
 - All services should follow the format in the codebase.Create as many services as you will need in the /service/{name}.ts. Try not to import a model from a controller.
 - Validate all incoming requests using the /validations/{name}.ts
@@ -68,11 +68,20 @@ Create a refreshToken endpoint that generates a new token for any logged in user
 #### Other Endpoints
 
 create admin endpoint - post - /users/admin (only by admin)
+
 edit user details (by user) - put - /users
+
 edit user details (by admin) - put - /users/admin (only by admin)
+
 request confirmation endpoint. - put - /users/status (only by admin)
-get users with filters (cohort, role, requestStatus, username, firstname, lastname, email, id, isBlocked) - get - /users
+
+get users with filters (cohort, role, requestStatus, username,
+firstname, lastname, email, id, isBlocked) - get - /users
+
 get one user - get - /users/:id
+
 Create cohort with cohortId (number based), startDate, endDate, numberOfStudents, isActive, description. (only by admin)
+
 get all cohorts
+
 get one cohort

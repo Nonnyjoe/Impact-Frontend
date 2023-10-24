@@ -35,6 +35,21 @@ class CohortService {
     }
   }
 
+  async getCohortByName(name: string) {
+    try {
+      const cohort = Cohort.findOne({ name });
+      if (!cohort) throw new Error('Cohort not found');
+      return cohort;
+    } catch (error) {
+      throw new ApiError(
+        'impact api',
+        error as string,
+        'getCohortByName',
+        StatusCode.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
+
   async createCohort(cohortData: CohortInterface) {
     try {
       const cohort = new Cohort(cohortData);
