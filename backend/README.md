@@ -67,11 +67,11 @@ Create a refreshToken endpoint that generates a new token for any logged in user
 
 #### Other Endpoints
 
-create admin endpoint - post - /users/admin (only by admin)
+create admin endpoint - post - /users/admin (only by superadmin)
 
 edit user details (by user) - put - /users (Mayowa - DONE)
 
-edit user details (by admin) - put - /users/admin (only by admin)
+edit user details (by admin) - put - /users/admin (only by admin) (Mayowa - DONE)
 
 request confirmation endpoint. - put - /users/status (only by admin)
 

@@ -98,7 +98,7 @@ class UserService {
     try {
       const query: any = {};
       if (role) {
-        query.role = role;
+        query.role = { role: true };
       }
 
       const users = await User.find(query)
