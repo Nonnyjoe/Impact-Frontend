@@ -12,7 +12,6 @@ export function Footer() {
     <div className="bg-white">
       <LayoutWrapper>
         <div className="flex flex-col md:flex-row gap-10 relative text-black px-6 mt-20 md:mt-[120px] md:px-[100px] mb-20">
-
           <div className="flex flex-row gap-10 md:w-2/5">
             <div className="w-1/2 md:w-2/3">
               <Socials />
@@ -39,16 +38,13 @@ export function Footer() {
           <div className="absolute md:top-[-75%] right-0">
             <Image src="/Images/Vector.png" alt="My Image" width={400} height={600} />
           </div>
-
-        </div></LayoutWrapper>
+        </div>
+      </LayoutWrapper>
       <div className="border-t border-[#FA1011] mt-20 md:mt-[150px] pt-10 md:pt-20">
         <LayoutWrapper>
           <Copyright />
         </LayoutWrapper>
-
       </div>
-
-
-    </div >
+    </div>
   );
 }

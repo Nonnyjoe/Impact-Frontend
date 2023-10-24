@@ -17,8 +17,8 @@ async function startApp() {
       const { port, address } = server.address() as AddressInfo;
       console.log(`Server is running on http://${address}:${port}`);
     });
-  } catch (error) {
-    logger('tried to start app', JSON.stringify(error));
+  } catch (error: any) {
+    logger('tried to start app', JSON.stringify(error.message));
     process.exit(1);
   }
 }

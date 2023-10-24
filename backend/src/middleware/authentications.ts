@@ -11,37 +11,30 @@ const Authentications = {
     try {
       const authToken = req.headers.authorization;
       if (!authToken)
-        throw new ApiError(
-          'Authentications',
-          'Not authorized',
-          'authenticate',
-          StatusCode.UNAUTHORIZED
-        );
+        return res.status(StatusCode.UNAUTHORIZED).json({
+          status: !!ResponseCode.FAILURE,
+          message: 'No token in header',
+        });
       const tokenString = authToken.split('Bearer')[1].trim();
       if (!tokenString)
-        throw new ApiError(
-          'Authentications',
-          'No token in header',
-          'authenticate',
-          StatusCode.UNAUTHORIZED
-        );
+        return res.status(StatusCode.UNAUTHORIZED).json({
+          status: !!ResponseCode.FAILURE,
+          message: 'Invalid token string',
+        });
       const decoded: any = await verifyToken(tokenString);
       const user = await User.findOne({ email: decoded }).exec();
 
       if (!decoded || !user)
-        throw new ApiError(
-          'Authentications',
-          'Invalid token',
-          'authenticate',
-          StatusCode.UNAUTHORIZED
-        );
+        return res.status(StatusCode.UNAUTHORIZED).json({
+          status: !!ResponseCode.FAILURE,
+          message: 'Invalid token',
+        });
       res.locals.user = user;
       next();
     } catch (error: any) {
       return res.status(error.statusCode || StatusCode.INTERNAL_SERVER_ERROR).json({
         status: !!ResponseCode.FAILURE,
         message: error.message,
-        data: null,
       });
     }
   },
@@ -51,23 +44,19 @@ const Authentications = {
       try {
         const user = res.locals.user;
         if (!user)
-          throw new ApiError(
-            'Authentications',
-            'Not authorized',
-            'authorizeRoles',
-            StatusCode.UNAUTHORIZED
-          );
+          return res.status(StatusCode.UNAUTHORIZED).json({
+            status: !!ResponseCode.FAILURE,
+            message: 'User not found',
+          });
         const userRoles: string[] = Object.keys(user.role);
         const filteredRoles = userRoles.filter((role) => user.role[role] === true);
         const hasRole = roles.some((role) => filteredRoles.includes(role));
 
         if (!hasRole)
-          throw new ApiError(
-            'Authentications',
-            'Not authorized',
-            'authorizeRoles',
-            StatusCode.UNAUTHORIZED
-          );
+          return res.status(StatusCode.UNAUTHORIZED).json({
+            status: !!ResponseCode.FAILURE,
+            message: 'Not authorized',
+          });
         next();
       } catch (error: any) {
         return res.status(error.statusCode || StatusCode.INTERNAL_SERVER_ERROR).json({

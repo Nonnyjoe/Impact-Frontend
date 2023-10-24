@@ -1,24 +1,12 @@
 import User from './user';
 import Onboard from './preboard';
 import { env, logger } from '../config';
+import { onboarders, superAdmin } from '../service';
 
-const { SUPER_ADMIN_EMAIL, SUPER_ADMIN_PASSWORD, SUPER_ADMIN_USERNAME } = env;
+const { SUPER_ADMIN_EMAIL } = env;
 
 export const seedOnboarders = async () => {
   try {
-    const onboarders = [
-      {
-        cohortId: 'I',
-        email: 'samsonajulor@gmail.com',
-        isBlacklisted: false,
-      },
-      {
-        cohortId: 'II',
-        email: 'samuel@gmail.com',
-        isBlacklisted: true,
-      },
-    ];
-
     await Onboard.deleteMany({});
 
     await Onboard.insertMany(onboarders);
@@ -37,13 +25,6 @@ export const seedSuperAdmin = async () => {
       logger('seedSuperAdmin', 'Super admin already exists');
       return;
     }
-    const superAdmin = {
-      email: SUPER_ADMIN_EMAIL,
-      password: SUPER_ADMIN_PASSWORD,
-      username: SUPER_ADMIN_USERNAME,
-      role: 'superAdmin',
-      isActivated: true,
-    };
 
     await new User(superAdmin).save();
 

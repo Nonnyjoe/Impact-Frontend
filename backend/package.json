@@ -15,8 +15,7 @@
     "build": "cross-env rimraf ./dist && tsc && yarn copy-files",
     "copy-files": "cp -r ./src/templates/ ./dist/ && cp -r ./src/assets/ ./dist/",
     "build-ts": "tsc",
-    "format": "cross-env prettier --write ./**/*.{js,ts,md,json} --config ./.prettierrc",
-    "prepare": "cd .. && husky install && npx husky set .husky/pre-commit \"yarn format\""
+    "format": "cross-env prettier --write ./**/*.{js,ts,md,json} --config ./.prettierrc"
   },
   "repository": {
     "type": "git",
