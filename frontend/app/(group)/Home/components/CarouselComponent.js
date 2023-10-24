@@ -2,7 +2,7 @@ import { quotesData } from '../../../../utils/usersQuotes';
 
 export function CarouselComponent() {
   return (
-    <div className="text-black flex flex-col md:flex-row gap-8 md:gap-10 w-max">
+    <div className="text-black flex gap-8 md:gap-10 w-max">
       {quotesData.map((data, index) => (
         <div className="w-[448px] p-12 rounded-lg shadow-card grid gap-8 " key={index}>
           <h4 className="text-3xl font-poppins font-bold">{data.name}</h4>

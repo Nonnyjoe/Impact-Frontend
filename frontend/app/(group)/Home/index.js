@@ -25,9 +25,9 @@ export function HomeIndex() {
         <RecentCohortStories />
       </LayoutWrapper>
 
-      {/* <YoutubeSnippet />
+      <YoutubeSnippet />
       <AsShowcased />
-      <Footer /> */}
+      <Footer />
     </div>
   );
 }

@@ -17,7 +17,7 @@ export function HearFrom() {
       const scrollLeft = carouselRef.current?.scrollLeft;
       setDisableBtn(() => ({
         left: scrollLeft === 0,
-        right: scrollLeft === maxScroll,
+        right: scrollLeft >= maxScroll - 10,
       }));
     };
     carouselRef.current?.addEventListener('scroll', runScroll);
