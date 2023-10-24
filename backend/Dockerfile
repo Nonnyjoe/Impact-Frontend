@@ -1,11 +1,11 @@
-FROM node:10.15.0-alpine
+FROM alpine:3.17
 
 WORKDIR /usr/src/app
 
 COPY package*.json ./
 
-RUN npm install
+RUN yarn install
 
 COPY . .
 
-CMD [ "npm", "run", "start:dev" ]
+CMD [ "yarn", "dev"]
