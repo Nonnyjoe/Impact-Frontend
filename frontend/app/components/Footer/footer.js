@@ -11,29 +11,18 @@ export function Footer() {
   return (
     <div className="bg-white">
       <LayoutWrapper>
-        <div className="flex flex-col md:flex-row gap-10 relative text-black px-6 mt-20 md:mt-[120px] md:px-[100px] mb-20">
-          <div className="flex flex-row gap-10 md:w-2/5">
-            <div className="w-1/2 md:w-2/3">
-              <Socials />
-            </div>
-            <div className="w-1/2 md:w-1/3">
-              <Web3bridge />
-            </div>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 px-10 relative text-black justify-between gap-10">
+          <div className="col-span-2 md:col-span-3 md:w-2/3 lg:w-auto lg:col-span-1">
+            <Socials />
           </div>
 
-          <div className="flex flex-row gap-10 md:w-2/5">
-            <div className="w-1/2">
-              <Products />
-            </div>
-            <div className="w-1/2">
-              <Resource />
-            </div>
-          </div>
-          <div className="flex flex-row gap-10 md:w-1/5">
-            <div className="w-1">
-              <Contact />
-            </div>
-          </div>
+          <Web3bridge />
+
+          <Products />
+
+          <Resource />
+
+          <Contact />
 
           <div className="absolute md:top-[-75%] right-0">
             <Image src="/Images/Vector.png" alt="My Image" width={400} height={600} />
