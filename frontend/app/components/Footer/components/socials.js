@@ -33,14 +33,14 @@ export function Socials() {
       </div>
       <div className="flex flex-col gap-4">
         <p className="mb-5 font-poppins text-sm md:text-base ">
-          1/3 Adebola Gbadebo Drv. (Adebola House) Off Abadek Avenue, off Akin Ogunlewe Rd, Igbogbo,
+          1/3 Adebola Gbadebo Drv. (Adebola House), Off Abadek Avenue, off Akin Ogunlewe Rd, Igbogbo,
           Ikorodu, Lagos.
         </p>
         <a
           className="font-poppins text-sm md:text-base cursor-pointer"
           href="mailto:support@web3bridge.com"
         >
-          support@web3bridge.com
+          Help Desk
         </a>
       </div>
     </div>

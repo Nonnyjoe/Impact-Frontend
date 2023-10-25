@@ -9,8 +9,8 @@ export function Stories() {
           <span className="text-black">Cohort</span> <span className="text-w3b-red">IX.</span>
         </p>
         <p className=" text-sm md:text-base text-black lg:text-[18px] text-center font-poppins md:mx-[10rem]">
-          From Cohort I to X Hear the strories of our Alumni from various cohorts and what they have
-          to say about Web3Bridge
+          From Cohort I to X: Hear the strories of our Alumni from various cohorts and what their experience at
+          Web3Bridge was like...
         </p>
       </div>
     </div>

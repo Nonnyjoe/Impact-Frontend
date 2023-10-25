@@ -13,7 +13,7 @@ export function Products() {
       <Link className="font-poppins text-sm md:text-base " href="https://www.web3bridge.com/dapps">
         Mutual Funds
       </Link>
-      <Link className="font-poppins text-sm md:text-base " href="https://www.web3bridge.com/dapps">
+      <Link className="font-poppins text-sm md:text-base " href="mailto:support@web3bridge.com">
         Got a Suggestion?
       </Link>
     </div>

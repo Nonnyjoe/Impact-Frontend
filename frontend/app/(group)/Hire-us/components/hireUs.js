@@ -9,7 +9,7 @@ export function Hireus() {
           <span className="text-black">Hire</span> <span className="text-w3b-red">Us</span>
         </p>
         <p className=" text-sm md:text-base text-black lg:text-[18px] text-center font-poppins md:mx-[10rem]">
-          LET US BUILD YOUR PROECTS
+          LET US BUILD INDUSTRY-STANDARD PROECTS FOR YOU
         </p>
       </div>
     </div>

@@ -13,7 +13,7 @@ export function Web3bridge() {
       <Link className="font-poppins text-sm md:text-base " href=" https://www.web3bridge.com/team">
         Careers
       </Link>
-      <Link className="font-poppins text-sm md:text-base " href=" https://www.web3bridge.com/">
+      <Link className="font-poppins text-sm md:text-base " href="mailto:support@web3bridge.com">
         Donations
       </Link>
       <Link className="font-poppins text-sm md:text-base " href=" https://www.web3bridge.com/">

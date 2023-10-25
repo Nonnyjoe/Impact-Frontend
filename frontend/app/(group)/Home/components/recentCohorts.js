@@ -31,7 +31,7 @@ export function RecentCohorts() {
       </div>
       <div className="mt-5">
         <button className="rounded-3xl border-2 border-w3b-red text-w3b-red px-4 md:px-[45px] py-2 md:py-[9px] gap-2 md:gap-10 items-start mt-4 md:mt-10 font-poppins font-bold text-sm md:text-[18px]">
-          View other Cohort Stories...
+          View other Cohort's Stories...
         </button>
       </div>
     </div>
