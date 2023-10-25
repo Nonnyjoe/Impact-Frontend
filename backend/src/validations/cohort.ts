@@ -1,12 +1,17 @@
 import Joi from 'joi';
 import joiDate from '@joi/date';
+import { cohortList } from '../service';
 
 const joi = Joi.extend(joiDate);
 
 const cohort = {
   async validateCreateCohort(payload: any) {
     const schema = joi.object({
-      name: joi.string().required().label('Cohort name is required'),
+      name: joi
+        .string()
+        .valid(...cohortList)
+        .required()
+        .label('Cohort ID is required'),
       startDate: joi
         .date()
         .format('YYYY-MM-DD')

@@ -4,12 +4,12 @@
 yarn
 ```
 
-<<<<<<< HEAD
-
 #### Husky would be fired on commit.
+_Husky would be fired on commit_
 
-=======
+## Documentation
 
-## Husky should be fired on commit.
+For the frontend Team,
 
-> > > > > > > d22ec72c4de258346b142df4180d4fd93025a831
+To access the project's Documentation. Use this link:
+<https://impact-web3bridge-production.up.railway.app/api-docs/>

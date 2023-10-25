@@ -38,9 +38,9 @@ const UserSchema = new mongoose.Schema(
       type: String,
       match: [/\d{10}$/, 'Please include valid phone number'],
     },
-    emailToken: {
-      type: String,
-      required: [false, 'Please include emailToken'],
+    otp: {
+      type: Number,
+      required: [false, 'Please include otp'],
     },
     image: String,
     role: {
@@ -68,6 +68,7 @@ const UserSchema = new mongoose.Schema(
       enum: ['rejected', 'approved', 'pending', 'expired'],
       default: 'pending',
     },
+    token: String,
   },
   { toJSON: { virtuals: true }, toObject: { virtuals: true }, timestamps: true }
 );

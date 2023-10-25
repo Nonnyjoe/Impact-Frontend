@@ -1,0 +1,502 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Web3bridge Impact API",
+    "description": "API for Web3bridge impact project v1",
+    "contact": {
+      "name": "API Support",
+      "email": "mayowaobi74@gmail.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://impact-web3bridge-production.up.railway.app",
+      "description": "This is the current deployed server url"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Health",
+      "description": "Health Check"
+    },
+    {
+      "name": "Auth",
+      "description": "Auth APIs"
+    },
+    {
+      "name": "Cohort",
+      "description": "Cohort APIs"
+    },
+    {
+      "name": "User",
+      "description": "User APIs"
+    }
+  ],
+  "securityDefinitions": {},
+  "paths": {
+    "/": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/cohort/{cohortId}": {
+      "delete": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/user/": {
+      "get": {
+        "tags": ["User"],
+        "description": "",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "role",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/user/{userId}": {
+      "get": {
+        "tags": ["User"],
+        "description": "",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "put": {
+        "tags": ["User"],
+        "description": "",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": ["User"],
+        "description": "",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/auth/onboard/{token}": {
+      "post": {
+        "tags": ["Auth"],
+        "description": "",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/crateUserSchema"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/onboard": {
+      "post": {
+        "tags": ["Auth"],
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/login": {
+      "post": {
+        "tags": ["Auth"],
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "example": "any"
+                  },
+                  "otp": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/otp": {
+      "post": {
+        "tags": ["Auth"],
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "createCohortSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Cohort I"
+          },
+          "alias": {
+            "type": "number",
+            "example": 29
+          },
+          "isActive": {
+            "type": "boolean",
+            "example": false
+          },
+          "startDate": {
+            "type": "string",
+            "example": "2023-12-23"
+          },
+          "endDate": {
+            "type": "string",
+            "example": "2023-12-30"
+          }
+        },
+        "required": ["name", "isActive", "startDate", "endDate"]
+      },
+      "createUserSchema": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "example": "Admin one"
+          },
+          "firstName": {
+            "type": "string",
+            "example": "admin"
+          },
+          "lastName": {
+            "type": "string",
+            "example": "lname"
+          },
+          "email": {
+            "type": "string",
+            "example": "admin@mail.com"
+          },
+          "isActive": {
+            "type": "boolean",
+            "example": false
+          },
+          "address": {
+            "type": "string",
+            "example": ""
+          },
+          "city": {
+            "type": "string",
+            "example": ""
+          },
+          "state": {
+            "type": "string",
+            "example": ""
+          },
+          "country": {
+            "type": "string",
+            "example": ""
+          },
+          "dob": {
+            "type": "string",
+            "example": ""
+          },
+          "phoneNumber": {
+            "type": "string",
+            "example": "0901234567"
+          },
+          "otp": {
+            "type": "string",
+            "example": ""
+          },
+          "image": {
+            "type": "string",
+            "example": ""
+          },
+          "role": {
+            "type": "object",
+            "properties": {
+              "super": {
+                "type": "boolean",
+                "example": true
+              }
+            }
+          },
+          "socialLinks": {
+            "type": "object",
+            "properties": {
+              "twitter": {
+                "type": "string",
+                "example": ""
+              }
+            }
+          },
+          "cohortId": {
+            "type": "string",
+            "example": "3"
+          },
+          "about": {
+            "type": "string",
+            "example": ""
+          },
+          "isBlocked": {
+            "type": "boolean",
+            "example": false
+          },
+          "requestStatus": {
+            "type": "string",
+            "example": "pending"
+          },
+          "token": {
+            "type": "string",
+            "example": ""
+          }
+        },
+        "required": ["username", "email", "isActive", "otp", "cohortId"]
+      },
+      "healthResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "example": "100"
+          },
+          "message": {
+            "type": "string",
+            "example": "Status - Inoperational"
+          }
+        }
+      },
+      "errorResponse.400": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "example": "400"
+          },
+          "message": {
+            "type": "string",
+            "example": "BAD REQUEST"
+          }
+        }
+      },
+      "errorResponse.403": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "example": "403"
+          },
+          "message": {
+            "type": "string",
+            "example": "NOT PERMITTED"
+          }
+        }
+      },
+      "errorResponse.404": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "example": "404"
+          },
+          "message": {
+            "type": "string",
+            "example": "Not found"
+          }
+        }
+      },
+      "errorResponse.500": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "example": "500"
+          },
+          "message": {
+            "type": "string",
+            "example": "Server Error"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

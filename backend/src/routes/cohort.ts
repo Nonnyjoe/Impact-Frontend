@@ -1,14 +1,16 @@
 import { Router } from 'express';
-import { createCohort, getCohort, listCohorts } from '../controller';
-import { UserMiddleware } from '../middleware';
+import { createCohort, deleteCohort, getCohort, listCohorts, updateCohort } from '../controller';
+import { AuthenticationsMiddleware, CohortMiddleware } from '../middleware';
 
-const { onlyAdmin } = UserMiddleware;
+const { authorize } = AuthenticationsMiddleware;
+const { inspectCreateCohort } = CohortMiddleware;
 
 const router = Router();
 
-router.post('/cohort/new', [onlyAdmin], createCohort);
-router.get('/cohorts', listCohorts);
-router.get('/cohort/:cohortId', getCohort);
-// router.get('/cohort/:cohortId/students', getCohortStudents);
+router.delete('/:cohortId', deleteCohort);
+router.put('/:cohortId', updateCohort);
+router.get('/:cohortId', getCohort);
+router.get('', listCohorts);
+router.post('', [authorize(['superadmin', 'admin']), inspectCreateCohort], createCohort);
 
 export default router;

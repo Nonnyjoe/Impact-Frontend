@@ -1,5 +1,5 @@
 import User from '../models/user';
-import { StatusCode, RegisterType, UserInterface } from '../@types';
+import { StatusCode, RegisterType, UpdateUserType } from '../@types';
 import { ApiError } from '../utils';
 
 class UserService {
@@ -62,7 +62,7 @@ class UserService {
     }
   }
 
-  async updateUser(userId: string, userData: UserInterface) {
+  async updateUser(userId: string, userData: UpdateUserType) {
     try {
       const user = await User.findByIdAndUpdate(userId, userData, {
         new: true,
@@ -94,9 +94,16 @@ class UserService {
     }
   };
 
-  getAllUsers = async () => {
+  getAllUsers = async (page: number, limit: number, role: any) => {
     try {
-      const users = await User.find();
+      const query: any = {};
+      if (role) {
+        query.role = { role: true };
+      }
+
+      const users = await User.find(query)
+        .limit(limit)
+        .skip(page * 1 - limit);
       return users;
     } catch (error) {
       throw new ApiError(

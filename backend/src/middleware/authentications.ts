@@ -16,19 +16,22 @@ const Authentications = {
           message: 'No token in header',
         });
       const tokenString = authToken.split('Bearer')[1].trim();
+      console.log(tokenString, '<<<<token>>>>');
       if (!tokenString)
         return res.status(StatusCode.UNAUTHORIZED).json({
           status: !!ResponseCode.FAILURE,
           message: 'Invalid token string',
         });
       const decoded: any = await verifyToken(tokenString);
-      const user = await User.findOne({ email: decoded }).exec();
+      console.log(decoded, '<<<decoded>>>');
+      const user = await User.findOne({ email: decoded.email }).exec();
 
       if (!decoded || !user)
         return res.status(StatusCode.UNAUTHORIZED).json({
           status: !!ResponseCode.FAILURE,
           message: 'Invalid token',
         });
+      console;
       res.locals.user = user;
       next();
     } catch (error: any) {
@@ -39,10 +42,11 @@ const Authentications = {
     }
   },
 
-  async authorize(roles: string[]) {
+  authorize(roles: string[]) {
     return (req: Request, res: Response, next: NextFunction) => {
       try {
         const user = res.locals.user;
+        console.log(user);
         if (!user)
           return res.status(StatusCode.UNAUTHORIZED).json({
             status: !!ResponseCode.FAILURE,

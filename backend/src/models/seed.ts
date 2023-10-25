@@ -30,6 +30,7 @@ export const seedSuperAdmin = async () => {
 
     logger('seedSuperAdmin', 'Super admin seeded successfully :)');
   } catch (err) {
+    console.log(err);
     logger('seedSuperAdmin', 'Error seeding database :(');
   }
 };

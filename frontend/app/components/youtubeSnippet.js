@@ -3,7 +3,7 @@ import LayoutWrapper from './LayoutWrapper';
 
 export function YoutubeSnippet() {
   return (
-    <div className="relative flex flex-col mt-20 md:mt-[200px] bg-black border h-auto">
+    <div className="relative flex flex-col mt-10 md:mt-[50px] bg-black border h-auto">
       <LayoutWrapper>
         <div className="pb-1 md:pb-10 rounded-3xl flex flex-col text-center">
           <p className="text-2xl md:text-4xl mt-8 md:mt-16 font-bold">

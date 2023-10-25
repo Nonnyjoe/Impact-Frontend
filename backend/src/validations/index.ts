@@ -1,3 +1,4 @@
 import userValidations from './user';
+import cohortValidations from './cohort';
 
-export { userValidations };
+export { cohortValidations, userValidations };
