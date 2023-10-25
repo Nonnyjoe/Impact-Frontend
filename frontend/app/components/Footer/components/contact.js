@@ -8,13 +8,13 @@ export function Contact() {
         className="font-poppins text-sm md:text-base cursor-pointer"
         href="mailto:support@web3bridge.com"
       >
-        support@web3bridge.com
+        Email Web3Bridge
       </a>
       <a
         className="font-poppins text-sm md:text-base cursor-pointer "
         href="mailto:ayodeji@web3bridge.com"
       >
-        ayodeji@web3bridge.com
+        Email Our CEO
       </a>
     </div>
   );

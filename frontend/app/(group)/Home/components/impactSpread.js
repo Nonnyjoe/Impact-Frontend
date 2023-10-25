@@ -9,8 +9,8 @@ export function ImpactSpread() {
           <span className="text-w3b-red">Impact Spread</span>
         </p>
         <p className="md:text-xl text-black font-poppins">
-          We have introduced over 800 students into web3 development and 1800+ trained in web2
-          technologies. We have a spread of 20+ countries.
+          We have introduced over 800 students into Web3 development and 1800+ trained in Web2
+          technologies. Our Alumni are spread in 20+ countries.
         </p>
       </div>
       <div className="w-full xl:w-[90%] mx-auto">

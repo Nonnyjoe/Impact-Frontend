@@ -16,8 +16,8 @@ export function HearFromOthers() {
           </h2>
 
           <p className="text-black font-poppins text-lg ">
-            From Cohort I to X Hear the stories of our Alumni from various cohorts and <br /> what
-            they have to say about Web3Bridge
+            From Cohort I to X: Hear the stories of our Alumni from various cohorts and <br /> what their experience at
+            Web3Bridge was like...
           </p>
 
           <section className="-ml-10 mt-24">

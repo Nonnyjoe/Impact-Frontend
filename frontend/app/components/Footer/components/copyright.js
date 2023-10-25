@@ -14,7 +14,7 @@ export function Copyright() {
         By using this website, you accept our Terms of Use and Privacy Policy.
       </p>
       <p className="font-poppins text-sm md:text-base ">
-        ©2023 Web3Bridge Africa. All rights reserved
+        With ❤️‍🔥 from Cohort IX  ©2023, Web3Bridge Africa.  All rights reserved
       </p>
     </div>
   );
