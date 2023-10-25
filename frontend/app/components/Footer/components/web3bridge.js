@@ -2,18 +2,21 @@ import Link from 'next/link';
 
 export function Web3bridge() {
   return (
-    <div className="flex flex-col gap-2 md:gap-5">
-      <p className="text-[#FA1011] text-sm md:text-base  font-bold font-poppins">Web3bridge</p>
-      <Link className="font-poppins text-sm md:text-base " href="/">
+    <div className="grid gap-2 md:gap-3">
+      <p className="text-w3b-red text-sm md:text-base  font-bold font-poppins">Web3bridge</p>
+      <Link
+        className="font-poppins text-sm md:text-base "
+        href="https://www.web3bridge.com/about-us"
+      >
         About Us
       </Link>
-      <Link className="font-poppins text-sm md:text-base " href="/create">
+      <Link className="font-poppins text-sm md:text-base " href=" https://www.web3bridge.com/team">
         Careers
       </Link>
-      <Link className="font-poppins text-sm md:text-base " href="/issue-cert">
+      <Link className="font-poppins text-sm md:text-base " href=" https://www.web3bridge.com/">
         Donations
       </Link>
-      <Link className="font-poppins text-sm md:text-base " href="/verify">
+      <Link className="font-poppins text-sm md:text-base " href=" https://www.web3bridge.com/">
         Terms & Privacy
       </Link>
     </div>

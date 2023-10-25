@@ -12,12 +12,16 @@ import LayoutWrapper from '@/app/components/LayoutWrapper';
 
 export function HomeIndex() {
   return (
-    <div className="flex flex-col">
+    <div className="grid gap-24 lg:gap-36">
       <LayoutWrapper>
-        <Hero />
-        <Goal />
-        <ImpactSpread />
-        <HearFrom />
+        <div className="grid gap-24 lg:gap-36">
+          <Hero />
+          <Goal />
+          <ImpactSpread />
+        </div>
+      </LayoutWrapper>
+      <HearFrom />
+      <LayoutWrapper>
         <RecentCohortStories />
       </LayoutWrapper>
 

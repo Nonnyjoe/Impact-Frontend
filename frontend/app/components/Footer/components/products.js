@@ -2,18 +2,18 @@ import Link from 'next/link';
 
 export function Products() {
   return (
-    <div className="flex flex-col gap-2 md:gap-5">
-      <p className="text-[#FA1011] text-sm md:text-base  font-bold font-poppins">Products</p>
-      <Link className="font-poppins text-sm md:text-base " href="/">
+    <div className="grid gap-2 md:gap-3">
+      <p className="text-w3b-red text-sm md:text-base  font-bold font-poppins">Products</p>
+      <Link className="font-poppins text-sm md:text-base " href="https://www.web3bridge.com/dapps">
         SafeKeep
       </Link>
-      <Link className="font-poppins text-sm md:text-base " href="/create">
+      <Link className="font-poppins text-sm md:text-base " href="https://www.web3bridge.com/dapps">
         Chained Thrift
       </Link>
-      <Link className="font-poppins text-sm md:text-base " href="/issue-cert">
+      <Link className="font-poppins text-sm md:text-base " href="https://www.web3bridge.com/dapps">
         Mutual Funds
       </Link>
-      <Link className="font-poppins text-sm md:text-base " href="/verify">
+      <Link className="font-poppins text-sm md:text-base " href="https://www.web3bridge.com/dapps">
         Got a Suggestion?
       </Link>
     </div>
