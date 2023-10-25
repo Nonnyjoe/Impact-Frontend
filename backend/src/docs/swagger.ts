@@ -75,25 +75,25 @@ const doc = {
   tags: [
     // by default: empty Array
     {
-      name: 'Auth',
-      description: 'Auth APIs',
+      name: 'Health',
+      description: 'Health Check',
     },
     {
-      name: 'User', // Tag name
-      description: 'User APIs', // Tag description
+      name: 'Auth',
+      description: 'Auth APIs',
     },
     {
       name: 'Cohort',
       description: 'Cohort APIs',
     },
     {
-      name: 'Health',
-      description: 'Health Check',
+      name: 'User', // Tag name
+      description: 'User APIs', // Tag description
     },
   ],
   securityDefinitions: {}, // by default: empty object
   definitions: {
-    helathResponse: {
+    healthResponse: {
       code: '100',
       message: 'Status - Inoperational',
     },

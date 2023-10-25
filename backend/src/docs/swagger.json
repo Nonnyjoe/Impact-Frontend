@@ -11,26 +11,26 @@
   },
   "servers": [
     {
-      "url": "http://impact-web3bridge-production.up.railway.app",
+      "url": "https://impact-web3bridge-production.up.railway.app",
       "description": "This is the current deployed server url"
     }
   ],
   "tags": [
     {
-      "name": "Auth",
-      "description": "Auth APIs"
+      "name": "Health",
+      "description": "Health Check"
     },
     {
-      "name": "User",
-      "description": "User APIs"
+      "name": "Auth",
+      "description": "Auth APIs"
     },
     {
       "name": "Cohort",
       "description": "Cohort APIs"
     },
     {
-      "name": "Health",
-      "description": "Health Check"
+      "name": "User",
+      "description": "User APIs"
     }
   ],
   "securityDefinitions": {},
@@ -66,24 +66,6 @@
         }
       },
       "get": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/cohort/": {
-      "get": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      },
-      "post": {
         "description": "",
         "responses": {
           "default": {
@@ -231,11 +213,12 @@
         ],
         "requestBody": {
           "required": true,
-          "schema": {
-            "$ref": "#/components/schemas/crateUserSchema"
-          },
           "content": {
-            "application/json": {}
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/crateUserSchema"
+              }
+            }
           }
         }
       }
@@ -443,7 +426,7 @@
         },
         "required": ["username", "email", "isActive", "otp", "cohortId"]
       },
-      "helathResponse": {
+      "healthResponse": {
         "type": "object",
         "properties": {
           "code": {

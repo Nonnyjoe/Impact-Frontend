@@ -56,11 +56,11 @@ export async function createUser(req: Request, res: Response) {
   #swagger.tags = ['Auth']
   #swagger.requestBody = {
             required: true,
-            schema: {
-                $ref: "#/components/schemas/crateUserSchema"
-            },
             content: {
-                "application/json": {
+              "application/json": {
+                  schema: {
+                      $ref: "#/components/schemas/crateUserSchema"
+                  },
                 }
             }
         }
@@ -261,7 +261,7 @@ export const updateUser = async (req: Request, res: Response) => {
     if (!updateUser) {
       return res.status(StatusCode.NOT_FOUND).json({
         status: !!ResponseCode.FAILURE,
-        message: 'Cohort not found',
+        message: 'User not found',
         data: null,
       });
     }
