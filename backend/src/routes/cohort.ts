@@ -7,10 +7,10 @@ const { inspectCreateCohort } = CohortMiddleware;
 
 const router = Router();
 
-router.post('/cohort', [authorize(['superadmin', 'admin']), inspectCreateCohort], createCohort);
-router.get('/cohorts', listCohorts);
-router.get('/cohort/:cohortId', getCohort);
-router.put('/cohort/:cohortId', updateCohort);
-router.delete('/cohort/:cohortId', deleteCohort);
+router.delete('/:cohortId', deleteCohort);
+router.put('/:cohortId', updateCohort);
+router.get('/:cohortId', getCohort);
+router.get('/', listCohorts);
+router.post('/', [authorize(['superadmin', 'admin']), inspectCreateCohort], createCohort);
 
 export default router;

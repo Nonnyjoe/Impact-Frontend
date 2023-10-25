@@ -7,8 +7,8 @@ import { AuthenticationsMiddleware } from '../middleware';
 const { authenticate } = AuthenticationsMiddleware;
 const router = Router();
 
+router.use('/cohort', authenticate, cohort);
 router.use('/user', authenticate, user);
 router.use('/auth', auth);
-router.use('/', authenticate, cohort);
 
 export default router;
