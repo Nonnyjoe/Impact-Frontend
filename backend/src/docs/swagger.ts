@@ -21,24 +21,74 @@ const doc = {
       email: 'mayowaobi74@gmail.com',
     },
   },
+  servers: [
+    {
+      url: cloud.swagger.url, // by default: 'http://localhost:3000'
+      description: 'This is the current deployed server url', // by default: ''
+    },
+    // { ... }
+  ],
+  components: {
+    schemas: {
+      createCohortSchema: {
+        $name: 'Cohort I',
+        alias: 29,
+        $isActive: false,
+        $startDate: '2023-12-23',
+        $endDate: '2023-12-30',
+      },
+      createUserSchema: {
+        $username: 'Admin one',
+        firstName: 'admin',
+        lastName: 'lname',
+        $email: 'admin@mail.com',
+        $isActive: false,
+        address: '',
+        city: '',
+        state: '',
+        country: '',
+        dob: '',
+        phoneNumber: '0901234567',
+        $otp: '',
+        image: '',
+        role: { super: true },
+        socialLinks: { twitter: '' },
+        $cohortId: '3',
+        about: '',
+        isBlocked: false,
+        requestStatus: 'pending',
+        token: '',
+      },
+    },
+    securitySchemes: {
+      bearerAuth: {
+        type: 'http',
+        scheme: 'bearer',
+      },
+    },
+  },
   host: cloud.swagger.host, // by default: 'localhost:3000'
   basePath: '/', // by default: '/'
-  schemes: ['https'], // by default: ['http']
+  // schemes: ['https', 'http'], // by default: ['http']
   consumes: ['application/json'], // by default: ['application/json']
   produces: ['application/json'], // by default: ['application/json']
   tags: [
     // by default: empty Array
     {
-      name: 'User CRUD', // Tag name
-      description: 'User APIs', // Tag description
+      name: 'Auth',
+      description: 'Auth APIs',
     },
     {
-      name: 'Health',
-      description: 'Health Check',
+      name: 'User', // Tag name
+      description: 'User APIs', // Tag description
     },
     {
       name: 'Cohort',
       description: 'Cohort APIs',
+    },
+    {
+      name: 'Health',
+      description: 'Health Check',
     },
   ],
   securityDefinitions: {}, // by default: empty object
@@ -73,7 +123,8 @@ const endpointsFiles = ['../index.ts'];
 /* NOTE: if you use the express Router, you must pass in the 
    'endpointsFiles' only the root file where the route starts,
    such as: index.js, app.js, routes.js, ... */
-swaggerAutogen(outputFile, endpointsFiles, doc);
+swaggerAutogen({ openapi: '3.0.0' })(outputFile, endpointsFiles, doc);
+// swaggerAutogen(options)(outputFile, endpointsFiles, doc);
 
 // swaggerAutogen(outputFile, endpointsFiles, doc).then(() => {
 //     require('./index.js'); // Your project's root file

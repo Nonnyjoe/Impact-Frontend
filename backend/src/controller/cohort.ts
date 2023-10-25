@@ -3,12 +3,26 @@ import { ResponseCode, StatusCode } from '../@types';
 import { CohortService } from '../service';
 
 export const createCohort = async (req: Request, res: Response) => {
+  /*
+  #swagger.tags = ['Cohort']
+  #swagger.requestBody = {
+            required: true,
+            content: {
+                "application/json": {
+                    schema: {
+                        $ref: "#/components/schemas/createCohortSchema"
+                    }  
+                }
+            }
+        }
+  #swagger.security = [{
+            "bearerAuth": []
+    }]
+  */
   try {
-    console.log(req.body);
     await CohortService.createCohort({
       ...req.body,
     });
-    // console.log(res);
 
     return res.status(StatusCode.OK).json({
       status: !!ResponseCode.SUCCESS,
@@ -23,6 +37,9 @@ export const createCohort = async (req: Request, res: Response) => {
 };
 
 export const listCohorts = async (_: Request, res: Response) => {
+  /*
+   #swagger.tags = ['Cohort']
+   */
   try {
     const cohorts = await CohortService.getAllCohort();
 
@@ -40,6 +57,9 @@ export const listCohorts = async (_: Request, res: Response) => {
 };
 
 export const getCohort = async (req: Request, res: Response) => {
+  /*
+  #swagger.tags = ['Cohort']
+  */
   try {
     const { cohortId } = req.params;
     const cohort = await CohortService.getCohortById(cohortId);
@@ -66,6 +86,12 @@ export const getCohort = async (req: Request, res: Response) => {
 };
 
 export const updateCohort = async (req: Request, res: Response) => {
+  /*
+  #swagger.tags = ['Cohort']
+  #swagger.security = [{
+    "bearerAuth": []
+  }]
+  */
   try {
     const { cohortId } = req.params;
     const updatedCohortData = req.body; // Assuming the updated cohort data is in the request body
@@ -94,6 +120,12 @@ export const updateCohort = async (req: Request, res: Response) => {
 };
 
 export const deleteCohort = async (req: Request, res: Response) => {
+  /*
+  #swagger.tags=['Cohort']
+  #swagger.security = [{
+            "bearerAuth": []
+  }] 
+  */
   try {
     const { cohortId } = req.params;
 
