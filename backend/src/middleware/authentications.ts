@@ -9,6 +9,7 @@ const { verifyToken } = Toolbox;
 const Authentications = {
   async authenticate(req: Request, res: Response, next: NextFunction) {
     try {
+      if (req.method === 'GET') return next();
       const authToken = req.headers.authorization;
       if (!authToken)
         return res.status(StatusCode.UNAUTHORIZED).json({

@@ -6,6 +6,19 @@ export enum Gender {
   female = 'female',
   preferNotToSay = 'prefer not to say',
 }
+
+export enum Cohort {
+  'Cohort I' = 'Cohort I',
+  'Cohort II' = 'Cohort II',
+  'Cohort III' = 'Cohort III',
+  'Cohort IV' = 'Cohort IV',
+  'Cohort V' = 'Cohort V',
+  'Cohort VI' = 'Cohort VI',
+  'Cohort VII' = 'Cohort VII',
+  'Cohort VIII' = 'Cohort VIII',
+  'Cohort IX' = 'Cohort IX',
+  'Cohort X' = 'Cohort X',
+}
 export interface UserInterface extends Document {
   firstname?: string;
   lastname?: string;
@@ -82,3 +95,5 @@ export type UpdateUserType = {
   requestStatus?: 'pending' | 'approved' | 'rejected' | 'expired';
   token?: string;
 };
+
+export type UserQueryType = { role: string; cohortId: Cohort; page: number; limit: number };

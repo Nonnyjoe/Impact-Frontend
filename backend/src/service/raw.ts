@@ -49,3 +49,51 @@ export const superAdmin = {
   isActive: true,
   cohortId: 'Cohort I',
 };
+
+const students = [];
+
+// switch i for cohort id
+function getCohort(i: number): string {
+  if (i < 10) {
+    return 'Cohort I';
+  } else if (i < 20) {
+    return 'Cohort II';
+  } else if (i < 30) {
+    return 'Cohort III';
+  } else if (i < 40) {
+    return 'Cohort IV';
+  } else if (i < 50) {
+    return 'Cohort V';
+  } else if (i < 60) {
+    return 'Cohort VI';
+  } else if (i < 70) {
+    return 'Cohort VII';
+  } else if (i < 80) {
+    return 'Cohort VIII';
+  } else if (i < 90) {
+    return 'Cohort IX';
+  } else if (i < 100) {
+    return 'Cohort X';
+  } else {
+    return 'Cohort IX';
+  }
+}
+
+for (let i = 0; i < 120; i++) {
+  students.push({
+    email: `student${i + 1}@gmail.com`,
+    password: 'password',
+    username: `student${i + 1}`,
+    role: {
+      super: false,
+      admin: false,
+      user: i < 50 ? false : true,
+      student: true,
+    },
+    requestStatus: 'approved',
+    isActive: true,
+    cohortId: getCohort(i),
+  });
+}
+
+export const users = [...students];

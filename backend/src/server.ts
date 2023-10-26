@@ -2,7 +2,7 @@ import app from './index';
 import mongoose from 'mongoose';
 import { logger } from './config';
 import { AddressInfo } from 'net';
-import { seedSuperAdmin, seedOnboarders } from './models/seed';
+import { seedSuperAdmin, seedOnboarders, seedUsers } from './models/seed';
 
 async function startApp() {
   try {
@@ -10,6 +10,7 @@ async function startApp() {
 
     logger('connect:', 'connected to database');
 
+    seedUsers();
     seedOnboarders();
     seedSuperAdmin();
 

@@ -1,7 +1,7 @@
 import User from './user';
 import Onboard from './preboard';
 import { env, logger } from '../config';
-import { onboarders, superAdmin } from '../service';
+import { onboarders, superAdmin, users } from '../service';
 
 const { SUPER_ADMIN_EMAIL } = env;
 
@@ -32,5 +32,17 @@ export const seedSuperAdmin = async () => {
   } catch (err) {
     console.log(err);
     logger('seedSuperAdmin', 'Error seeding database :(');
+  }
+};
+
+export const seedUsers = async () => {
+  try {
+    await User.deleteMany({});
+
+    await User.insertMany(users);
+
+    logger('seedUsers', 'Users seeded successfully :)');
+  } catch (err) {
+    logger('seedUsers', 'Error seeding database :(');
   }
 };

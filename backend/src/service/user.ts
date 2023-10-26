@@ -1,5 +1,5 @@
 import User from '../models/user';
-import { StatusCode, RegisterType, UpdateUserType } from '../@types';
+import { StatusCode, RegisterType, UpdateUserType, Cohort, UserQueryType } from '../@types';
 import { ApiError } from '../utils';
 
 class UserService {
@@ -94,16 +94,22 @@ class UserService {
     }
   };
 
-  getAllUsers = async (page: number, limit: number, role: any) => {
+  getAllUsers = async (data: UserQueryType) => {
     try {
       const query: any = {};
-      if (role) {
-        query.role = { role: true };
+
+      if (data.role) {
+        query['role.' + data.role] = true;
+      }
+
+      if (data.cohortId) {
+        query.cohortId = data.cohortId;
       }
 
       const users = await User.find(query)
-        .limit(limit)
-        .skip(page * 1 - limit);
+        .limit(data.limit || 10)
+        .skip((data.page || 0) * 1 - data.limit);
+
       return users;
     } catch (error) {
       throw new ApiError(

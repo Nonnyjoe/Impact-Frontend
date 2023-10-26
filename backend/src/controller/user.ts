@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { ResponseCode, StatusCode, UserInterface } from '../@types';
+import { Cohort, ResponseCode, StatusCode, UserInterface, UserQueryType } from '../@types';
 import { Toolbox, sendEmail } from '../utils';
 import { env } from '../config';
 import { PreboardService, UserService } from '../service';
@@ -195,11 +195,9 @@ export const listUsers = async (req: Request, res: Response) => {
             "bearerAuth": []
     }] */
   try {
-    const page = Number(req.query.page) ?? 1; // Retrieve the page query parameter or default to 1
-    const limit = Number(req.query.limit) ?? 10; // Retrieve the limit query parameter or default to 10
-    const role = req.query.role ?? ''; // Retrieve the role query parameter
-
-    const users = await UserService.getAllUsers(page, limit, role);
+    const users = await UserService.getAllUsers({
+      ...req.query,
+    } as unknown as UserQueryType);
 
     return res.status(StatusCode.OK).json({
       status: !!ResponseCode.SUCCESS,
