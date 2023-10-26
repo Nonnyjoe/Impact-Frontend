@@ -76,3 +76,4 @@ get one user - get - /users/:id
 Create cohort with cohortId (number based), startDate, endDate, numberOfStudents, isActive, description. (only by admin)
 get all cohorts
 get one cohort
+send clean templates - 1. for otp 2. onboarding email. 3. welcome email.
