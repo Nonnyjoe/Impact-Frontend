@@ -94,9 +94,16 @@ class UserService {
     }
   };
 
-  getAllUsers = async () => {
+  getAllUsers = async (page: number, limit: number, role: any) => {
     try {
-      const users = await User.find();
+      const query: any = {};
+      if (role) {
+        query.role = { role: true };
+      }
+
+      const users = await User.find(query)
+        .limit(limit)
+        .skip(page * 1 - limit);
       return users;
     } catch (error) {
       throw new ApiError(

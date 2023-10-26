@@ -11,6 +11,9 @@ const { createToken } = Toolbox;
 const { FRONTEND_URL, NODE_ENV } = env;
 
 export async function onboardUser(req: Request, res: Response) {
+  /*
+  #swagger.tags = ['Auth']
+  */
   try {
     const { email } = req.body;
 
@@ -49,6 +52,22 @@ export async function onboardUser(req: Request, res: Response) {
 }
 
 export async function createUser(req: Request, res: Response) {
+  /*
+  #swagger.tags = ['Auth']
+  #swagger.requestBody = {
+            required: true,
+            content: {
+              "application/json": {
+                  schema: {
+                      $ref: "#/components/schemas/crateUserSchema"
+                  },
+                }
+            }
+        }
+  #swagger.security = [{
+            "bearerAuth": []
+    }]
+  */
   try {
     const user = await UserService.createUser({
       ...req.body,
@@ -74,6 +93,9 @@ export async function createUser(req: Request, res: Response) {
 }
 
 export async function logIn(req: Request, res: Response) {
+  /*
+  #swagger.tags = ['Auth']
+  */
   try {
     const { email, otp } = req.body;
 
@@ -120,6 +142,9 @@ export async function logIn(req: Request, res: Response) {
 }
 
 export async function getOTP(req: Request, res: Response) {
+  /*
+  #swagger.tags = ['Auth']
+  */
   try {
     const { email } = req.body;
 
@@ -162,3 +187,126 @@ export async function getOTP(req: Request, res: Response) {
     });
   }
 }
+
+export const listUsers = async (req: Request, res: Response) => {
+  /*
+  #swagger.tags = ['User']
+  #swagger.security = [{
+            "bearerAuth": []
+    }] */
+  try {
+    const page = Number(req.query.page) ?? 1; // Retrieve the page query parameter or default to 1
+    const limit = Number(req.query.limit) ?? 10; // Retrieve the limit query parameter or default to 10
+    const role = req.query.role ?? ''; // Retrieve the role query parameter
+
+    const users = await UserService.getAllUsers(page, limit, role);
+
+    return res.status(StatusCode.OK).json({
+      status: !!ResponseCode.SUCCESS,
+      message: 'User fetch successful',
+      data: users,
+    });
+  } catch (err: any) {
+    console.log(err);
+    return res.status(err.statusCode || StatusCode.INTERNAL_SERVER_ERROR).json({
+      status: !!ResponseCode.FAILURE,
+      message: err.message || 'Server error',
+    });
+  }
+};
+
+export const getUser = async (req: Request, res: Response) => {
+  /*
+  #swagger.tags = ['User']
+  #swagger.security = [{
+            "bearerAuth": []
+    }] */
+  try {
+    const { userId } = req.params;
+    const user = await UserService.getUserById(userId);
+
+    if (!user) {
+      return res.status(StatusCode.NOT_FOUND).json({
+        status: !!ResponseCode.FAILURE,
+        message: 'User not found',
+        data: null,
+      });
+    }
+
+    return res.status(StatusCode.OK).json({
+      status: !!ResponseCode.SUCCESS,
+      message: 'User fetch successful',
+      data: user,
+    });
+  } catch (err: any) {
+    return res.status(err.status || StatusCode.INTERNAL_SERVER_ERROR).json({
+      status: !!ResponseCode.FAILURE,
+      message: err.message || 'Server Error',
+    });
+  }
+};
+
+export const updateUser = async (req: Request, res: Response) => {
+  /*
+  #swagger.tags = ['User']
+  #swagger.security = [{
+            "bearerAuth": []
+    }] */
+  try {
+    const { userId } = req.params;
+    const updatedUserData = req.body;
+
+    const updateUser = await UserService.updateUser(userId, updatedUserData);
+
+    if (!updateUser) {
+      return res.status(StatusCode.NOT_FOUND).json({
+        status: !!ResponseCode.FAILURE,
+        message: 'User not found',
+        data: null,
+      });
+    }
+
+    return res.status(StatusCode.OK).json({
+      status: !!ResponseCode.SUCCESS,
+      message: 'User update successful',
+      data: updateUser,
+    });
+  } catch (err: any) {
+    return res.status(err.status || StatusCode.INTERNAL_SERVER_ERROR).json({
+      status: !!ResponseCode.FAILURE,
+      message: err.message || 'Server Error',
+    });
+  }
+};
+
+export const deleteUser = async (req: Request, res: Response) => {
+  /*
+  #swagger.tags = ['User']
+  #swagger.security = [{
+            "bearerAuth": []
+    }] */
+  try {
+    const { userId } = req.params;
+
+    const deletedUser = await UserService.deleteUser(userId);
+
+    if (!deleteUser) {
+      return res.status(StatusCode.NOT_FOUND).json({
+        status: ResponseCode.FAILURE,
+        message: 'User not found',
+        data: null,
+      });
+    }
+
+    return res.status(StatusCode.OK).json({
+      status: ResponseCode.SUCCESS,
+      message: 'User deleted successfully',
+      data: deletedUser,
+    });
+  } catch (err: any) {
+    return res.status(err.status || StatusCode.INTERNAL_SERVER_ERROR).json({
+      status: ResponseCode.FAILURE,
+      message: err.message || 'Server Error',
+    });
+  }
+};
