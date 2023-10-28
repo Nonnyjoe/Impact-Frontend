@@ -1,9 +1,10 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import LayoutWrapper from './LayoutWrapper';
 
 export function AsShowcased() {
   return (
-    <div className="">
+    <LayoutWrapper>
       <div className="md:mx-[8%] rounded-3xl flex flex-col items-center justify-center">
         <p className="text-3xl md:text-4xl px-10 mb-5 md:mb-10 font-bold font-poppins">
           <span className="text-black"> As showcased on</span>
@@ -40,6 +41,6 @@ export function AsShowcased() {
           />
         </Link>
       </div>
-    </div>
+    </LayoutWrapper>
   );
 }
