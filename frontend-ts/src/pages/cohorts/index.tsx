@@ -4,18 +4,36 @@ import { Gallery } from './components/Gallery';
 import { YoutubeSnippet } from '@/components/youtubeSnippet';
 import { AsShowcased } from '@/components/AsShowcased';
 import { Footer } from '@/components/Footer/footer';
+import { buildApiUrl } from '../data/appConfig';
 
-const CohortStories = () => {
+interface galleryData {
+  id: number;
+  title: string;
+  body: string;
+}
+
+interface galleryDataProps {
+  galleryDataArray: galleryData[];
+}
+
+export default function Index({ galleryDataArray }: galleryDataProps) {
+  console.log(galleryDataArray);
   return (
     <div className="flex flex-col bg-white">
       <Stories />
-      <Gallery />
+      <Gallery galleryDataArray={galleryDataArray} />
       <Goal />
       <YoutubeSnippet />
       <AsShowcased />
       <Footer />
     </div>
   );
-};
+}
 
-export default CohortStories;
+export async function getStaticProps() {
+  const apiUrl = buildApiUrl('/posts');
+  const res = await fetch(apiUrl);
+  const galleryDataArray = await res.json();
+
+  return { props: { galleryDataArray } };
+}
