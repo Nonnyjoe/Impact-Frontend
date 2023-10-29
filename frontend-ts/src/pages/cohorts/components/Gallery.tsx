@@ -8,9 +8,9 @@ import tm2 from '@/assets/Images/TeamMember-1.png';
 import tm3 from '@/assets/Images/TeamMember2(1).png';
 
 interface galleryData {
-  id: number;
-  title: string;
-  body: string;
+  id: string;
+  name: string;
+  alias: number;
 }
 
 interface galleryDataProps {
@@ -74,16 +74,25 @@ export function Gallery({ galleryDataArray }: galleryDataProps) {
     );
   });
 
+  const renderedGalleryData = galleryDataArray.map((data) => (
+    <div key={data.id} className="rounded-3xl shadow-xl ring-gray-300 sm:w-3/4 md:w-full lg:w-full">
+      <Link
+        href={`/individual-cohort/${encodeURIComponent(data.id)
+          .toLowerCase()
+          .split('%20')
+          .join('-')}`}
+      >
+        {/* <Image src={data.image} alt={data.alt} className="w-full h-auto md:h-full" /> */}
+        <div>{data.name}</div>
+      </Link>
+    </div>
+  ));
+
   return (
-    <>
-      {galleryDataArray.map((data) => (
-        <div>{data.title}</div>
-      ))}
-      <div className="flex justify-center items-center">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4 md:gap-10 mt-0 md:mt-3 px-8 md:px-[110px]">
-          {renderedGallery}
-        </div>
+    <div className="flex justify-center items-center">
+      <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4 md:gap-10 mt-0 md:mt-3 px-8 md:px-[110px]">
+        {renderedGalleryData}
       </div>
-    </>
+    </div>
   );
 }
