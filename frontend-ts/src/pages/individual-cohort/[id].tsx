@@ -13,6 +13,16 @@ interface cohortDataProps {
   id: string;
   name: string;
   alias: number;
+  users: UserData[];
+}
+
+interface UserData {
+  cohortId: string;
+  country: string;
+  email: string;
+  id: string;
+  requestStatus: string;
+  username: string;
 }
 
 const IndividualCohort = () => {
@@ -20,8 +30,10 @@ const IndividualCohort = () => {
   const { id } = router.query;
   const [cohortData, setCohortData] = useState<cohortDataProps | null>(null);
 
+  console.log(cohortData);
+
   useEffect(() => {
-    const apiUrl = buildApiUrl(`/cohort/${id}`);
+    const apiUrl = buildApiUrl(`/cohort/${id}/user`);
     let res;
     axios
       .get(apiUrl)
@@ -35,13 +47,10 @@ const IndividualCohort = () => {
   }, [id]);
   return (
     <div className="flex flex-col bg-white">
-      <p>Post: {router.query.id}</p>
-      <p>{cohortData?.id}</p>
-      <p>{cohortData?.name}</p>
       <>
-        <Stories />
+        <Stories name={cohortData?.name} />
         <Link href={`/students/${id}`}>
-          <PhotoGallery />
+          <PhotoGallery cohortData={cohortData} />
         </Link>
         <YoutubeSnippet />
         <AsShowcased />
