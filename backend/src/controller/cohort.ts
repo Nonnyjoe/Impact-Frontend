@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
 import { ResponseCode, StatusCode } from '../@types';
 import { CohortService } from '../service';
+import User from '../models/user';
 
 export const createCohort = async (req: Request, res: Response) => {
-  /*
-  #swagger.tags = ['Cohort']
+  /*#swagger.tags = ['Cohort']
   #swagger.requestBody = {
             required: true,
             content: {
@@ -37,8 +37,7 @@ export const createCohort = async (req: Request, res: Response) => {
 };
 
 export const listCohorts = async (_: Request, res: Response) => {
-  /*
-   #swagger.tags = ['Cohort']
+  /*#swagger.tags = ['Cohort']
    */
   try {
     const cohorts = await CohortService.getAllCohort();
@@ -147,6 +146,90 @@ export const deleteCohort = async (req: Request, res: Response) => {
   } catch (err: any) {
     return res.status(err.status || StatusCode.INTERNAL_SERVER_ERROR).json({
       status: ResponseCode.FAILURE,
+      message: err.message || 'Server Error',
+    });
+  }
+};
+
+export const getCohortStudents = async (req: Request, res: Response) => {
+  /*
+  #swagger.tags = ['Cohort']
+  */
+  try {
+    const { cohortId } = req.params;
+    // const { cohort, cohortStudents } = await CohortService.getCohortStudents(cohortId);
+    const cohort = await CohortService.getCohortById(cohortId);
+
+    if (!cohort) {
+      return res.status(StatusCode.NOT_FOUND).json({
+        status: !!ResponseCode.FAILURE,
+        message: 'Cohort not found',
+        data: null,
+      });
+    }
+
+    const cohortStudents = await User.find({ cohortId: cohortId });
+
+    return res.status(StatusCode.OK).json({
+      status: !!ResponseCode.SUCCESS,
+      message: 'Cohort fetch successful',
+      data: {
+        id: cohort.id,
+        name: cohort.name,
+        alias: cohort.alias,
+        isActive: cohort.isActive,
+        startDate: cohort.startDate,
+        endDate: cohort.endDate,
+        createdAt: cohort.createdAt,
+        updatedAt: cohort.updatedAt,
+        users: [...cohortStudents],
+      },
+    });
+  } catch (err: any) {
+    return res.status(err.status || StatusCode.INTERNAL_SERVER_ERROR).json({
+      status: !!ResponseCode.FAILURE,
+      message: err.message || 'Server Error',
+    });
+  }
+};
+
+export const getCohortStudentsById = async (req: Request, res: Response) => {
+  /*
+  #swagger.tags = ['Cohort']
+  */
+  try {
+    const { cohortId, userId } = req.params;
+    // const { cohort, cohortStudents } = await CohortService.getCohortStudents(cohortId);
+    const cohort = await CohortService.getCohortById(cohortId);
+
+    if (!cohort) {
+      return res.status(StatusCode.NOT_FOUND).json({
+        status: !!ResponseCode.FAILURE,
+        message: 'Cohort not found',
+        data: null,
+      });
+    }
+
+    const cohortStudent = await User.findById({ userId: userId });
+
+    return res.status(StatusCode.OK).json({
+      status: !!ResponseCode.SUCCESS,
+      message: 'Cohort fetch successful',
+      data: {
+        id: cohort.id,
+        name: cohort.name,
+        alias: cohort.alias,
+        isActive: cohort.isActive,
+        startDate: cohort.startDate,
+        endDate: cohort.endDate,
+        createdAt: cohort.createdAt,
+        updatedAt: cohort.updatedAt,
+        user: [cohortStudent],
+      },
+    });
+  } catch (err: any) {
+    return res.status(err.status || StatusCode.INTERNAL_SERVER_ERROR).json({
+      status: !!ResponseCode.FAILURE,
       message: err.message || 'Server Error',
     });
   }
