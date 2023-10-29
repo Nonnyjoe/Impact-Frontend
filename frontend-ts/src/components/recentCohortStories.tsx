@@ -1,6 +1,6 @@
 'use client';
 import { Button } from './Button';
-import { StoryHighlights } from './StoryHighlights';
+import StoryHighlights from './StoryHighlights';
 
 export function RecentCohortStories() {
   return (

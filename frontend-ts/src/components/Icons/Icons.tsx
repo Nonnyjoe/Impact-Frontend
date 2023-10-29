@@ -5,26 +5,31 @@ import { BiLogoTelegram } from 'react-icons/bi';
 import { BiLogoYoutube } from 'react-icons/bi';
 import { BiLogoInstagram } from 'react-icons/bi';
 
-export function TwitterIcon({ color, fontsize }) {
+interface IconProps {
+  color: string;
+  fontsize: string;
+}
+
+export function TwitterIcon({ color, fontsize }: IconProps) {
   return <BiLogoTwitter class={color} fontSize={fontsize} />;
 }
 
-export function FacebookIcon({ color, fontsize }) {
+export function FacebookIcon({ color, fontsize }: IconProps) {
   return <BiLogoFacebookSquare class={color} fontSize={fontsize} />;
 }
 
-export function LinkedInIcon({ color, fontsize }) {
+export function LinkedInIcon({ color, fontsize }: IconProps) {
   return <BiLogoLinkedinSquare class={color} fontSize={fontsize} />;
 }
 
-export function TelegramIcon({ color, fontsize }) {
+export function TelegramIcon({ color, fontsize }: IconProps) {
   return <BiLogoTelegram class={color} fontSize={fontsize} />;
 }
 
-export function YoutubeIcon({ color, fontsize }) {
+export function YoutubeIcon({ color, fontsize }: IconProps) {
   return <BiLogoYoutube class={color} fontSize={fontsize} />;
 }
 
-export function InstagramIcon({ color, fontsize }) {
+export function InstagramIcon({ color, fontsize }: IconProps) {
   return <BiLogoInstagram class={color} fontSize={fontsize} />;
 }

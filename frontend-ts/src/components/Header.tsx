@@ -1,9 +1,8 @@
-'use client';
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
-export function Header() {
+export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleNavbar = () => {
@@ -23,26 +22,13 @@ export function Header() {
           </div>
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-4">
-              <Link href="/">
-                <p className="text-w3b-black hover:text-w3b-red px-3 py-2 rounded-md text-base font-poppins font-medium">
-                  Home
-                </p>
-              </Link>
-              <Link href="/Stories">
-                <p className="text-w3b-black hover:text-w3b-red px-3 py-2 rounded-md text-base font-poppins font-medium">
-                  Stories
-                </p>
-              </Link>
-              <Link href="/cohorts">
-                <p className="text-w3b-black hover:text-w3b-red px-3 py-2 rounded-md text-base font-poppins font-medium">
-                  Cohorts
-                </p>
-              </Link>
-              <Link href="/Hire-us">
-                <p className="text-w3b-black hover:text-w3b-red px-3 py-2 rounded-md text-base font-poppins font-medium">
-                  Hire Us
-                </p>
-              </Link>
+              {['Home', 'Stories', 'Cohorts', 'Hire Us'].map((item) => (
+                <Link key={item} href={`/${item.toLowerCase().split(' ').join('-')}`}>
+                  <p className="text-w3b-black hover:text-w3b-red px-3 py-2 rounded-md text-base font-p-posts font-medium">
+                    {item}
+                  </p>
+                </Link>
+              ))}
             </div>
           </div>
 

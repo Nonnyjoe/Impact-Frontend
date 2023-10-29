@@ -1,4 +1,4 @@
-import { quotesData } from '../../../../utils/usersQuotes';
+import { quotesData } from '../../../../../frontend/utils/usersQuotes';
 
 export function CarouselComponent() {
   return (

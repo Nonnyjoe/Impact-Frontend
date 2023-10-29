@@ -1,7 +1,14 @@
 'use client';
 import Image from 'next/image';
+import { FC } from 'react';
 
-export function StoryHighlights({ story }) {
+interface IStory {
+  title: string;
+  author: string;
+  content: string;
+}
+
+const StoryHighlights: FC<{ story: IStory }> = ({ story }) => {
   return (
     <div className="flex flex-col-reverse md:flex-row gap-2 md:gap-10 mt-5 max-w-4xl mx-auto">
       <div className="p-6 md:p-0 md:px-10 mb-4 md:w-2/3">
@@ -52,4 +59,6 @@ export function StoryHighlights({ story }) {
       </div>
     </div>
   );
-}
+};
+
+export default StoryHighlights;
