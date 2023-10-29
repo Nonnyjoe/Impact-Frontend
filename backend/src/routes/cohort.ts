@@ -19,7 +19,7 @@ router.get('/', listCohorts);
 router.post('/', [], createCohort);
 router.put('/:cohortId', updateCohort);
 router.get('/:cohortId', getCohort);
-router.get('/:cohortId/users', getCohortStudents);
+router.get('/:cohortId/user', getCohortStudents);
 router.get('/:cohortId/user/:userId', getCohortStudentsById);
 router.delete('/:cohortId', deleteCohort);
 

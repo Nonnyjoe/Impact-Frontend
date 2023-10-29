@@ -206,7 +206,7 @@
         }
       }
     },
-    "/api/cohort/{cohortId}/users": {
+    "/api/cohort/{cohortId}/user": {
       "get": {
         "description": "",
         "responses": {
