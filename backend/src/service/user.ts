@@ -1,6 +1,7 @@
 import User from '../models/user';
 import { StatusCode, RegisterType, UpdateUserType, Cohort, UserQueryType } from '../@types';
 import { ApiError } from '../utils';
+import user from '../models/user';
 
 class UserService {
   async createUser(userData: RegisterType) {
@@ -117,6 +118,27 @@ class UserService {
         'impact api',
         error as string,
         'getAllUsers',
+        StatusCode.INTERNAL_SERVER_ERROR
+      );
+    }
+  };
+
+  getAllPendingUserRequest = async () => {
+    try {
+      const query: any = {};
+
+      // if (requestStatus) {
+      //   query.requestStatus = requestStatus;
+      // }
+      const users = await user.find({ requestStatus: 'PENDING' });
+      // .limit(limit || 10)
+      // .skip((page || 0) * 1 - limit);
+      return users;
+    } catch (error) {
+      throw new ApiError(
+        'impact API',
+        error as string,
+        'getAllUsersRequest',
         StatusCode.INTERNAL_SERVER_ERROR
       );
     }
