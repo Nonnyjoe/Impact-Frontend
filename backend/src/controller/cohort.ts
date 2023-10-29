@@ -168,7 +168,7 @@ export const getCohortStudents = async (req: Request, res: Response) => {
       });
     }
 
-    const cohortStudents = await User.find({ cohortId: cohortId });
+    const cohortStudents = await User.find({ cohortId: cohort.name });
 
     return res.status(StatusCode.OK).json({
       status: !!ResponseCode.SUCCESS,
@@ -209,8 +209,10 @@ export const getCohortStudentsById = async (req: Request, res: Response) => {
         data: null,
       });
     }
+    console.log(cohortId, userId);
 
-    const cohortStudent = await User.findById({ userId: userId });
+    const cohortStudent = await User.find({ userId });
+    console.log(cohortStudent);
 
     return res.status(StatusCode.OK).json({
       status: !!ResponseCode.SUCCESS,
@@ -224,7 +226,7 @@ export const getCohortStudentsById = async (req: Request, res: Response) => {
         endDate: cohort.endDate,
         createdAt: cohort.createdAt,
         updatedAt: cohort.updatedAt,
-        user: [cohortStudent],
+        users: [cohortStudent],
       },
     });
   } catch (err: any) {
