@@ -8,9 +8,9 @@ import tm2 from '@/assets/Images/TeamMember-1.png';
 import tm3 from '@/assets/Images/TeamMember2(1).png';
 
 interface galleryData {
-  id: number;
-  title: string;
-  body: string;
+  id: string;
+  name: string;
+  alias: number;
 }
 
 interface galleryDataProps {
@@ -77,7 +77,16 @@ export function Gallery({ galleryDataArray }: galleryDataProps) {
   return (
     <>
       {galleryDataArray.map((data) => (
-        <div>{data.title}</div>
+        <>
+          <Link
+            href={`/individual-cohort/${encodeURIComponent(data.id)
+              .toLowerCase()
+              .split('%20')
+              .join('-')}`}
+          >
+            <div>{data.name}</div>
+          </Link>
+        </>
       ))}
       <div className="flex justify-center items-center">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4 md:gap-10 mt-0 md:mt-3 px-8 md:px-[110px]">

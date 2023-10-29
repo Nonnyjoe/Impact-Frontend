@@ -165,13 +165,15 @@ export function PhotoGallery() {
   });
 
   return (
-    <div className="flex justify-center items-center flex-col">
-      <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4 md:gap-10 mt-0 mb-10 md:mb-20 md:mt-3 px-8 md:px-[110px]">
-        {renderedPhotoGallery}
+    <>
+      <div className="flex justify-center items-center flex-col">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4 md:gap-10 mt-0 mb-10 md:mb-20 md:mt-3 px-8 md:px-[110px]">
+          {renderedPhotoGallery}
+        </div>
+        <button className="mt-10 md:mt-[80px] border text-w3b-red border-w3b-red bg-white px-6 py-3 rounded-xl hover:bg-w3b-red hover:text-white transition duration-300 ease-in-out">
+          See Next Cohort...
+        </button>
       </div>
-      <button className="mt-10 md:mt-[80px] border text-w3b-red border-w3b-red bg-white px-6 py-3 rounded-xl hover:bg-w3b-red hover:text-white transition duration-300 ease-in-out">
-        See Next Cohort...
-      </button>
-    </div>
+    </>
   );
 }

@@ -7,9 +7,9 @@ import Footer from '@/components/Footer/footer';
 import { buildApiUrl } from '../data/appConfig';
 
 interface galleryData {
-  id: number;
-  title: string;
-  body: string;
+  id: string;
+  name: string;
+  alias: number;
 }
 
 interface galleryDataProps {
@@ -17,7 +17,6 @@ interface galleryDataProps {
 }
 
 export default function Index({ galleryDataArray }: galleryDataProps) {
-  console.log(galleryDataArray);
   return (
     <div className="flex flex-col gap-24 bg-white">
       <Stories />
@@ -31,9 +30,10 @@ export default function Index({ galleryDataArray }: galleryDataProps) {
 }
 
 export async function getStaticProps() {
-  const apiUrl = buildApiUrl('/posts');
+  const apiUrl = buildApiUrl('/cohort');
   const res = await fetch(apiUrl);
-  const galleryDataArray = await res.json();
+  const galleryData = await res.json();
+  const galleryDataArray = galleryData.data;
 
   return { props: { galleryDataArray } };
 }
