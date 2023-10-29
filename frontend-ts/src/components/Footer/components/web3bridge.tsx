@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-export function Web3bridge() {
+export default function Web3bridge() {
   return (
     <div className="grid gap-2 md:gap-3">
       <p className="text-w3b-red text-sm md:text-base  font-bold font-poppins">Web3bridge</p>

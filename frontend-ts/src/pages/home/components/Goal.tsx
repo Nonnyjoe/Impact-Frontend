@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-export function Goal() {
+export default function Goal() {
   return (
     <div className="xl:w-[90%] mx-auto bg-w3b-red p-10 md:p-20 xl:p-24 rounded-[30px] items-center shadow-2xl ring-w3b-red">
       <p className="md:text-xl xl:text-2xl text-center font-poppins text-white">

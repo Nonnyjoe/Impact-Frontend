@@ -1,8 +1,8 @@
 'use client';
-import { Button } from './Button';
+import Button from './Button';
 import StoryHighlights from './StoryHighlights';
 
-export function RecentCohortStories() {
+export default function RecentCohortStories() {
   return (
     <div className="">
       <div className="text-center">

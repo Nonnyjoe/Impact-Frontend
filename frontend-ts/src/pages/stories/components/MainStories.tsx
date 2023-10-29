@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import { NewsLetter } from './newsLetter';
+import NewsLetter from './newsLetter';
 import LayoutWrapper from '@/components/LayoutWrapper';
 import StoryHighlights from '@/components/StoryHighlights';
 import w3lagConf from '@/assets/Images/web3LagosConf.png';

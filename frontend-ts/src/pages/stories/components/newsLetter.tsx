@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { FormEventHandler, useState } from 'react';
 import newsletter from '@/assets/Images/newsLetter.png';
 
-export function NewsLetter() {
+export default function NewsLetter() {
   const [email, setEmail] = useState('');
 
   const handleFormSubmit: FormEventHandler<HTMLFormElement> = (e) => {

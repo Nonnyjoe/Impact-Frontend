@@ -2,7 +2,7 @@ import Image from 'next/image';
 import worldMap from '@/assets/Images/WorldMap.png';
 import vector2 from '@/assets/Images/Vector-2.png';
 
-export function ImpactSpread() {
+export default function ImpactSpread() {
   return (
     <div className="flex flex-col items-center justify-center ">
       <div className="py-10 max-w-3xl mx-auto text-center">

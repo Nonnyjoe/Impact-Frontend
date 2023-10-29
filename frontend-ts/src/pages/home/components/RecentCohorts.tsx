@@ -3,7 +3,7 @@ import img1 from '@/assets/Images/img1.png';
 import img0 from '@/assets/Images/IMG.png';
 import tm1 from '@/assets/Images/TeamMember-1.png';
 
-export function RecentCohorts() {
+export default function RecentCohorts() {
   return (
     <div className="relative flex flex-col items-center justify-center md:mt-20 ">
       <div className="pt-4 md:pt-[80px] pb-4 mx-4 md:mx-[8%] rounded-3xl flex flex-col items-center justify-center">

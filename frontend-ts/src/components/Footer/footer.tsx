@@ -1,14 +1,14 @@
 import Image from 'next/image';
-import { Contact } from './components/contact';
-import { Products } from './components/products';
-import { Resource } from './components/resource';
-import { Socials } from './components/socials';
-import { Web3bridge } from './components/web3bridge';
-import { Copyright } from './components/copyright';
+import Contact from './components/contact';
+import Products from './components/products';
+import Resource from './components/resource';
+import Socials from './components/socials';
+import Web3bridge from './components/web3bridge';
+import Copyright from './components/copyright';
 import LayoutWrapper from '../LayoutWrapper';
 import vector from '@/assets/Images/Vector.png';
 
-export function Footer() {
+export default function Footer() {
   return (
     <div className="bg-white">
       <LayoutWrapper>

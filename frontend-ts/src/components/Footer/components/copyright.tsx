@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-export function Copyright() {
+export default function Copyright() {
   return (
     <div className="grid gap-2 md:gap-3 text-black px-6 md:px-[100px] mb-10 md:mb-20">
       <p className="font-poppins text-sm md:text-base ">

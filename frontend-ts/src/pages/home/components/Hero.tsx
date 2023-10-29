@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Vector3 from '@/assets/Images/Vector-3.png';
 import Vid from '@/assets/Images/VID.png';
 
-export function Hero() {
+export default function Hero() {
   return (
     <div className="">
       <div className=" flex flex-col-reverse flex-1 lg:flex-row items-center justify-between font-mono text-sm gap-16 md:gap-20">

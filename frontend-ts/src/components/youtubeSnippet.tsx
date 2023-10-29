@@ -2,7 +2,7 @@ import Image from 'next/image';
 import LayoutWrapper from './LayoutWrapper';
 import ytEmbed from '@/assets/Images/YouTubeEmbed.png';
 
-export function YoutubeSnippet() {
+export default function YoutubeSnippet() {
   return (
     <div className="relative flex flex-col mt-10 md:mt-[50px] bg-black border h-auto">
       <LayoutWrapper>

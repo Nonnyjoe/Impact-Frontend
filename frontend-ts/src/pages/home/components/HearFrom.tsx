@@ -1,10 +1,10 @@
 'use client';
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
 import { useEffect, useRef, useState } from 'react';
-import { CarouselComponent } from './CarouselComponent';
+import CarouselComponent from './CarouselComponent';
 import LayoutWrapper from '@/components/LayoutWrapper';
 
-export function HearFrom() {
+export default function HearFrom() {
   const carouselRef = useRef<HTMLDivElement>(null);
   const [disableBtn, setDisableBtn] = useState({
     left: true,

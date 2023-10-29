@@ -7,7 +7,7 @@ import sun_logo from '@/assets/Images/sun_logo.png';
 import Webp from '@/assets/Images/Webp.png';
 import palava from '@/assets/Images/61aea8e1fc3ed8447ec6a382_Panvala-Identity.png';
 
-export function AsShowcased() {
+export default function AsShowcased() {
   return (
     <div className="">
       <div className="md:mx-[8%] rounded-3xl flex flex-col items-center justify-center">
