@@ -1,5 +1,7 @@
+import More from '@/pages/home/components/More';
 import Image from 'next/image';
-import More from './More.jsx';
+import Vector3 from '@/assets/Images/Vector-3.png';
+import Vid from '@/assets/Images/VID.png';
 
 export function Hero() {
   return (
@@ -18,12 +20,12 @@ export function Hero() {
           <More />
 
           <div className="absolute -top-full lg:top-96 left-0">
-            <Image src="/Images/Vector-3.png" alt="My Image" width={150} height={50} />
+            <Image src={Vector3} alt="My Image" width={150} height={50} />
           </div>
         </div>
 
         <div className="lg:w-full z-20 relative h-auto rounded-bl-3xl lg:-mr-6 w-screen -mx-12">
-          <Image src="/Images/VID.png" alt="My Image" width={1000} height={750} />
+          <Image src={Vid} alt="My Image" width={1000} height={750} />
         </div>
       </div>
     </div>

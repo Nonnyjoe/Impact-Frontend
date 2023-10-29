@@ -1,4 +1,7 @@
 import Image from 'next/image';
+import img1 from '@/assets/Images/img1.png';
+import img0 from '@/assets/Images/IMG.png';
+import tm1 from '@/assets/Images/TeamMember-1.png';
 
 export function RecentCohorts() {
   return (
@@ -16,17 +19,13 @@ export function RecentCohorts() {
       </div>
       <div className="flex flex-col md:flex-row gap-4 md:gap-10 mt-0 md:mt-3 px-8 md:px-[110px]">
         <div className="rounded-3xl shadow-xl ring-gray-300 md:flex-grow">
-          <img src="/Images/img1.png" alt="Team Member" className="w-full h-auto md:h-full" />
+          <Image src={img1} alt="Team Member" className="w-full h-auto md:h-full" />
         </div>
         <div className="rounded-3xl shadow-xl ring-gray-300 md:flex-grow mt-4 md:mt-0">
-          <img src="/Images/IMG.png" alt="Team Member" className="w-full h-auto md:h-full" />
+          <Image src={img0} alt="Team Member" className="w-full h-auto md:h-full" />
         </div>
         <div className="rounded-3xl shadow-xl ring-gray-300 md:flex-grow mt-4 md:mt-0">
-          <img
-            src="/Images/TeamMember-1.png"
-            alt="Team Member"
-            className="w-full h-auto md:h-full"
-          />
+          <Image src={tm1} alt="Team Member" className="w-full h-auto md:h-full" />
         </div>
       </div>
       <div className="mt-5">

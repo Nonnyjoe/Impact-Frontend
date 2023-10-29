@@ -1,6 +1,15 @@
 'use client';
 import Image from 'next/image';
 import { FC } from 'react';
+import img11 from '@/assets/Images/IMG11.png';
+import {
+  FacebookIcon,
+  InstagramIcon,
+  TelegramIcon,
+  TwitterIcon,
+  WhatsappIcon,
+  YoutubeIcon,
+} from '@/components/Icons/Icons';
 
 interface IStory {
   title: string;
@@ -26,35 +35,15 @@ const StoryHighlights: FC<{ story: IStory }> = ({ story }) => {
 
       <div className="flex flex-col  gap-10 md:gap-10 px-5 md:px-0">
         <div className="rounded-3xl shadow-xl ring-gray-300 md:flex-grow mt-4 md:mt-0 md:w-100%">
-          <img src="/Images/IMG11.png" alt="Team Member" className="w-full h-auto md:h-full" />
+          <Image src={img11} alt="Team Member" className="w-full h-auto md:h-full" />
         </div>
         <div className="flex flex-row gap-2 md:gap-5 mb-5 justify-between px-5">
-          <Image
-            src="/Images/icons/akar-icons_twitter-fill.png"
-            alt="My Image"
-            width={20}
-            height={20}
-          />
-          <Image
-            src="/Images/icons/fa6-brands_facebook-square.png"
-            alt="My Image"
-            width={20}
-            height={20}
-          />
-          <Image src="/Images/icons/dashicons_whatsapp.png" alt="My Image" width={20} height={20} />
-          <Image src="/Images/icons/bxl_telegram.png" alt="My Image" width={20} height={20} />
-          <Image
-            src="/Images/icons/akar-icons_instagram-fill.png"
-            alt="My Image"
-            width={20}
-            height={20}
-          />
-          <Image
-            src="/Images/icons/akar-icons_youtube-fill.png"
-            alt="My Image"
-            width={20}
-            height={20}
-          />
+          <TwitterIcon />
+          <FacebookIcon />
+          <WhatsappIcon />
+          <TelegramIcon />
+          <InstagramIcon />
+          <YoutubeIcon />
         </div>
       </div>
     </div>

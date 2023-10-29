@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import logo from '@/assets/Images/Logo.png';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,7 +17,7 @@ export default function Header() {
           <div className="flex-shrink-0">
             <Link href="/">
               <div>
-                <Image src="/Images/Logo.png" alt="Logo" width={150} height={20} />
+                <Image src={logo} alt="Logo" width={150} height={20} />
               </div>
             </Link>
           </div>

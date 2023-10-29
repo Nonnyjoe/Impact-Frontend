@@ -6,6 +6,7 @@ import { Socials } from './components/socials';
 import { Web3bridge } from './components/web3bridge';
 import { Copyright } from './components/copyright';
 import LayoutWrapper from '../LayoutWrapper';
+import vector from '@/assets/Images/Vector.png';
 
 export function Footer() {
   return (
@@ -25,7 +26,7 @@ export function Footer() {
           <Contact />
 
           <div className="absolute md:top-[-75%] right-0">
-            <Image src="/Images/Vector.png" alt="My Image" width={400} height={600} />
+            <Image src={vector} alt="My Image" width={400} height={600} />
           </div>
         </div>
       </LayoutWrapper>

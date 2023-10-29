@@ -8,7 +8,7 @@ import { HearFrom } from '@/pages/home/components/HearFrom';
 import { Hero } from '@/pages/home/components/Hero';
 import { ImpactSpread } from '@/pages/home/components/ImpactSpread';
 
-export function HomeIndex() {
+export default function HomeIndex() {
   return (
     <div className="grid gap-24 lg:gap-36">
       <LayoutWrapper>

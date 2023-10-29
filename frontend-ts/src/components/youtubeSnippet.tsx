@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import LayoutWrapper from './LayoutWrapper';
+import ytEmbed from '@/assets/Images/YouTubeEmbed.png';
 
 export function YoutubeSnippet() {
   return (
@@ -12,7 +13,7 @@ export function YoutubeSnippet() {
         </div>
         <div className="mt-5 items-center justify-center flex mb-[4rem] md:mb-[100px] ">
           <Image
-            src="/Images/YouTubeEmbed.png"
+            src={ytEmbed}
             width={1000}
             height={1000}
             alt="Team Member"
