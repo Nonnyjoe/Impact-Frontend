@@ -12,8 +12,8 @@ export function Footer() {
   return (
     <div className="bg-white">
       <LayoutWrapper>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 px-10 relative text-black justify-between gap-10">
-          <div className="col-span-2 md:col-span-3 md:w-2/3 lg:w-auto lg:col-span-1">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 px-10 relative text-black justify-between gap-10">
+          <div className="col-span-2 md:col-span-3 md:w-2/3 lg:w-auto lg:col-span-2">
             <Socials />
           </div>
 

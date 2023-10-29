@@ -1,13 +1,15 @@
 'use client';
-import LayoutWrapper from '@/app/components/LayoutWrapper';
-import { StoryHighlights } from '@/app/components/StoryHighlights';
 import Image from 'next/image';
 import { NewsLetter } from './newsLetter';
+import LayoutWrapper from '@/components/LayoutWrapper';
+import StoryHighlights from '@/components/StoryHighlights';
+import w3lagConf from '@/assets/Images/web3LagosConf.png';
+import feed from '@/assets/Images/twitterFeed.png';
 
-export function HearFromOthers() {
+export default function MainStories() {
   return (
     <LayoutWrapper>
-      <div className="mt-20 flex justify-between gap-24 px-10">
+      <div className="flex justify-between gap-24 px-10">
         <div className="">
           <h2 className="text-3xl md:text-6xl font-poppins font-bold mb-5   ">
             {' '}
@@ -56,8 +58,6 @@ export function HearFromOthers() {
           </section>
         </div>
 
-        {/*  */}
-
         <div>
           <section className="bg-w3b-red rounded-lg p-4 w-[325px] h-[250px] ">
             <h3 className="font-poppins font-bold text-2xl">
@@ -71,14 +71,14 @@ export function HearFromOthers() {
             </p>
           </section>
 
-          <section className="bg-w3b-black  h-[1100px]  w-[325px] rounded-lg p-4 mt-10 ">
+          <section className="bg-w3b-black text-white  h-[1100px]  w-[325px] rounded-lg p-4 mt-10 ">
             <h3 className="font-poppins font-bold text-2xl ml-2">
               Join <span className="text-w3b-red">cohort XI(11)</span> <br /> waitlist now...
             </h3>
 
             <article>
               <Image
-                src="/Images/web3LagosConf.png"
+                src={w3lagConf}
                 alt="web3LagosConference"
                 width={275}
                 height={250}
@@ -92,7 +92,7 @@ export function HearFromOthers() {
             <article className="mt-10 ml-2">
               <h3 className="font-poppins font-bold text-2xl mb-4">Our Latest X Post</h3>
 
-              <Image src="/Images/twitterFeed.png" alt="twitterFeed" width={275} height={250} />
+              <Image src={feed} alt="twitterFeed" width={275} height={250} />
             </article>
           </section>
         </div>

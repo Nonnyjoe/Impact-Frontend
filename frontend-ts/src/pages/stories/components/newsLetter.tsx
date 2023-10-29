@@ -1,10 +1,11 @@
 import Image from 'next/image';
-import { useState } from 'react';
+import { FormEventHandler, useState } from 'react';
+import newsletter from '@/assets/Images/newsLetter.png';
 
 export function NewsLetter() {
   const [email, setEmail] = useState('');
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
   };
 
@@ -23,7 +24,7 @@ export function NewsLetter() {
 
         <button type="submit">
           <Image
-            src="/Images/newsLetter.png"
+            src={newsletter}
             alt="subscribe to newsletter"
             width={100}
             height={100}
