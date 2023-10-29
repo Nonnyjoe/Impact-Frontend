@@ -3,17 +3,19 @@ import { Hireus } from './components/HireUs';
 import { LetsWorkTog } from './components/LetsWork';
 import { ProductsWorked } from './components/Products';
 import { JoinCommunity } from './components/JoinCommunity';
-import { AsShowcased } from '@/components/AsShowcased';
-import { Footer } from '@/components/Footer/footer';
+import AsShowcased from '@/components/AsShowcased';
+import Footer from '@/components/Footer/footer';
 
 const HireUs = () => {
   return (
-    <div className="flex flex-col bg-white">
+    <div className="grid gap-12 lg:gap-24 ">
       <LayoutWrapper>
-        <Hireus />
-        <LetsWorkTog />
-        <ProductsWorked />
-        <JoinCommunity />
+        <div className="grid gap-12 lg:gap-24 ">
+          <Hireus />
+          <LetsWorkTog />
+          <ProductsWorked />
+          <JoinCommunity />
+        </div>
       </LayoutWrapper>
       <AsShowcased />
       <Footer />

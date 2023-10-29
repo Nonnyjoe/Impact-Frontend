@@ -4,7 +4,7 @@ import YoutubeSnippet from '@/components/youtubeSnippet';
 import MainStories from './components/MainStories';
 
 const Stories = () => (
-  <div className="flex flex-col bg-white">
+  <div className="grid gap-12 lg:gap-24 pt-8">
     <MainStories />
     <YoutubeSnippet />
     <AsShowcased />

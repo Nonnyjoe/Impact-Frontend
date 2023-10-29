@@ -17,6 +17,7 @@ module.exports = {
     extend: {
       boxShadow: {
         card: '10px 10px 50px 3px #275C8D1A',
+        glow: ' 0px 30px 40px 0px rgba(250, 16, 17, 0.25)',
       },
       screens: {
         '3xl': '1920px',

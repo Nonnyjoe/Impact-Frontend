@@ -6,12 +6,13 @@ import techcabalLogo from '@/assets/Images/techcabal-10.png';
 import sun_logo from '@/assets/Images/sun_logo.png';
 import Webp from '@/assets/Images/Webp.png';
 import palava from '@/assets/Images/61aea8e1fc3ed8447ec6a382_Panvala-Identity.png';
+import LayoutWrapper from '@/components/LayoutWrapper';
 
 export default function AsShowcased() {
   return (
-    <div className="">
-      <div className="md:mx-[8%] rounded-3xl flex flex-col items-center justify-center">
-        <p className="text-3xl md:text-4xl px-10 mb-5 md:mb-10 font-bold font-poppins">
+    <LayoutWrapper>
+      <div className="rounded-3xl flex flex-col items-center justify-center">
+        <p className="text-3xl md:text-4xl px-10 mb-5 font-bold font-poppins">
           <span className="text-black"> As showcased on</span>
         </p>
       </div>
@@ -41,6 +42,6 @@ export default function AsShowcased() {
           <Image src={palava} alt="My Image" width={150} height={20} />
         </Link>
       </div>
-    </div>
+    </LayoutWrapper>
   );
 }

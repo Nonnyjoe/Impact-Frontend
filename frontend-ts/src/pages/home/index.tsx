@@ -10,9 +10,9 @@ import ImpactSpread from '@/pages/home/components/ImpactSpread';
 
 export default function HomeIndex() {
   return (
-    <div className="grid gap-24 lg:gap-36">
+    <div className="grid gap-12 lg:gap-24">
       <LayoutWrapper>
-        <div className="grid gap-24 lg:gap-36">
+        <div className="grid gap-12 lg:gap-24">
           <Hero />
           <Goal />
           <ImpactSpread />
