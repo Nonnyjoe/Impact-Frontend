@@ -20,7 +20,8 @@ class UserService {
 
   async getUserById(userId: string) {
     try {
-      const user = await User.findById(userId).populate('plans').populate('reports');
+      // const user = await User.findById(userId).populate('plans').populate('reports');
+      const user = await User.findOne({ _id: userId });
       return user;
     } catch (error) {
       throw new ApiError(

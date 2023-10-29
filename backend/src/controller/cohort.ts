@@ -209,10 +209,8 @@ export const getCohortStudentsById = async (req: Request, res: Response) => {
         data: null,
       });
     }
-    console.log(cohortId, userId);
 
-    const cohortStudent = await User.find({ userId });
-    console.log(cohortStudent);
+    const cohortStudent = await User.findOne({ _id: userId, cohortId: cohort.name });
 
     return res.status(StatusCode.OK).json({
       status: !!ResponseCode.SUCCESS,
