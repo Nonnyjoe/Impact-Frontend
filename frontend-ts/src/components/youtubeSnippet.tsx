@@ -2,9 +2,9 @@ import Image from 'next/image';
 import LayoutWrapper from './LayoutWrapper';
 import ytEmbed from '@/assets/Images/YouTubeEmbed.png';
 
-export function YoutubeSnippet() {
+export default function YoutubeSnippet() {
   return (
-    <div className="relative flex flex-col mt-10 md:mt-[50px] bg-black border h-auto">
+    <div className="relative bg-black border h-auto">
       <LayoutWrapper>
         <div className="pb-1 md:pb-10 rounded-3xl flex flex-col text-center">
           <p className="text-2xl md:text-4xl mt-8 md:mt-16 font-bold">

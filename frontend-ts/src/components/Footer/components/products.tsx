@@ -1,21 +1,35 @@
-import Link from 'next/link';
-
-export function Products() {
+export default function Products() {
   return (
     <div className="grid gap-2 md:gap-3">
       <p className="text-w3b-red text-sm md:text-base  font-bold font-poppins">Products</p>
-      <Link className="font-poppins text-sm md:text-base " href="https://www.web3bridge.com/dapps">
+      <a
+        className="font-poppins text-sm md:text-base "
+        href="https://www.web3bridge.com/dapps"
+        target="_blank"
+      >
         SafeKeep
-      </Link>
-      <Link className="font-poppins text-sm md:text-base " href="https://www.web3bridge.com/dapps">
+      </a>
+      <a
+        className="font-poppins text-sm md:text-base "
+        href="https://www.web3bridge.com/dapps"
+        target="_blank"
+      >
         Chained Thrift
-      </Link>
-      <Link className="font-poppins text-sm md:text-base " href="https://www.web3bridge.com/dapps">
+      </a>
+      <a
+        className="font-poppins text-sm md:text-base "
+        href="https://www.web3bridge.com/dapps"
+        target="_blank"
+      >
         Mutual Funds
-      </Link>
-      <Link className="font-poppins text-sm md:text-base " href="mailto:support@web3bridge.com">
+      </a>
+      <a
+        className="font-poppins text-sm md:text-base "
+        href="mailto:support@web3bridge.com"
+        target="_blank"
+      >
         Got a Suggestion?
-      </Link>
+      </a>
     </div>
   );
 }

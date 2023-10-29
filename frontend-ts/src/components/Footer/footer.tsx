@@ -1,19 +1,19 @@
 import Image from 'next/image';
-import { Contact } from './components/contact';
-import { Products } from './components/products';
-import { Resource } from './components/resource';
-import { Socials } from './components/socials';
-import { Web3bridge } from './components/web3bridge';
-import { Copyright } from './components/copyright';
+import Contact from './components/contact';
+import Products from './components/products';
+import Resource from './components/resource';
+import Socials from './components/socials';
+import Web3bridge from './components/web3bridge';
+import Copyright from './components/copyright';
 import LayoutWrapper from '../LayoutWrapper';
 import vector from '@/assets/Images/Vector.png';
 
-export function Footer() {
+export default function Footer() {
   return (
     <div className="bg-white">
       <LayoutWrapper>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 px-10 relative text-black justify-between gap-10">
-          <div className="col-span-2 md:col-span-3 md:w-2/3 lg:w-auto lg:col-span-1">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 px-10 relative text-black justify-between gap-10">
+          <div className="col-span-2 md:col-span-3 md:w-2/3 lg:w-auto lg:col-span-2">
             <Socials />
           </div>
 
@@ -30,7 +30,7 @@ export function Footer() {
           </div>
         </div>
       </LayoutWrapper>
-      <div className="border-t border-w3b-red mt-20 md:mt-[150px] pt-10 md:pt-20">
+      <div className="border-t border-w3b-red mt-8 py-8 md:py-12">
         <LayoutWrapper>
           <Copyright />
         </LayoutWrapper>

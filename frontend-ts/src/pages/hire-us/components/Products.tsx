@@ -12,7 +12,7 @@ import PW10 from '@/assets/Images/productsWorked/polytope.png';
 
 export const ProductsWorked = () => {
   return (
-    <div className="mb-20">
+    <div>
       <div className="text-black mb-12 mt-5">
         <h3 className="text-3xl md:text-4xl lg:text-6xl font-poppins font-bold text-center">
           Products we have <br />

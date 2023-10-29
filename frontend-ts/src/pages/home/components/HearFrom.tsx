@@ -1,10 +1,10 @@
 'use client';
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
 import { useEffect, useRef, useState } from 'react';
-import { CarouselComponent } from './CarouselComponent';
+import CarouselComponent from './CarouselComponent';
 import LayoutWrapper from '@/components/LayoutWrapper';
 
-export function HearFrom() {
+export default function HearFrom() {
   const carouselRef = useRef<HTMLDivElement>(null);
   const [disableBtn, setDisableBtn] = useState({
     left: true,
@@ -35,7 +35,7 @@ export function HearFrom() {
       </LayoutWrapper>
 
       <div
-        className="overflow-x-auto z-20 w-screen pb-6 xl:px-[calc(50vw-720px)] 3xl:px-[calc(50vw-900px)] no-scrollbar"
+        className="overflow-x-auto z-20 w-full pb-6 xl:px-[calc(50vw-720px)] 3xl:px-[calc(50vw-900px)] no-scrollbar"
         ref={carouselRef}
       >
         <CarouselComponent />

@@ -79,7 +79,7 @@ export function Gallery({ galleryDataArray }: galleryDataProps) {
       {galleryDataArray.map((data) => (
         <div>{data.title}</div>
       ))}
-      <div className="flex justify-center items-center mb-20">
+      <div className="flex justify-center items-center">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4 md:gap-10 mt-0 md:mt-3 px-8 md:px-[110px]">
           {renderedGallery}
         </div>

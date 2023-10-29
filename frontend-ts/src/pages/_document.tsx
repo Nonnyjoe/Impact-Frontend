@@ -1,6 +1,4 @@
-import {
-  Html, Head, Main, NextScript
-} from 'next/document';
+import { Html, Head, Main, NextScript } from 'next/document';
 import Header from '@/components/Header';
 
 export default function Document() {
@@ -10,10 +8,9 @@ export default function Document() {
       <body>
         <Header />
         <div className="pt-[70px] md:pt-[90px]">
-           <Main />
-        <NextScript />
+          <Main />
+          <NextScript />
         </div>
-
       </body>
     </Html>
   );

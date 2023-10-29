@@ -7,7 +7,7 @@ import {
   YoutubeIcon,
 } from '../../Icons/Icons';
 
-export function Socials() {
+export default function Socials() {
   return (
     <div>
       <div className="flex flex-row gap-2 md:gap-3 mb-5">

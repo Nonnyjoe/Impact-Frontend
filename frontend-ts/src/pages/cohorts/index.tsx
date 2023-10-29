@@ -1,9 +1,9 @@
 import { Stories } from './components/Stories';
 import { Goal } from './components/Goals';
 import { Gallery } from './components/Gallery';
-import { YoutubeSnippet } from '@/components/youtubeSnippet';
-import { AsShowcased } from '@/components/AsShowcased';
-import { Footer } from '@/components/Footer/footer';
+import YoutubeSnippet from '@/components/youtubeSnippet';
+import AsShowcased from '@/components/AsShowcased';
+import Footer from '@/components/Footer/footer';
 import { buildApiUrl } from '../data/appConfig';
 
 interface galleryData {
@@ -19,7 +19,7 @@ interface galleryDataProps {
 export default function Index({ galleryDataArray }: galleryDataProps) {
   console.log(galleryDataArray);
   return (
-    <div className="flex flex-col bg-white">
+    <div className="flex flex-col gap-24 bg-white">
       <Stories />
       <Gallery galleryDataArray={galleryDataArray} />
       <Goal />

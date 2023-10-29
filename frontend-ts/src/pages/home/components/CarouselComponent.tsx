@@ -1,6 +1,6 @@
 import { quotesData } from '../../../../../frontend/utils/usersQuotes';
 
-export function CarouselComponent() {
+export default function CarouselComponent() {
   return (
     <div className="text-black flex gap-8 md:gap-10 w-max">
       {quotesData.map((data, index) => (
