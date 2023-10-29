@@ -1,5 +1,6 @@
 import { CohortInterface } from '../@types';
 import Cohort from '../models/cohort';
+import User from '../models/user';
 import { ApiError, StatusCode } from '../utils';
 
 const ServerError = (error: any, projName: string, fnName: string, statusCode: StatusCode) => {
@@ -45,6 +46,21 @@ class CohortService {
         'impact api',
         error as string,
         'getCohortByName',
+        StatusCode.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
+
+  async getCohortStudents(cohortId: string) {
+    try {
+      const cohort = await Cohort.findById(cohortId);
+      const cohortStudents = await User.findOne({ cohortId: cohort?.id });
+      return { cohort, cohortStudents };
+    } catch (error) {
+      throw new ApiError(
+        'impact api',
+        error as string,
+        'getCohortById',
         StatusCode.INTERNAL_SERVER_ERROR
       );
     }
