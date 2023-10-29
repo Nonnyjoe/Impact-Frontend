@@ -35,7 +35,7 @@ export default function HearFrom() {
       </LayoutWrapper>
 
       <div
-        className="overflow-x-auto z-20 w-screen pb-6 xl:px-[calc(50vw-720px)] 3xl:px-[calc(50vw-900px)] no-scrollbar"
+        className="overflow-x-auto z-20 w-full pb-6 xl:px-[calc(50vw-720px)] 3xl:px-[calc(50vw-900px)] no-scrollbar"
         ref={carouselRef}
       >
         <CarouselComponent />
