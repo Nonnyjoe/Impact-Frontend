@@ -19,7 +19,7 @@ export const cohortList = [
 export const onboarders = [
   {
     cohortId: 'Cohort I',
-    email: 'samsona@gmail.com',
+    email: 'samsonajulor@gmail.com',
     isBlacklisted: false,
   },
   {

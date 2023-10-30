@@ -7,7 +7,7 @@ const CohortSchema = new mongoose.Schema(
       unique: true,
       required: [true, 'Cohort name is required'],
     },
-    alias: {
+    description: {
       type: Number,
     },
     isActive: {

@@ -4,11 +4,11 @@ import auth from './auth';
 import cohort from './cohort';
 import { AuthenticationsMiddleware } from '../middleware';
 
-const { authenticate } = AuthenticationsMiddleware;
+const { authenticate, authorize } = AuthenticationsMiddleware;
 const router = Router();
 
 router.use('/auth', auth);
-router.use('/cohort', cohort);
-router.use('/user', authenticate, user);
+router.use('/cohort', authenticate, cohort);
+router.use('/user', [authenticate], user);
 
 export default router;

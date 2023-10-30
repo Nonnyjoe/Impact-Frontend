@@ -9,10 +9,10 @@ const UserSchema = new mongoose.Schema(
       required: [true, 'Please include username'],
       unique: true,
     },
-    firstName: {
+    firstname: {
       type: String,
     },
-    lastName: {
+    lastname: {
       type: String,
     },
     email: {

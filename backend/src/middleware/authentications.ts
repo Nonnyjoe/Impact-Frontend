@@ -32,7 +32,6 @@ const Authentications = {
           status: !!ResponseCode.FAILURE,
           message: 'Invalid token',
         });
-      console;
       res.locals.user = user;
       next();
     } catch (error: any) {

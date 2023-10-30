@@ -50,6 +50,7 @@ const Tools = {
   },
 
   createQuery(query: any, data: UserQueryType): any {
+    console.log('query was called', query);
     if (data.role) query['role.' + data.role] = true;
 
     if (data.cohortId) query.cohortId = data.cohortId;
@@ -57,6 +58,8 @@ const Tools = {
     if (data.requestStatus) query.requestStatus = data.requestStatus;
 
     if (data.firstName) query.firstName = data.firstName;
+
+    if (data.email) query.email = data.email;
 
     if (data.lastName) query.lastName = data.lastName;
 
@@ -69,6 +72,10 @@ const Tools = {
     if (data.country) query.country = data.country;
 
     if (data.isBlocked) query.isBlocked = !!Number(data.isBlocked);
+
+    if (data.userId) query._id = data.userId;
+
+    return query;
   },
 };
 

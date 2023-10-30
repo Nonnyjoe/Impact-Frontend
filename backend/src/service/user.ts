@@ -39,7 +39,7 @@ class UserService {
   async getUserByEmail(email: string) {
     try {
       const user = User.findOne({ email });
-      if (!user) throw new Error('User not found');
+      if (!user) return null;
       return user;
     } catch (error) {
       throw new ApiError(
@@ -71,7 +71,7 @@ class UserService {
       const user = await User.findByIdAndUpdate(userId, userData, {
         new: true,
       });
-      if (!user) throw new Error('User not found');
+      if (!user) return null;
       return user;
     } catch (error) {
       throw new ApiError(
@@ -86,7 +86,7 @@ class UserService {
   deleteUser = async (userId: string) => {
     try {
       const user = await User.findByIdAndDelete(userId);
-      if (!user) throw new Error('User not found');
+      if (!user) return null;
       return user;
     } catch (error) {
       throw new ApiError(
@@ -105,11 +105,15 @@ class UserService {
       const limit = Number(data.limit) || 10;
       const page = Number(data.page) || 0;
 
-      console.log(data);
+      console.log(data, 'data');
+      console.log(query, typeof query._id);
 
       const users = await User.find(query)
         .limit(limit)
         .skip(page * 1);
+
+      console.log(users.length, '653f79137809c5e54539c36c');
+      console.log(await User.findOne(query));
 
       return users;
     } catch (error) {

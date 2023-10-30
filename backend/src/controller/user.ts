@@ -34,7 +34,7 @@ export async function onboardUser(req: Request, res: Response) {
       });
     }
     const token = createToken({ email }, '48h');
-    const link = `${FRONTEND_URL}/verify?token=${token}`;
+    const link = `${FRONTEND_URL}/api/auth/onboard/${token}`;
     // const message = `Hello ${email}, please click on the link below to get onboarded: ${link}`;
     const message = await verify({ url: link, year: new Date().getFullYear() });
     await sendEmail(email, 'Verify your account', message);
@@ -114,8 +114,6 @@ export async function logIn(req: Request, res: Response) {
 
     const preboarder = await PreboardService.getOnboarder(email);
 
-    console.log(preboarder);
-
     // to do
     // an admin do not need to be preboarded
 
@@ -154,8 +152,6 @@ export async function getOTP(req: Request, res: Response) {
     const { email } = req.body;
 
     const user = await UserService.getUserByEmail(email as string);
-
-    console.log(user);
 
     if (!user) {
       return res.status(StatusCode.BAD_REQUEST).json({
@@ -204,27 +200,33 @@ export const listUsers = async (req: Request, res: Response) => {
       ...req.query,
     } as unknown as UserQueryType);
 
-    const userCount = await UserService.getUsersCount();
+    let meta = {};
 
-    const remainingData = userCount - users.length;
+    const totalData = users.length;
 
-    const currentlyFetched = Number(req.query.limit) || 10;
+    if (totalData > 10) {
+      const userCount = await UserService.getUsersCount();
 
-    const currentPage = Number(req.query.page) + 1 || 1;
+      const remainingData = userCount - totalData;
 
-    const meta = {
-      totalData: users.length,
-      remainingData,
-      currentPage,
-      currentlyFetched,
-      numberOfPagesLeft: Math.round(remainingData / currentlyFetched) - currentPage,
-    };
+      const currentlyFetched = Number(req.query.limit) || 10;
+
+      const currentPage = Number(req.query.page) + 1 || 1;
+
+      meta = {
+        totalData,
+        remainingData,
+        currentPage,
+        currentlyFetched,
+        numberOfPagesLeft: Math.round(remainingData / currentlyFetched) - currentPage,
+      };
+    }
 
     const response = {
-      code: !!users.length ? 200 : 400,
-      status: !!users.length ? !!ResponseCode.SUCCESS : !!ResponseCode.FAILURE,
-      message: !!users.length ? 'User fetch successful' : 'No user found',
-      data: { meta, users },
+      code: !!totalData ? 200 : 400,
+      status: !!totalData ? !!ResponseCode.SUCCESS : !!ResponseCode.FAILURE,
+      message: !!totalData ? 'User fetch successful' : 'No user found',
+      data: { meta: req.query.userId ? {} : meta, users },
     };
 
     const { code, ...rest } = response;
@@ -296,6 +298,7 @@ export const updateUser = async (req: Request, res: Response) => {
       data: updateUser,
     });
   } catch (err: any) {
+    console.log(err);
     return res.status(err.status || StatusCode.INTERNAL_SERVER_ERROR).json({
       status: !!ResponseCode.FAILURE,
       message: err.message || 'Server Error',
@@ -322,12 +325,13 @@ export const deleteUser = async (req: Request, res: Response) => {
       });
     }
 
-    return res.status(StatusCode.OK).json({
-      status: ResponseCode.SUCCESS,
+    return res.status(StatusCode.NO_CONTENT).json({
+      status: !!ResponseCode.SUCCESS,
       message: 'User deleted successfully',
       data: deletedUser,
     });
   } catch (err: any) {
+    console.log(err);
     return res.status(err.status || StatusCode.INTERNAL_SERVER_ERROR).json({
       status: ResponseCode.FAILURE,
       message: err.message || 'Server Error',

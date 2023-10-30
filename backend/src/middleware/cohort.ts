@@ -14,7 +14,7 @@ const CohortMiddleware = {
       if (cohortByName) {
         return res.status(StatusCode.BAD_REQUEST).json({
           status: !!ResponseCode.FAILURE,
-          message: 'Email already exists',
+          message: 'Cohort Name already used',
         });
       }
 
