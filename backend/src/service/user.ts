@@ -106,6 +106,10 @@ class UserService {
         query.cohortId = data.cohortId;
       }
 
+      if (data.requestStatus) {
+        query.requestStatus = data.requestStatus;
+      }
+
       const users = await User.find(query)
         .limit(data.limit || 10)
         .skip((data.page || 0) * 1 - data.limit);

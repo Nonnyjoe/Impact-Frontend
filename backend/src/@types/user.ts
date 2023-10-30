@@ -96,4 +96,10 @@ export type UpdateUserType = {
   token?: string;
 };
 
-export type UserQueryType = { role: string; cohortId: Cohort; page: number; limit: number };
+export type UserQueryType = {
+  role: string;
+  cohortId: Cohort;
+  page: number;
+  limit: number;
+  requestStatus: string;
+};
