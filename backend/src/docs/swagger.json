@@ -242,6 +242,22 @@
         ]
       }
     },
+    "/api/user/pending": {
+      "get": {
+        "tags": ["User"],
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
     "/api/user/{userId}": {
       "get": {
         "tags": ["User"],
