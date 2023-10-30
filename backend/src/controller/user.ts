@@ -204,17 +204,17 @@ export const listUsers = async (req: Request, res: Response) => {
 
     const totalData = users.length;
 
-    if (totalData > 10) {
+    if (totalData > 9) {
       const userCount = await UserService.getUsersCount();
 
-      const remainingData = userCount - totalData;
-
-      const currentlyFetched = Number(req.query.limit) || 10;
+      const currentlyFetched = Number(req.query.limit) || totalData;
 
       const currentPage = Number(req.query.page) + 1 || 1;
 
+      const remainingData = userCount - totalData * currentPage;
+
       meta = {
-        totalData,
+        userCount,
         remainingData,
         currentPage,
         currentlyFetched,
