@@ -2,8 +2,6 @@ import { Router } from 'express';
 import { listUsers, getUser, updateUser, deleteUser } from '../controller/user';
 import { UserMiddleware } from '../middleware/';
 
-const { inspectUserOnboarding, inspectCreateUser } = UserMiddleware;
-
 const router = Router();
 
 router.post('/logout');
