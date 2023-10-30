@@ -25,13 +25,13 @@ const user = {
         .required()
         .label('Cohort ID is required. See admin for valid cohort IDs'),
       username: joi.string().required().label('Username is required'),
-      firstname: joi.string().required().label('Firstname is required'),
-      lastname: joi.string().required().label('Lastname is required'),
+      firstname: joi.string().optional().label('Firstname is required'),
+      lastname: joi.string().optional().label('Lastname is required'),
       email: joi.string().email().required().label('Email is required'),
       gender: joi
         .string()
         .valid('male', 'female', 'prefer not to say')
-        .required()
+        .optional()
         .label('Gender is required. Male, Female or Prefer not to say'),
       dob: joi
         .date()
