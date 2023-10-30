@@ -1,7 +1,9 @@
 import User from '../models/user';
 import { StatusCode, RegisterType, UpdateUserType, Cohort, UserQueryType } from '../@types';
 import { ApiError } from '../utils';
-import user from '../models/user';
+import { Toolbox } from '../utils';
+
+const { createQuery } = Toolbox;
 
 class UserService {
   async createUser(userData: RegisterType) {
@@ -98,27 +100,33 @@ class UserService {
 
   getAllUsers = async (data: UserQueryType) => {
     try {
-      const query: any = {};
+      const q = {} as any;
+      const query = createQuery(q, data);
+      const limit = Number(data.limit) || 10;
+      const page = Number(data.page) || 0;
 
-      if (data.role) {
-        query['role.' + data.role] = true;
-      }
-
-      if (data.cohortId) {
-        query.cohortId = data.cohortId;
-      }
-
-      if (data.requestStatus) {
-        query.requestStatus = data.requestStatus;
-      }
-
-      // add more queries here if needed. also you may modularize this in the future if it gets too long
+      console.log(data);
 
       const users = await User.find(query)
-        .limit(data.limit || 10)
-        .skip((data.page || 0) * 1 - data.limit);
+        .limit(limit)
+        .skip(page * 1);
 
       return users;
+    } catch (error) {
+      throw new ApiError(
+        'impact api',
+        error as string,
+        'getAllUsers',
+        StatusCode.INTERNAL_SERVER_ERROR
+      );
+    }
+  };
+
+  getUsersCount = async () => {
+    try {
+      const count = await User.count();
+
+      return count;
     } catch (error) {
       throw new ApiError(
         'impact api',

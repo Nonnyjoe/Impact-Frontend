@@ -199,11 +199,27 @@ export const listUsers = async (req: Request, res: Response) => {
       ...req.query,
     } as unknown as UserQueryType);
 
+    const userCount = await UserService.getUsersCount();
+
+    const remainingData = userCount - users.length;
+
+    const currentlyFetched = Number(req.query.limit) || 10;
+
+    const currentPage = Number(req.query.page) + 1 || 1;
+
+    const meta = {
+      totalData: users.length,
+      remainingData,
+      currentPage,
+      currentlyFetched,
+      numberOfPagesLeft: Math.round(remainingData / currentlyFetched) - currentPage,
+    };
+
     const response = {
       code: !!users.length ? 200 : 400,
       status: !!users.length ? !!ResponseCode.SUCCESS : !!ResponseCode.FAILURE,
       message: !!users.length ? 'User fetch successful' : 'No user found',
-      data: users,
+      data: { meta, users },
     };
 
     const { code, ...rest } = response;

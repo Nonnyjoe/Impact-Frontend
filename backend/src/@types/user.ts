@@ -97,9 +97,17 @@ export type UpdateUserType = {
 };
 
 export type UserQueryType = {
-  role: string;
-  cohortId: Cohort;
-  page: number;
-  limit: number;
-  requestStatus: string;
+  role?: string;
+  cohortId?: Cohort;
+  page?: number;
+  limit?: number;
+  requestStatus?: string;
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  username?: string;
+  isActive?: number;
+  state?: string;
+  country?: string;
+  isBlocked?: number;
 };

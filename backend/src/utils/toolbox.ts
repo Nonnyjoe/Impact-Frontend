@@ -2,6 +2,7 @@ import jwt, { JwtPayload } from 'jsonwebtoken';
 import { Request } from 'express';
 import { env } from '../config';
 import ApiError from './apiError';
+import { UserQueryType } from '../@types/user';
 
 const { NODE_ENV, SECRET } = env;
 
@@ -46,6 +47,28 @@ const Tools = {
 
   generateOTP(): number {
     return Math.floor(100000 + Math.random() * 900000);
+  },
+
+  createQuery(query: any, data: UserQueryType): any {
+    if (data.role) query['role.' + data.role] = true;
+
+    if (data.cohortId) query.cohortId = data.cohortId;
+
+    if (data.requestStatus) query.requestStatus = data.requestStatus;
+
+    if (data.firstName) query.firstName = data.firstName;
+
+    if (data.lastName) query.lastName = data.lastName;
+
+    if (data.username) query.username = data.username;
+
+    if (data.isActive) query.isActive = !!Number(data.isActive);
+
+    if (data.state) query.state = data.state;
+
+    if (data.country) query.country = data.country;
+
+    if (data.isBlocked) query.isBlocked = !!Number(data.isBlocked);
   },
 };
 
