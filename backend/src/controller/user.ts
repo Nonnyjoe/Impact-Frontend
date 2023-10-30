@@ -213,6 +213,29 @@ export const listUsers = async (req: Request, res: Response) => {
   }
 };
 
+export const listPendingUsers = async (_: Request, res: Response) => {
+  /*
+  #swagger.tags = ['User']
+  #swagger.security = [{
+            "bearerAuth": []
+    }] */
+  try {
+    const users = await UserService.getAllPendingUserRequest();
+
+    return res.status(StatusCode.OK).json({
+      status: !!ResponseCode.SUCCESS,
+      message: 'User fetch successful',
+      data: users,
+    });
+  } catch (err: any) {
+    console.log(err);
+    return res.status(err.statusCode || StatusCode.INTERNAL_SERVER_ERROR).json({
+      status: !!ResponseCode.FAILURE,
+      message: err.message || 'Server error',
+    });
+  }
+};
+
 export const getUser = async (req: Request, res: Response) => {
   /*
   #swagger.tags = ['User']

@@ -83,7 +83,7 @@ const doc = {
       description: 'Auth APIs',
     },
     {
-      name: 'Cohort',
+      name: 'cohort',
       description: 'Cohort APIs',
     },
     {
