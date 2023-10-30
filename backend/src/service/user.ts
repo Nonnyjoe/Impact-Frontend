@@ -112,6 +112,8 @@ class UserService {
         query.requestStatus = data.requestStatus;
       }
 
+      // add more queries here if needed. also you may modularize this in the future if it gets too long
+
       const users = await User.find(query)
         .limit(data.limit || 10)
         .skip((data.page || 0) * 1 - data.limit);
@@ -122,27 +124,6 @@ class UserService {
         'impact api',
         error as string,
         'getAllUsers',
-        StatusCode.INTERNAL_SERVER_ERROR
-      );
-    }
-  };
-
-  getAllPendingUserRequest = async () => {
-    try {
-      const query: any = {};
-
-      // if (requestStatus) {
-      //   query.requestStatus = requestStatus;
-      // }
-      const users = await user.find({ requestStatus: 'PENDING' });
-      // .limit(limit || 10)
-      // .skip((page || 0) * 1 - limit);
-      return users;
-    } catch (error) {
-      throw new ApiError(
-        'impact API',
-        error as string,
-        'getAllUsersRequest',
         StatusCode.INTERNAL_SERVER_ERROR
       );
     }

@@ -229,23 +229,7 @@
     "/api/user/": {
       "get": {
         "tags": ["User"],
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      }
-    },
-    "/api/user/pending": {
-      "get": {
-        "tags": ["User"],
-        "description": "",
+        "description": "You can add queries to the url to filter the response e.g. /api/user?cohortId=Cohort I&requestStatus=pending&role=super",
         "responses": {
           "default": {
             "description": ""
