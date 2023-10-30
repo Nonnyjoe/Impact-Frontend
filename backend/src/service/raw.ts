@@ -79,6 +79,46 @@ function getCohort(i: number): string {
   }
 }
 
+function setApprovalStatus(i: number) {
+  if (i < 3) {
+    return 'approved';
+  } else if (i < 9) {
+    return 'rejected';
+  } else if (i < 15) {
+    return 'expired';
+  } else if (i < 21) {
+    return 'pending';
+  } else if (i < 27) {
+    return 'approved';
+  } else if (i < 33) {
+    return 'rejected';
+  } else if (i < 39) {
+    return 'pending';
+  } else if (i < 45) {
+    return 'expired';
+  } else if (i < 51) {
+    return 'approved';
+  } else if (i < 57) {
+    return 'rejected';
+  } else if (i < 63) {
+    return 'pending';
+  } else if (i < 69) {
+    return 'expired';
+  } else if (i < 75) {
+    return 'approved';
+  } else if (i < 81) {
+    return 'rejected';
+  } else if (i < 87) {
+    return 'pending';
+  } else if (i < 93) {
+    return 'expired';
+  } else if (i < 99) {
+    return 'approved';
+  } else {
+    return 'rejected';
+  }
+}
+
 for (let i = 0; i < 120; i++) {
   students.push({
     email: `student${i + 1}@gmail.com`,
@@ -90,7 +130,7 @@ for (let i = 0; i < 120; i++) {
       user: i < 50 ? false : true,
       student: true,
     },
-    requestStatus: 'approved',
+    requestStatus: setApprovalStatus(i),
     isActive: true,
     cohortId: getCohort(i),
   });
