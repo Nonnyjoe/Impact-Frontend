@@ -5,6 +5,7 @@ import { env } from '../config';
 import { PreboardService, UserService } from '../service';
 import { customAlphabet } from 'nanoid';
 import { numbers } from 'nanoid-dictionary';
+import { verify } from '../mailTemplates/verify';
 
 const nanoid = customAlphabet(numbers, 6);
 const { createToken } = Toolbox;
@@ -34,8 +35,8 @@ export async function onboardUser(req: Request, res: Response) {
     }
     const token = createToken({ email }, '48h');
     const link = `${FRONTEND_URL}/verify?token=${token}`;
-    const message = `Hello ${email}, please click on the link below to get onboarded: ${link}`;
-    // const message = await verfify({ url: link, year: new Date().getFullYear() });
+    // const message = `Hello ${email}, please click on the link below to get onboarded: ${link}`;
+    const message = await verify({ url: link, year: new Date().getFullYear() });
     await sendEmail(email, 'Verify your account', message);
     return res.status(StatusCode.OK).json({
       status: !!ResponseCode.SUCCESS,
@@ -69,6 +70,9 @@ export async function createUser(req: Request, res: Response) {
     }]
   */
   try {
+    const { email } = req.body;
+    const token = createToken({ email }, '48h');
+    const link = `${FRONTEND_URL}/verify?token=${token}`;
     const user = await UserService.createUser({
       ...req.body,
     });
@@ -78,6 +82,7 @@ export async function createUser(req: Request, res: Response) {
 
     // todo
     // send a welcome mail
+    const message = `Welcome ${email}! `;
 
     return res.status(StatusCode.OK).json({
       status: !!ResponseCode.SUCCESS,
