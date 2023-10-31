@@ -100,20 +100,13 @@ class UserService {
 
   getAllUsers = async (data: UserQueryType) => {
     try {
-      const q = {} as any;
-      const query = createQuery(q, data);
+      const query = createQuery({}, data);
       const limit = Number(data.limit) || 10;
       const page = Number(data.page) || 0;
 
-      console.log(data, 'data');
-      console.log(query, typeof query._id);
-
       const users = await User.find(query)
         .limit(limit)
-        .skip(page * 1);
-
-      console.log(users.length, '653f79137809c5e54539c36c');
-      console.log(await User.findOne(query));
+        .skip(page * limit);
 
       return users;
     } catch (error) {

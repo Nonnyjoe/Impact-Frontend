@@ -225,9 +225,10 @@ export const listUsers = async (req: Request, res: Response) => {
         numberOfPages,
         numberOfPagesLeft: numberOfPages - currentPage,
       };
+      console.log({ meta });
     }
 
-    const response = {
+    const response: any = {
       code: !!totalData ? 200 : 400,
       status: !!totalData ? !!ResponseCode.SUCCESS : !!ResponseCode.FAILURE,
       message: !!totalData ? 'User fetch successful' : 'No user found',
