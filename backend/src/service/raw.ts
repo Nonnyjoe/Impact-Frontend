@@ -1,5 +1,5 @@
 import { env } from '../config';
-import cohort from '../validations/cohort';
+import { LoremIpsum } from 'lorem-ipsum';
 
 const { SUPER_ADMIN_EMAIL, SUPER_ADMIN_PASSWORD, SUPER_ADMIN_USERNAME } = env;
 
@@ -119,6 +119,97 @@ function setApprovalStatus(i: number) {
   }
 }
 
+function generateLoremIpsum(wordCount: number, paragraphs: number): string {
+  const loremIpsumWords = [
+    'Lorem',
+    'ipsum',
+    'dolor',
+    'sit',
+    'amet',
+    'consectetur',
+    'adipiscing',
+    'elit',
+    'sed',
+    'do',
+    'eiusmod',
+    'tempor',
+    'incididunt',
+    'ut',
+    'labore',
+    'et',
+    'dolore',
+    'magna',
+    'aliqua',
+    'Ut',
+    'enim',
+    'ad',
+    'minim',
+    'veniam',
+    'quis',
+    'nostrud',
+    'exercitation',
+    'ullamco',
+    'laboris',
+    'nisi',
+    'ut',
+    'aliquip',
+    'ex',
+    'ea',
+    'commodo',
+    'consequat',
+    'Duis',
+    'aute',
+    'irure',
+    'dolor',
+    'in',
+    'reprehenderit',
+    'in',
+    'voluptate',
+    'velit',
+    'esse',
+    'cillum',
+    'dolore',
+    'eu',
+    'fugiat',
+    'nulla',
+    'pariatur',
+    'Excepteur',
+    'sint',
+    'occaecat',
+    'cupidatat',
+    'non',
+    'proident',
+    'sunt',
+    'in',
+    'culpa',
+    'qui',
+    'officia',
+    'deserunt',
+    'mollit',
+    'anim',
+    'id',
+    'est',
+    'laborum',
+  ];
+
+  const loremIpsum = [];
+
+  for (let p = 0; p < paragraphs; p++) {
+    const paragraph = [];
+    let currentWordCount = 0;
+
+    while (currentWordCount < wordCount) {
+      const word = loremIpsumWords[Math.floor(Math.random() * loremIpsumWords.length)];
+      paragraph.push(word);
+      currentWordCount += 1;
+    }
+
+    loremIpsum.push(paragraph.join(' '));
+  }
+
+  return loremIpsum.join('\n\n');
+}
+
 for (let i = 0; i < 120; i++) {
   students.push({
     email: `student${i + 1}@gmail.com`,
@@ -133,6 +224,8 @@ for (let i = 0; i < 120; i++) {
     requestStatus: setApprovalStatus(i),
     isActive: true,
     cohortId: getCohort(i),
+    story: generateLoremIpsum(250, 3),
+    storyHeader: 'How Web3Bridge Impacted me',
   });
 }
 

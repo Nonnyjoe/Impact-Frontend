@@ -43,6 +43,7 @@ export const seedUsers = async () => {
 
     logger('seedUsers', 'Users seeded successfully :)');
   } catch (err) {
+    console.log(err);
     logger('seedUsers', 'Error seeding database :(');
   }
 };

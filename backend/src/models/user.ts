@@ -59,6 +59,7 @@ const UserSchema = new mongoose.Schema(
       required: [true, 'Please include cohortId'],
     },
     story: String,
+    storyHeader: String,
     about: String,
     isBlocked: {
       type: Boolean,
