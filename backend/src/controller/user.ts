@@ -199,6 +199,7 @@ export const listUsers = async (req: Request, res: Response) => {
     const users = await UserService.getAllUsers({
       ...req.query,
     } as unknown as UserQueryType);
+
     let meta = {};
 
     const totalData = users.length;
@@ -212,7 +213,6 @@ export const listUsers = async (req: Request, res: Response) => {
 
       const remainingData = userCount - totalData * currentPage;
 
-      // Ensure currentlyFetched is never zero
       currentlyFetched = currentlyFetched || 1;
 
       const numberOfPages = Math.ceil(userCount / currentlyFetched);
