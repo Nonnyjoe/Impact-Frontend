@@ -199,7 +199,6 @@ export const listUsers = async (req: Request, res: Response) => {
     const users = await UserService.getAllUsers({
       ...req.query,
     } as unknown as UserQueryType);
-
     let meta = {};
 
     const totalData = users.length;
@@ -207,18 +206,24 @@ export const listUsers = async (req: Request, res: Response) => {
     if (totalData > 9) {
       const userCount = await UserService.getUsersCount();
 
-      const currentlyFetched = Number(req.query.limit) || totalData;
+      let currentlyFetched = Number(req.query.limit) || totalData;
 
       const currentPage = Number(req.query.page) + 1 || 1;
 
       const remainingData = userCount - totalData * currentPage;
+
+      // Ensure currentlyFetched is never zero
+      currentlyFetched = currentlyFetched || 1;
+
+      const numberOfPages = Math.ceil(userCount / currentlyFetched);
 
       meta = {
         userCount,
         remainingData,
         currentPage,
         currentlyFetched,
-        numberOfPagesLeft: Math.round(remainingData / currentlyFetched) - currentPage,
+        numberOfPages,
+        numberOfPagesLeft: numberOfPages - currentPage,
       };
     }
 
