@@ -21,6 +21,7 @@ export type LoginData = {
   createdAt: string;
   updatedAt: string;
   story: string;
+  storyHeadder: string;
   __v: number;
 };
 
@@ -43,32 +44,56 @@ export default function useUser({ redirectTo = 'admin/login', redirectIfFound = 
   };
 
   const login = async ({ email = '' }) => {
-    const res = await fetch(buildApiUrl('/auth/otp'), {
-      body: JSON.stringify({ email }),
-      method: 'post',
-      headers: { 'Content-Type': 'application/json' },
-    });
+    try {
+      const res = await fetch(buildApiUrl('/auth/otp'), {
+        body: JSON.stringify({ email }),
+        method: 'post',
+        headers: { 'Content-Type': 'application/json' },
+      });
 
-    const {
-      data: { otp },
-    } = await res.json();
+      const {
+        data: { otp },
+      } = await res.json();
 
-    const res2 = await fetch(buildApiUrl('/auth/login'), {
-      body: JSON.stringify({ email, otp: Number(otp) }),
-      method: 'post',
-      headers: { 'Content-Type': 'application/json' },
-    });
+      if (!otp) {
+        throw new Error("OTP doesn't exist");
+      }
 
-    const { data: data1 } = await res2.json();
+      const res2 = await fetch(buildApiUrl('/auth/login'), {
+        body: JSON.stringify({ email, otp: Number(otp) }),
+        method: 'post',
+        headers: { 'Content-Type': 'application/json' },
+      });
 
-    const { token, user: loginData } = data1;
+      const { data: data1 } = await res2.json();
 
-    setUser({
-      isLoggedIn: true,
-      token,
-      user: { ...loginData },
-    });
+      const { token, user: loginData } = data1;
+
+      setUser({
+        isLoggedIn: true,
+        token,
+        user: { ...loginData },
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
+
+  async function postApi(path: string, body: any) {
+    try {
+      const res = await fetch(buildApiUrl(path), {
+        body: JSON.stringify(body),
+        method: 'put',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Authorization: `Bearer ${user?.token}`,
+        },
+      });
+      console.log(res);
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   useEffect(() => {
     // if no redirect needed, just return (example: already on /dashboard)
@@ -85,5 +110,5 @@ export default function useUser({ redirectTo = 'admin/login', redirectIfFound = 
     }
   }, [user, redirectIfFound, redirectTo]);
 
-  return { user: { ...user.user }, logout, login };
+  return { user: { ...user.user }, logout, login, postApi };
 }

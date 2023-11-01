@@ -7,7 +7,7 @@ const DashboardLayout: FC<{ children: JSX.Element }> = ({ children }) => {
   return (
     <div className="grid grid-cols-5 w-full h-screen text-rmd">
       <SideBar logout={logout} />
-      <div className="px-[5%] py-[5vh] col-span-4">{children}</div>
+      <div className="px-[3%] pt-[5vh] col-span-4">{children}</div>
     </div>
   );
 };
