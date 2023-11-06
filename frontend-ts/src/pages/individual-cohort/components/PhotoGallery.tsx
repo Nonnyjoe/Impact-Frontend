@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import React from 'react';
 import CM1 from '@/assets/Images/IMG11.png';
+import Image from 'next/image';
 
 interface cohortDataProps {
   id: string;
@@ -164,20 +165,20 @@ export function PhotoGallery({ cohortData }: any) {
     },
   ]);
 
-  // const renderedPhotoGallery = photoGalleryData.map((item) => {
-  //   return (
-  //     <div
-  //       key={item.id}
-  //       className="md:rounded-3xl sm:mt-5 md:mt-10 ring-gray-300 md:w-full lg:w-full"
-  //     >
-  //       <Image src={item.image} alt={item.alt} className="w-full h-auto md:h-full" />
-  //       <div className="flex flex-col items-center  md:items-start">
-  //         <p className="text text-black font-poppins mt-2 text-lg">{item.name}</p>
-  //         <p className="text text-w3b-red font-poppins text-sm">{item.text}</p>{' '}
-  //       </div>
-  //     </div>
-  //   );
-  // });
+  const renderedPhotoGallery = photoGalleryData.map((item) => {
+    return (
+      <div
+        key={item.id}
+        className="md:rounded-3xl sm:mt-5 md:mt-10 ring-gray-300 md:w-full lg:w-full"
+      >
+        <Image src={item.image} alt={item.alt} className="w-full h-auto md:h-full" />
+        <div className="flex flex-col items-center  md:items-start">
+          <p className="text text-black font-poppins mt-2 text-lg">{item.name}</p>
+          <p className="text text-w3b-red font-poppins text-sm">{item.text}</p>{' '}
+        </div>
+      </div>
+    );
+  });
 
   const renderedUser = cohortData?.users.map((item: any) => {
     return (
@@ -200,6 +201,7 @@ export function PhotoGallery({ cohortData }: any) {
     <>
       <div className="flex justify-center items-center flex-col">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4 md:gap-12 mt-0 mb-10 md:mb-20 md:mt-3 px-8 md:px-[110px]">
+          {renderedPhotoGallery}
           {renderedUser}
         </div>
         <button className="mt-10 mb-10 md:mt-[80px] border text-w3b-red border-w3b-red bg-white px-6 py-3 rounded-xl hover:bg-w3b-red hover:text-white transition duration-300 ease-in-out">
