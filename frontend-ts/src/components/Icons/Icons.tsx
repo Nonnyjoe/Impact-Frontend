@@ -6,6 +6,7 @@ import {
   BiLogoTelegram,
   BiLogoYoutube,
   BiLogoInstagram,
+  BiLogoGithub,
 } from 'react-icons/bi';
 
 interface IconProps {
@@ -39,4 +40,7 @@ export function YoutubeIcon({ color = 'text-w3b-red', fontsize = '20px' }: IconP
 
 export function InstagramIcon({ color = 'text-w3b-red', fontsize = '20px' }: IconProps) {
   return <BiLogoInstagram class={color} fontSize={fontsize} />;
+}
+export function GithubIcon({ color = 'text-w3b-red', fontsize = '20px' }: IconProps) {
+  return <BiLogoGithub class={color} fontSize={fontsize} />;
 }

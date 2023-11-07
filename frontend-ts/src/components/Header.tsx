@@ -25,7 +25,7 @@ export default function Header() {
             </div>
             <div className="hidden md:block">
               <div className="ml-10 flex items-baseline space-x-4">
-                {['Home', 'Stories', 'Cohorts', 'Hire Us'].map((item) => (
+                {['Home', 'Alumni', 'Hire Us'].map((item) => (
                   <Link key={item} href={`/${item.toLowerCase().split(' ').join('-')}`}>
                     <p className="text-w3b-black hover:text-w3b-red px-3 py-2 rounded-md text-base font-p-posts font-medium">
                       {item}
@@ -92,14 +92,19 @@ export default function Header() {
                 Home
               </p>
             </Link>
-            <Link href="/Stories" onClick={toggleNavbar}>
+            {/* <Link href="/Stories" onClick={toggleNavbar}>
               <p className="text-w3b-black hover:text-w3b-red block px-3 py-2 rounded-md text-base font-medium">
                 Stories
               </p>
-            </Link>
-            <Link href="/cohorts" onClick={toggleNavbar}>
+            </Link> */}
+            {/* <Link href="/cohorts" onClick={toggleNavbar}>
               <p className="text-w3b-black hover:text-w3b-red block px-3 py-2 rounded-md text-base font-medium">
                 Cohorts
+              </p>
+            </Link> */}
+            <Link href="/alumni" onClick={toggleNavbar}>
+              <p className="text-w3b-black hover:text-w3b-red block px-3 py-2 rounded-md text-base font-medium">
+                Alumni
               </p>
             </Link>
             <Link href="/Hire-us" onClick={toggleNavbar}>
