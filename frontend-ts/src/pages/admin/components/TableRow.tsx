@@ -5,10 +5,11 @@ import { RxCross2 } from 'react-icons/rx';
 
 export type ReqStatus = 'pending' | 'approved' | 'rejected';
 export type TTableRow = {
-  [x: string]: any;
+  length?: any;
+  // [x: string]: any;
+  email: string;
   name: string;
   cohort: string;
-  story: string;
   date: string;
   action: string;
   status: ReqStatus;
@@ -16,7 +17,7 @@ export type TTableRow = {
 };
 export const TableRow: FC<{ data: TTableRow; className?: string }> = ({ data, className }) => {
   const { postApi } = useUser();
-  const widths = ['1', '1', '4', '1', '1', '1'];
+  const widths = [2, 2, 1, 1, 1, 1];
   const getColor = (status: string) => {
     switch (status) {
       case 'approved':
@@ -70,7 +71,7 @@ export const TableRow: FC<{ data: TTableRow; className?: string }> = ({ data, cl
   };
 
   return (
-    <div className={`grid grid-cols-9 gap-x-[2%] items-center ${className}`}>
+    <div className={`grid grid-cols-8 gap-x-[2%] items-center ${className}`}>
       {Object.entries(data)
         .filter(([key]) => key !== 'id')
         .map(([key, value], index) => (
