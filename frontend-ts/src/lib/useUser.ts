@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import Router from 'next/router';
 import { useLocalStorage } from 'usehooks-ts';
 import { buildApiUrl } from '@/pages/data/appConfig';
+import toast from 'react-hot-toast';
 
 export type LoginData = {
   role: {
@@ -44,55 +45,47 @@ export default function useUser({ redirectTo = 'admin/login', redirectIfFound = 
   };
 
   const login = async ({ email = '' }) => {
-    try {
-      const res = await fetch(buildApiUrl('/auth/otp'), {
-        body: JSON.stringify({ email }),
-        method: 'post',
-        headers: { 'Content-Type': 'application/json' },
-      });
+    const res = await fetch(buildApiUrl('/auth/otp'), {
+      body: JSON.stringify({ email }),
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+    });
 
-      const {
-        data: { otp },
-      } = await res.json();
+    const {
+      data: { otp },
+    } = await res.json();
 
-      if (!otp) {
-        throw new Error("OTP doesn't exist");
-      }
-
-      const res2 = await fetch(buildApiUrl('/auth/login'), {
-        body: JSON.stringify({ email, otp: Number(otp) }),
-        method: 'post',
-        headers: { 'Content-Type': 'application/json' },
-      });
-
-      const { data: data1 } = await res2.json();
-
-      const { token, user: loginData } = data1;
-
-      setUser({
-        isLoggedIn: true,
-        token,
-        user: { ...loginData },
-      });
-    } catch (error) {
-      console.error(error);
+    if (!otp) {
+      throw new Error("OTP doesn't exist");
     }
+
+    const res2 = await fetch(buildApiUrl('/auth/login'), {
+      body: JSON.stringify({ email, otp: Number(otp) }),
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+    });
+
+    const { data: data1 } = await res2.json();
+
+    const { token, user: loginData } = data1;
+
+    setUser({
+      isLoggedIn: true,
+      token,
+      user: { ...loginData },
+    });
   };
 
   async function postApi(path: string, body: any) {
-    try {
-      const res = await fetch(buildApiUrl(path), {
-        body: JSON.stringify(body),
-        method: 'put',
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          Authorization: `Bearer ${user?.token}`,
-        },
-      });
-      console.log(res);
-    } catch (error) {
-      console.error(error);
-    }
+    const res = await fetch(buildApiUrl(path), {
+      body: JSON.stringify(body),
+      method: 'put',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Authorization: `Bearer ${user?.token}`,
+      },
+    });
+    return res;
   }
 
   useEffect(() => {

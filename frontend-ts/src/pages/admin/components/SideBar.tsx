@@ -33,7 +33,7 @@ const SideBar: FC<Props> = ({ logout }) => {
               <Link
                 key={word}
                 href={path}
-                className={`rounded-[0.8vw] w-full py-[5%] pl-[15%]  flex items-center gap-[7%] text-rsm ${
+                className={`rounded-[0.8vw] w-full py-[5%] pl-[15%]  flex items-center gap-[7%] text-rsm hover:bg-w3b-red/20  ${
                   currPath == path ? 'bg-w3b-red text-white font-bold ' : ''
                 }`}
               >

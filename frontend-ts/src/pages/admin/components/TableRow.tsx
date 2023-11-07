@@ -1,7 +1,9 @@
 import useUser from '@/lib/useUser';
-import { FC } from 'react';
+import { FC, useState } from 'react';
+import toast, { Toast } from 'react-hot-toast';
 import { AiOutlineCheck } from 'react-icons/ai';
 import { RxCross2 } from 'react-icons/rx';
+import { Dna } from 'react-loader-spinner';
 
 export type ReqStatus = 'pending' | 'approved' | 'rejected';
 export type TTableRow = {
@@ -15,8 +17,17 @@ export type TTableRow = {
   status: ReqStatus;
   id: string;
 };
-export const TableRow: FC<{ data: TTableRow; className?: string }> = ({ data, className }) => {
+export const TableRow: FC<{
+  data: TTableRow;
+  className?: string;
+  loading?: boolean;
+  setLoading?: (loading: boolean) => void;
+}> = ({ data, className, loading, setLoading }) => {
   const { postApi } = useUser();
+  const toastConfig: Partial<Pick<Toast, 'id' | 'position'>> = {
+    position: 'top-right',
+    id: 'update-status',
+  };
   const widths = [2, 2, 1, 1, 1, 1];
   const getColor = (status: string) => {
     switch (status) {
@@ -36,8 +47,16 @@ export const TableRow: FC<{ data: TTableRow; className?: string }> = ({ data, cl
 
   const handleUpdate = async (status: ReqStatus, id: string) => {
     if (data?.length) return;
+    setLoading?.(true);
     const res = await postApi(`user/${id}`, { requestStatus: status });
-    console.log(res);
+
+    if (res.ok) {
+      setLoading?.(false);
+      toast.success('Status updated successfully', toastConfig);
+    } else {
+      setLoading?.(false);
+      toast.error('Error updating status', toastConfig);
+    }
   };
 
   const renderCell = (key: string, value: string, id: string) => {
@@ -54,16 +73,33 @@ export const TableRow: FC<{ data: TTableRow; className?: string }> = ({ data, cl
         );
       case 'action':
         return (
-          <div className="flex justify-center gap-[20%] items-center text-rlg">
-            <AiOutlineCheck
-              className="text-w3b-green hover:bg-w3b-light-green p-[5%] rounded-[25%]"
-              onClick={() => handleUpdate('approved', id)}
-            />
-            <RxCross2
-              className="text-w3b-red hover:bg-w3b-light-red p-[5%]  rounded-[25%]"
-              onClick={() => handleUpdate('rejected', id)}
-            />
-          </div>
+          <button
+            className="w-full flex justify-center gap-[20%] items-center text-rlg disabled:opacity-70"
+            disabled={loading}
+          >
+            {' '}
+            {loading ? (
+              <Dna
+                visible={true}
+                height="auto"
+                width="2.4vw"
+                ariaLabel="dna-loading"
+                wrapperStyle={{}}
+                wrapperClass="dna-wrapper"
+              />
+            ) : (
+              <>
+                <AiOutlineCheck
+                  className="text-w3b-green hover:bg-w3b-light-green p-[5%] rounded-[25%]"
+                  onClick={() => handleUpdate('approved', id)}
+                />
+                <RxCross2
+                  className="text-w3b-red hover:bg-w3b-light-red p-[5%]  rounded-[25%]"
+                  onClick={() => handleUpdate('rejected', id)}
+                />
+              </>
+            )}
+          </button>
         );
       default:
         return <p className="truncate">{value}</p>;

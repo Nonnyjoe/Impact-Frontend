@@ -64,6 +64,7 @@ export const getServerSideProps = (async ({ query: { page = 0, cohortId } }) => 
 
 const Admin = ({ tableData, meta }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const [isOpen, setIsOpen] = useState(true);
+  const [isApproving, setIsApproving] = useState(false);
   const { user } = useUser();
   const router = useRouter();
 
@@ -104,7 +105,13 @@ const Admin = ({ tableData, meta }: InferGetServerSidePropsType<typeof getServer
               }
             >
               {tableData.map((row) => (
-                <TableRow data={row} key={row.name} className={'h-max'} />
+                <TableRow
+                  data={row}
+                  key={row.name}
+                  className={'h-max'}
+                  loading={isApproving}
+                  setLoading={setIsApproving}
+                />
               ))}
             </div>
             <div className={'text-rmin flex justify-end items-center gap-[2%]'}>
@@ -129,7 +136,7 @@ const Admin = ({ tableData, meta }: InferGetServerSidePropsType<typeof getServer
           </div>
         </div>
 
-        <RequestModal isOpen={isOpen} setIsOpen={setIsOpen} />
+        {/* <RequestModal isOpen={isOpen} setIsOpen={setIsOpen} /> */}
       </>
     </DashboardLayout>
   );
