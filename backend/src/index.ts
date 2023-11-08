@@ -63,9 +63,7 @@ app.all('/*', (req: Request, res: Response, next: NextFunction) => {
 app.use((err: any, req: Request, res: Response) => {
   res.status(400).send({
     success: false,
-    message: err.message.toLowerCase().includes('duplicate key')
-      ? 'Account already exists'
-      : err.message,
+    message: err.message,
   });
 });
 

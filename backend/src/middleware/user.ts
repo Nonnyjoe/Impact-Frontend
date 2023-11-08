@@ -9,7 +9,6 @@ const { verifyToken } = Toolbox;
 const UserMiddleware = {
   async inspectUserOnboarding(req: Request, res: Response, next: NextFunction) {
     try {
-      console.log(req.body);
       await userValidations.validateUserOnboarding(req.body);
       const { email, otp } = req.body;
 
@@ -29,7 +28,6 @@ const UserMiddleware = {
           })
         : next();
     } catch (error: any) {
-      console.log(error);
       return res.status(error.statusCode || StatusCode.INTERNAL_SERVER_ERROR).json({
         status: !!ResponseCode.FAILURE,
         message: error,
@@ -82,7 +80,6 @@ const UserMiddleware = {
       }
       next();
     } catch (error: any) {
-      console.log(error);
       return res.status(error.statusCode || StatusCode.INTERNAL_SERVER_ERROR).json({
         status: !!ResponseCode.FAILURE,
         message: error,
@@ -94,7 +91,6 @@ const UserMiddleware = {
       await userValidations.validateUpdateUser(req.body);
       next();
     } catch (error: any) {
-      console.log(error);
       return res.status(error.statusCode || StatusCode.INTERNAL_SERVER_ERROR).json({
         status: !!ResponseCode.FAILURE,
         message: error,

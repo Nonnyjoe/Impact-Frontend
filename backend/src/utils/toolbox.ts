@@ -50,7 +50,6 @@ const Tools = {
   },
 
   createQuery(query: any, data: UserQueryType): any {
-    console.log('query was called', query);
     if (data.role) query['role.' + data.role] = true;
 
     if (data.cohortId) query.cohortId = data.cohortId;

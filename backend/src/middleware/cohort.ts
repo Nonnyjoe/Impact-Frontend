@@ -20,7 +20,6 @@ const CohortMiddleware = {
 
       next();
     } catch (error: any) {
-      console.log(error);
       return res.status(error.statusCode || StatusCode.INTERNAL_SERVER_ERROR).json({
         status: !!ResponseCode.FAILURE,
         message: error,

@@ -1,5 +1,12 @@
 import { Request, Response } from 'express';
-import { Cohort, ResponseCode, StatusCode, UserInterface, UserQueryType } from '../@types';
+import {
+  Cohort,
+  GenericAnyType,
+  ResponseCode,
+  StatusCode,
+  UserInterface,
+  UserQueryType,
+} from '../@types';
 import { Toolbox, sendEmail } from '../utils';
 import { env } from '../config';
 import { PreboardService, UserService } from '../service';
@@ -43,7 +50,7 @@ export async function onboardUser(req: Request, res: Response) {
       message: 'Verification link sent successfully. Check your email',
       data: NODE_ENV === 'development' ? { link } : null,
     });
-  } catch (error: any) {
+  } catch (error: GenericAnyType) {
     return res.status(error.statusCode || StatusCode.INTERNAL_SERVER_ERROR).json({
       status: !!ResponseCode.FAILURE,
       message: error.message || 'Something went wrong',
@@ -88,8 +95,7 @@ export async function createUser(req: Request, res: Response) {
       status: !!ResponseCode.SUCCESS,
       message: 'User created successfully',
     });
-  } catch (error: any) {
-    console.log(error);
+  } catch (error: GenericAnyType) {
     return res.status(error.statusCode || StatusCode.INTERNAL_SERVER_ERROR).json({
       status: !!ResponseCode.FAILURE,
       message: error.message || 'Something went wrong',
@@ -136,7 +142,7 @@ export async function logIn(req: Request, res: Response) {
         user,
       },
     });
-  } catch (error: any) {
+  } catch (error: GenericAnyType) {
     return res.status(error.statusCode || StatusCode.INTERNAL_SERVER_ERROR).json({
       status: !!ResponseCode.FAILURE,
       message: error.message || 'Something went wrong',
@@ -180,8 +186,7 @@ export async function getOTP(req: Request, res: Response) {
         expiresIn: '5 minutes',
       },
     });
-  } catch (error: any) {
-    console.log(error);
+  } catch (error: GenericAnyType) {
     return res.status(error.statusCode || StatusCode.INTERNAL_SERVER_ERROR).json({
       status: !!ResponseCode.FAILURE,
       message: error.message || 'Something went wrong',
@@ -225,10 +230,9 @@ export const listUsers = async (req: Request, res: Response) => {
         numberOfPages,
         numberOfPagesLeft: numberOfPages - currentPage,
       };
-      console.log({ meta });
     }
 
-    const response: any = {
+    const response: GenericAnyType = {
       code: !!totalData ? 200 : 400,
       status: !!totalData ? !!ResponseCode.SUCCESS : !!ResponseCode.FAILURE,
       message: !!totalData ? 'User fetch successful' : 'No user found',
@@ -238,8 +242,7 @@ export const listUsers = async (req: Request, res: Response) => {
     const { code, ...rest } = response;
 
     return res.status(response.code).json(rest);
-  } catch (err: any) {
-    console.log(err);
+  } catch (err: GenericAnyType) {
     return res.status(err.statusCode || StatusCode.INTERNAL_SERVER_ERROR).json({
       status: !!ResponseCode.FAILURE,
       message: err.message || 'Server error',
@@ -270,7 +273,7 @@ export const getUser = async (req: Request, res: Response) => {
       message: 'User fetch successful',
       data: user,
     });
-  } catch (err: any) {
+  } catch (err: GenericAnyType) {
     return res.status(err.status || StatusCode.INTERNAL_SERVER_ERROR).json({
       status: !!ResponseCode.FAILURE,
       message: err.message || 'Server Error',
@@ -303,8 +306,7 @@ export const updateUser = async (req: Request, res: Response) => {
       message: 'User update successful',
       data: updateUser,
     });
-  } catch (err: any) {
-    console.log(err);
+  } catch (err: GenericAnyType) {
     return res.status(err.status || StatusCode.INTERNAL_SERVER_ERROR).json({
       status: !!ResponseCode.FAILURE,
       message: err.message || 'Server Error',
@@ -336,8 +338,7 @@ export const deleteUser = async (req: Request, res: Response) => {
       message: 'User deleted successfully',
       data: deletedUser,
     });
-  } catch (err: any) {
-    console.log(err);
+  } catch (err: GenericAnyType) {
     return res.status(err.status || StatusCode.INTERNAL_SERVER_ERROR).json({
       status: ResponseCode.FAILURE,
       message: err.message || 'Server Error',
@@ -345,10 +346,38 @@ export const deleteUser = async (req: Request, res: Response) => {
   }
 };
 
-// export const upload = async (req: Request, res: Response) => {
-//   try {
+export async function uploadImage(req: Request, res: Response) {
+  try {
+    const { userId } = req.params;
 
-//   } catch (error) {
+    const image = req.file?.path ? req.file?.path : '';
 
-//   }
-// }
+    if (!image)
+      return res.status(StatusCode.BAD_REQUEST).json({
+        status: !!ResponseCode.FAILURE,
+        message: 'Image not found',
+      });
+
+    const updatedUser = await UserService.updateUser(userId, {
+      image,
+    });
+
+    if (!updatedUser)
+      return res.status(404).json({
+        status: !!ResponseCode.FAILURE,
+        message: 'User not found',
+      });
+
+    return res.status(200).json({
+      status: !!ResponseCode.SUCCESS,
+      message: 'Image uploaded successfully',
+      data: updatedUser,
+    });
+  } catch (error: GenericAnyType) {
+    console.log(error, 'error from contr', error[0]);
+    return res.status(StatusCode.INTERNAL_SERVER_ERROR).json({
+      status: !!ResponseCode.FAILURE,
+      message: error.message || error,
+    });
+  }
+}

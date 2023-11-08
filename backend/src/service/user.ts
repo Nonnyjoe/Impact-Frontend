@@ -74,6 +74,7 @@ class UserService {
       if (!user) return null;
       return user;
     } catch (error) {
+      console.log(error, 'from update user');
       throw new ApiError(
         'impact api',
         error as string,

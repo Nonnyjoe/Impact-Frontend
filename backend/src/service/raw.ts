@@ -23,6 +23,56 @@ export const onboarders = [
     isBlacklisted: false,
   },
   {
+    cohortId: 'Cohort I',
+    email: 'samsonajulor+1@gmail.com',
+    isBlacklisted: false,
+  },
+  {
+    cohortId: 'Cohort I',
+    email: 'samsonajulor+2@gmail.com',
+    isBlacklisted: false,
+  },
+  {
+    cohortId: 'Cohort I',
+    email: 'samsonajulor+3@gmail.com',
+    isBlacklisted: false,
+  },
+  {
+    cohortId: 'Cohort I',
+    email: 'samsonajulor+4@gmail.com',
+    isBlacklisted: false,
+  },
+  {
+    cohortId: 'Cohort I',
+    email: 'samsonajulor+10@gmail.com',
+    isBlacklisted: false,
+  },
+  {
+    cohortId: 'Cohort I',
+    email: 'samsonajulor+5@gmail.com',
+    isBlacklisted: false,
+  },
+  {
+    cohortId: 'Cohort I',
+    email: 'samsonajulor+6@gmail.com',
+    isBlacklisted: false,
+  },
+  {
+    cohortId: 'Cohort I',
+    email: 'samsonajulor+7@gmail.com',
+    isBlacklisted: false,
+  },
+  {
+    cohortId: 'Cohort I',
+    email: 'samsonajulor+8@gmail.com',
+    isBlacklisted: false,
+  },
+  {
+    cohortId: 'Cohort I',
+    email: 'samsonajulor+9@gmail.com',
+    isBlacklisted: false,
+  },
+  {
     cohortId: 'Cohort II',
     email: 'samuel@gmail.com',
     isBlacklisted: true,
