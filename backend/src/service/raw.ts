@@ -135,7 +135,7 @@ function setApprovalStatus(i: number) {
   } else if (i < 9) {
     return 'rejected';
   } else if (i < 15) {
-    return 'expired';
+    return 'pending';
   } else if (i < 21) {
     return 'pending';
   } else if (i < 27) {
@@ -145,7 +145,7 @@ function setApprovalStatus(i: number) {
   } else if (i < 39) {
     return 'pending';
   } else if (i < 45) {
-    return 'expired';
+    return 'approved';
   } else if (i < 51) {
     return 'approved';
   } else if (i < 57) {
@@ -153,7 +153,7 @@ function setApprovalStatus(i: number) {
   } else if (i < 63) {
     return 'pending';
   } else if (i < 69) {
-    return 'expired';
+    return 'rejected';
   } else if (i < 75) {
     return 'approved';
   } else if (i < 81) {
@@ -161,7 +161,7 @@ function setApprovalStatus(i: number) {
   } else if (i < 87) {
     return 'pending';
   } else if (i < 93) {
-    return 'expired';
+    return 'pending';
   } else if (i < 99) {
     return 'approved';
   } else {

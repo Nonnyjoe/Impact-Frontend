@@ -77,6 +77,19 @@ const user = {
     if (error) throw error.details[0].context.label;
     return true;
   },
+
+  async validateOnboardingRequest(payload: any) {
+    const schema = joi.object({
+      requestStatus: joi
+        .string()
+        .valid('approved', 'rejected')
+        .required()
+        .label('Request status is required. approved or rejected'),
+    });
+    const { error } = schema.validate(payload);
+    if (error) throw error.details[0].context.label;
+    return true;
+  },
 };
 
 export default user;

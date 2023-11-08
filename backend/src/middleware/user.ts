@@ -97,6 +97,18 @@ const UserMiddleware = {
       });
     }
   },
+
+  async inspectOnboardingRequest(req: Request, res: Response, next: NextFunction) {
+    try {
+      await userValidations.validateOnboardingRequest(req.body);
+      next();
+    } catch (error: any) {
+      return res.status(error.statusCode || StatusCode.INTERNAL_SERVER_ERROR).json({
+        status: !!ResponseCode.FAILURE,
+        message: error,
+      });
+    }
+  },
 };
 
 export default UserMiddleware;

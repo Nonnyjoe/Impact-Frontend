@@ -13,6 +13,7 @@ export const seedOnboarders = async () => {
 
     logger('seedOnboarders', 'onboarders seeded successfully :)');
   } catch (err) {
+    console.log(err); // leave this for debugging
     logger('seedOnboarders', 'Error seeding database :(');
   }
 };
@@ -30,7 +31,8 @@ export const seedSuperAdmin = async () => {
 
     logger('seedSuperAdmin', 'Super admin seeded successfully :)');
   } catch (err) {
-    logger('seedSuperAdmin', 'Error seeding database :(');
+    console.log(err); // leave this for debugging
+    logger('seedSuperAdmin', 'Error seeding superAdmin :(');
   }
 };
 
@@ -42,6 +44,7 @@ export const seedUsers = async () => {
 
     logger('seedUsers', 'Users seeded successfully :)');
   } catch (err) {
-    logger('seedUsers', 'Error seeding database :(');
+    console.log(err); // leave this for debugging
+    logger('seedUsers', 'Error seeding users :(');
   }
 };
