@@ -70,6 +70,11 @@ const UserSchema = new mongoose.Schema(
       enum: ['rejected', 'approved', 'pending'],
       default: 'pending',
     },
+    availabilityStatus: {
+      type: String,
+      enum: ['available', 'unavailable'],
+      default: 'available',
+    },
     token: String,
   },
   { toJSON: { virtuals: true }, toObject: { virtuals: true }, timestamps: true }

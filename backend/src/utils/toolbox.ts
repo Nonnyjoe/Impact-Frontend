@@ -74,6 +74,8 @@ const Tools = {
 
     if (data.userId) query._id = data.userId;
 
+    if (data.availabilityStatus) query.availabilityStatus = data.availabilityStatus;
+
     return query;
   },
 };

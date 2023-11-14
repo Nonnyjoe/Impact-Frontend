@@ -102,6 +102,7 @@ export type UserQueryType = {
   page?: number;
   limit?: number;
   requestStatus?: string;
+  availabilityStatus?: string;
   firstName?: string;
   lastName?: string;
   email?: string;
