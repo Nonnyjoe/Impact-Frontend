@@ -83,6 +83,12 @@ export const onboarders = [
     isBlacklisted: true,
     hasOnboarded: true,
   },
+  {
+    cohortId: 'Cohort II',
+    email: 'jaydhales@gmail.com',
+    isBlacklisted: false,
+    hasOnboarded: true,
+  },
 ];
 
 export const superAdmin = {
