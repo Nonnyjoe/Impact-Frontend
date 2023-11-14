@@ -7,36 +7,12 @@ import { userValidations } from '../validations';
 const { verifyToken } = Toolbox;
 
 const UserMiddleware = {
-  async onlyAdmin(req: Request, res: Response, next: NextFunction) {
-    try {
-      console.log(req);
-      const { email } = req.body;
-      const userWithEmail = await UserService.getUserByEmail(email);
-      if (userWithEmail?.role?.admin) {
-        next();
-      } else {
-        return res.status(StatusCode.UNAUTHORIZED).json({
-          status: !!ResponseCode.FAILURE,
-          message: 'Only admin can access resource',
-        });
-      }
-    } catch (error: any) {
-      console.log(error);
-      return res.status(error.statusCode || StatusCode.INTERNAL_SERVER_ERROR).json({
-        status: !!ResponseCode.FAILURE,
-        message: error,
-      });
-    }
-  },
   async inspectUserOnboarding(req: Request, res: Response, next: NextFunction) {
     try {
-      console.log(req.body);
       await userValidations.validateUserOnboarding(req.body);
       const { email, otp } = req.body;
 
       const user = await UserService.getUserByEmail(email);
-
-      console.log(user);
 
       if (!user && otp) {
         return res.status(StatusCode.BAD_REQUEST).json({
@@ -52,7 +28,6 @@ const UserMiddleware = {
           })
         : next();
     } catch (error: any) {
-      console.log(error);
       return res.status(error.statusCode || StatusCode.INTERNAL_SERVER_ERROR).json({
         status: !!ResponseCode.FAILURE,
         message: error,
@@ -105,7 +80,29 @@ const UserMiddleware = {
       }
       next();
     } catch (error: any) {
-      console.log(error);
+      return res.status(error.statusCode || StatusCode.INTERNAL_SERVER_ERROR).json({
+        status: !!ResponseCode.FAILURE,
+        message: error,
+      });
+    }
+  },
+  async inspectUpdateUser(req: Request, res: Response, next: NextFunction) {
+    try {
+      await userValidations.validateUpdateUser(req.body);
+      next();
+    } catch (error: any) {
+      return res.status(error.statusCode || StatusCode.INTERNAL_SERVER_ERROR).json({
+        status: !!ResponseCode.FAILURE,
+        message: error,
+      });
+    }
+  },
+
+  async inspectOnboardingRequest(req: Request, res: Response, next: NextFunction) {
+    try {
+      await userValidations.validateOnboardingRequest(req.body);
+      next();
+    } catch (error: any) {
       return res.status(error.statusCode || StatusCode.INTERNAL_SERVER_ERROR).json({
         status: !!ResponseCode.FAILURE,
         message: error,

@@ -9,10 +9,10 @@ const UserSchema = new mongoose.Schema(
       required: [true, 'Please include username'],
       unique: true,
     },
-    firstName: {
+    firstname: {
       type: String,
     },
-    lastName: {
+    lastname: {
       type: String,
     },
     email: {
@@ -58,6 +58,8 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Please include cohortId'],
     },
+    story: String,
+    storyHeader: String,
     about: String,
     isBlocked: {
       type: Boolean,
@@ -65,12 +67,20 @@ const UserSchema = new mongoose.Schema(
     },
     requestStatus: {
       type: String,
-      enum: ['rejected', 'approved', 'pending', 'expired'],
+      enum: ['rejected', 'approved', 'pending'],
       default: 'pending',
     },
     token: String,
   },
   { toJSON: { virtuals: true }, toObject: { virtuals: true }, timestamps: true }
 );
+
+UserSchema.set('toJSON', {
+  transform: (doc, ret) => {
+    ret.id = ret._id;
+    delete ret._id;
+    delete ret.__v;
+  },
+});
 
 export default mongoose.model('User', UserSchema);

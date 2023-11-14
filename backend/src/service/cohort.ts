@@ -1,5 +1,6 @@
 import { CohortInterface } from '../@types';
 import Cohort from '../models/cohort';
+import User from '../models/user';
 import { ApiError, StatusCode } from '../utils';
 
 const ServerError = (error: any, projName: string, fnName: string, statusCode: StatusCode) => {
@@ -50,6 +51,21 @@ class CohortService {
     }
   }
 
+  async getCohortStudents(cohortId: string) {
+    try {
+      const cohort = await Cohort.findById(cohortId);
+      const cohortStudents = await User.findOne({ cohortId: cohort?.id });
+      return { cohort, cohortStudents };
+    } catch (error) {
+      throw new ApiError(
+        'impact api',
+        error as string,
+        'getCohortById',
+        StatusCode.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
+
   async createCohort(cohortData: CohortInterface) {
     try {
       const cohort = new Cohort(cohortData);
@@ -75,23 +91,21 @@ class CohortService {
       throw ServerError(error, 'impact API', 'updateCohort', StatusCode.INTERNAL_SERVER_ERROR);
     }
   }
-  async deleteCohort(cohortId: string) {
+
+  deleteCohort = async (cohortId: string) => {
     try {
       const cohort = await Cohort.findByIdAndDelete(cohortId);
-
-      if (!cohort) {
-        // Throw an error if the cohort is not found
-        throw new Error('Cohort not found');
-      }
-
-      cohort?.deleteOne();
-
-      return null;
+      if (!cohort) return null;
+      return cohort;
     } catch (error) {
-      // Handle any errors and rethrow them with additional context
-      throw ServerError(error, 'impact API', 'updateCohort', StatusCode.INTERNAL_SERVER_ERROR);
+      throw new ApiError(
+        'impact api',
+        error as string,
+        'deleteCohort',
+        StatusCode.INTERNAL_SERVER_ERROR
+      );
     }
-  }
+  };
 }
 
 export default new CohortService();

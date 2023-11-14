@@ -1,4 +1,4 @@
-import { Document } from 'mongoose';
+import Document from './imports';
 
 // gender enum
 export enum Gender {
@@ -96,4 +96,19 @@ export type UpdateUserType = {
   token?: string;
 };
 
-export type UserQueryType = { role: string; cohortId: Cohort; page: number; limit: number };
+export type UserQueryType = {
+  role?: string;
+  cohortId?: Cohort;
+  page?: number;
+  limit?: number;
+  requestStatus?: string;
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  username?: string;
+  isActive?: number;
+  state?: string;
+  country?: string;
+  isBlocked?: number;
+  userId?: string;
+};

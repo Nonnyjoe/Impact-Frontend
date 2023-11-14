@@ -1,6 +1,9 @@
 import User from '../models/user';
 import { StatusCode, RegisterType, UpdateUserType, Cohort, UserQueryType } from '../@types';
 import { ApiError } from '../utils';
+import { Toolbox } from '../utils';
+
+const { createQuery } = Toolbox;
 
 class UserService {
   async createUser(userData: RegisterType) {
@@ -20,7 +23,8 @@ class UserService {
 
   async getUserById(userId: string) {
     try {
-      const user = await User.findById(userId).populate('plans').populate('reports');
+      // const user = await User.findById(userId).populate('plans').populate('reports');
+      const user = await User.findOne({ _id: userId });
       return user;
     } catch (error) {
       throw new ApiError(
@@ -35,7 +39,7 @@ class UserService {
   async getUserByEmail(email: string) {
     try {
       const user = User.findOne({ email });
-      if (!user) throw new Error('User not found');
+      if (!user) return null;
       return user;
     } catch (error) {
       throw new ApiError(
@@ -67,9 +71,10 @@ class UserService {
       const user = await User.findByIdAndUpdate(userId, userData, {
         new: true,
       });
-      if (!user) throw new Error('User not found');
+      if (!user) return null;
       return user;
     } catch (error) {
+      console.log(error, 'from update user');
       throw new ApiError(
         'impact api',
         error as string,
@@ -82,7 +87,7 @@ class UserService {
   deleteUser = async (userId: string) => {
     try {
       const user = await User.findByIdAndDelete(userId);
-      if (!user) throw new Error('User not found');
+      if (!user) return null;
       return user;
     } catch (error) {
       throw new ApiError(
@@ -96,21 +101,30 @@ class UserService {
 
   getAllUsers = async (data: UserQueryType) => {
     try {
-      const query: any = {};
-
-      if (data.role) {
-        query['role.' + data.role] = true;
-      }
-
-      if (data.cohortId) {
-        query.cohortId = data.cohortId;
-      }
+      const query = createQuery({}, data);
+      const limit = Number(data.limit) || 10;
+      const page = Number(data.page) || 0;
 
       const users = await User.find(query)
-        .limit(data.limit || 10)
-        .skip((data.page || 0) * 1 - data.limit);
+        .limit(limit)
+        .skip(page * limit);
 
       return users;
+    } catch (error) {
+      throw new ApiError(
+        'impact api',
+        error as string,
+        'getAllUsers',
+        StatusCode.INTERNAL_SERVER_ERROR
+      );
+    }
+  };
+
+  getUsersCount = async () => {
+    try {
+      const count = await User.count();
+
+      return count;
     } catch (error) {
       throw new ApiError(
         'impact api',

@@ -1,4 +1,4 @@
-import { Document } from 'mongoose';
+import Document from './imports';
 
 export interface OnboardInterface extends Document {
   cohortId: string;

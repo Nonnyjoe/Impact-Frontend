@@ -1,6 +1,6 @@
 import AuthenticationsMiddleware from './authentications';
 import UserMiddleware from './user';
 import CohortMiddleware from './cohort';
-import Uploader from './multer';
+import UploadsMiddleware from './multer';
 
-export { AuthenticationsMiddleware, CohortMiddleware, UserMiddleware, Uploader };
+export { AuthenticationsMiddleware, CohortMiddleware, UserMiddleware, UploadsMiddleware };

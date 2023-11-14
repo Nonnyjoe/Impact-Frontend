@@ -1,8 +1,5 @@
-import Joi from 'joi';
-import joiDate from '@joi/date';
+import joi from './imports';
 import { cohortList } from '../service';
-
-const joi = Joi.extend(joiDate);
 
 const cohort = {
   async validateCreateCohort(payload: any) {
@@ -11,7 +8,12 @@ const cohort = {
         .string()
         .valid(...cohortList)
         .required()
-        .label('Cohort ID is required'),
+        .label('Cohort Name'),
+      numberOfStudents: joi
+        .number()
+        .integer()
+        .required()
+        .label('Number of Students is required to be a number'),
       startDate: joi
         .date()
         .format('YYYY-MM-DD')

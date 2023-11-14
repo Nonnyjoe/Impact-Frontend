@@ -3,8 +3,7 @@ import { ResponseCode, StatusCode } from '../@types';
 import { CohortService } from '../service';
 
 export const createCohort = async (req: Request, res: Response) => {
-  /*
-  #swagger.tags = ['Cohort']
+  /*#swagger.tags = ['Cohort']
   #swagger.requestBody = {
             required: true,
             content: {
@@ -37,8 +36,7 @@ export const createCohort = async (req: Request, res: Response) => {
 };
 
 export const listCohorts = async (_: Request, res: Response) => {
-  /*
-   #swagger.tags = ['Cohort']
+  /*#swagger.tags = ['Cohort']
    */
   try {
     const cohorts = await CohortService.getAllCohort();
@@ -133,14 +131,14 @@ export const deleteCohort = async (req: Request, res: Response) => {
 
     if (!deleteCohort) {
       return res.status(StatusCode.NOT_FOUND).json({
-        status: ResponseCode.FAILURE,
+        status: !!ResponseCode.FAILURE,
         message: 'Cohort not found',
         data: null,
       });
     }
 
-    return res.status(StatusCode.OK).json({
-      status: ResponseCode.SUCCESS,
+    return res.status(StatusCode.NO_CONTENT).json({
+      status: !!ResponseCode.SUCCESS,
       message: 'Cohort deleted successfully',
       data: deletedCohort,
     });
