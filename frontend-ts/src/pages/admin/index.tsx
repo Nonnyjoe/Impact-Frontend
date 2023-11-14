@@ -81,7 +81,7 @@ export const getServerSideProps = (async ({query: {page = 0, cohortId}}) => {
 const Admin = ({tableData, meta}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const [isOpen, setIsOpen] = useState(true);
   const [isApproving, setIsApproving] = useState(false);
-  const {user} = useUser();
+  const {user} = useUser({access: 'Admin'});
   const router = useRouter();
 
   useEffect(() => {

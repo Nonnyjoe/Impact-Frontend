@@ -1,8 +1,14 @@
 import useUser from '@/lib/useUser';
-import React from 'react';
+import React, {useEffect} from 'react';
 
 const Alumni = () => {
-  const { user } = useUser({ redirectTo: '/update-alumni/login' });
+  const {user, refetchUser} = useUser({redirectTo: '/update-alumni/login', access: 'Alumni'});
+
+  useEffect(() => {
+    if (!user) return;
+    refetchUser();
+  }, []);
+
   return <div>Alumni</div>;
 };
 

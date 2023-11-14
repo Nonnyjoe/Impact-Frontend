@@ -1,7 +1,7 @@
 import useUser from '@/lib/useUser';
-import React, { FC, useEffect, useState } from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import toast from 'react-hot-toast';
-import { TailSpin } from 'react-loader-spinner';
+import {TailSpin} from 'react-loader-spinner';
 import Image from 'next/image';
 import w3bLogo from '@/assets/Images/Logo.png';
 
@@ -10,8 +10,8 @@ interface ILoginMain {
   loginHeader: string;
 }
 
-const LoginMain: FC<ILoginMain> = ({ redirectTo, loginHeader }) => {
-  const { login } = useUser({ redirectTo, redirectIfFound: true });
+const LoginMain: FC<ILoginMain> = ({redirectTo, loginHeader}) => {
+  const {login} = useUser({redirectTo, redirectIfFound: true, access: loginHeader});
 
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
@@ -22,7 +22,7 @@ const LoginMain: FC<ILoginMain> = ({ redirectTo, loginHeader }) => {
   const handleLogin = async () => {
     try {
       setLoading(true);
-      await login({ email });
+      await login({email});
       setLoading(false);
       toast.success('Logged in successfully', config);
     } catch (error) {

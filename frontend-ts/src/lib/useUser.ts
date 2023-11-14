@@ -30,18 +30,25 @@ export type LoginData = {
 
 export type User = {
   isLoggedIn: boolean;
+  isAdmin: boolean;
   token?: string;
   user?: LoginData;
 };
 
-export default function useUser({ redirectTo = 'admin/login', redirectIfFound = false } = {}) {
+export default function useUser({
+  redirectTo = 'admin/login',
+  redirectIfFound = false,
+  access = 'Admin',
+} = {}) {
   const [user, setUser] = useLocalStorage<User>('userData', {
     isLoggedIn: false,
+    isAdmin: false,
   });
 
   const logout = () => {
     setUser({
       isLoggedIn: false,
+      isAdmin: false,
     });
     Router.push(redirectTo).then((r) => r);
   };
@@ -66,12 +73,36 @@ export default function useUser({ redirectTo = 'admin/login', redirectIfFound = 
 
     const { token, user: loginData } = data1;
 
+    if (access === 'Admin' && !loginData.role.admin) {
+      throw new Error('User is not an admin');
+    }
+
+    if (access === 'Alumni' && !loginData.role.user) {
+      throw new Error('User is not a student');
+    }
+
     setUser({
       isLoggedIn: true,
+      isAdmin: loginData.role.admin,
       token,
       user: { ...loginData },
     });
   };
+
+  async function refetchUser() {
+    try {
+      const id = user?.user?.id;
+      const res = await fetch(buildApiUrl(`user/${id}`));
+      const { data } = await res.json();
+
+      setUser({
+        ...user,
+        user: data,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   async function postApi(path: string, body: any) {
     const res = await fetch(buildApiUrl(path), {
@@ -100,5 +131,15 @@ export default function useUser({ redirectTo = 'admin/login', redirectIfFound = 
     }
   }, [user, redirectIfFound, redirectTo]);
 
-  return { user: { ...user.user }, logout, login, postApi };
+  useEffect(() => {
+    if (!user || !user.isLoggedIn) return;
+    if (access === 'Admin' && !user.user?.role.admin) {
+      logout();
+    }
+    if (access === 'Alumni' && !user.user?.role.user) {
+      logout();
+    }
+  }, [user, access]);
+
+  return { user: { ...user.user }, logout, login, postApi, refetchUser };
 }
