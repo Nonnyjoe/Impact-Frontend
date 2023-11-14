@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import Router from 'next/router';
 import { useLocalStorage } from 'usehooks-ts';
-import { buildApiUrl } from '@/pages/data/appConfig';
+import { buildApiPostConfig, buildApiUrl } from '@/pages/data/appConfig';
 import toast from 'react-hot-toast';
 
 export type LoginData = {
@@ -13,6 +13,8 @@ export type LoginData = {
   };
   id: string;
   username: string;
+  firstName: string;
+  lastName: string;
   email: string;
   isActive: boolean;
   country: string;
@@ -41,15 +43,11 @@ export default function useUser({ redirectTo = 'admin/login', redirectIfFound = 
     setUser({
       isLoggedIn: false,
     });
-    Router.push('/admin/login').then((r) => r);
+    Router.push(redirectTo).then((r) => r);
   };
 
   const login = async ({ email = '' }) => {
-    const res = await fetch(buildApiUrl('/auth/otp'), {
-      body: JSON.stringify({ email }),
-      method: 'post',
-      headers: { 'Content-Type': 'application/json' },
-    });
+    const res = await fetch(buildApiUrl('auth/otp'), buildApiPostConfig({ email }));
 
     const {
       data: { otp },
@@ -59,11 +57,10 @@ export default function useUser({ redirectTo = 'admin/login', redirectIfFound = 
       throw new Error("OTP doesn't exist");
     }
 
-    const res2 = await fetch(buildApiUrl('/auth/login'), {
-      body: JSON.stringify({ email, otp: Number(otp) }),
-      method: 'post',
-      headers: { 'Content-Type': 'application/json' },
-    });
+    const res2 = await fetch(
+      buildApiUrl('auth/login'),
+      buildApiPostConfig({ email, otp: Number(otp) })
+    );
 
     const { data: data1 } = await res2.json();
 

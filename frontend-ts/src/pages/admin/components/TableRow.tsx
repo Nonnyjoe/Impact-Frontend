@@ -1,9 +1,9 @@
 import useUser from '@/lib/useUser';
-import { FC, useState } from 'react';
-import toast, { Toast } from 'react-hot-toast';
-import { AiOutlineCheck } from 'react-icons/ai';
-import { RxCross2 } from 'react-icons/rx';
-import { Dna } from 'react-loader-spinner';
+import {FC, useState} from 'react';
+import toast, {Toast} from 'react-hot-toast';
+import {AiOutlineCheck} from 'react-icons/ai';
+import {RxCross2} from 'react-icons/rx';
+import {Dna} from 'react-loader-spinner';
 
 export type ReqStatus = 'pending' | 'approved' | 'rejected';
 export type TTableRow = {
@@ -22,8 +22,8 @@ export const TableRow: FC<{
   className?: string;
   loading?: boolean;
   setLoading?: (loading: boolean) => void;
-}> = ({ data, className, loading, setLoading }) => {
-  const { postApi } = useUser();
+}> = ({data, className, loading, setLoading}) => {
+  const {postApi} = useUser();
   const toastConfig: Partial<Pick<Toast, 'id' | 'position'>> = {
     position: 'top-right',
     id: 'update-status',
@@ -46,14 +46,18 @@ export const TableRow: FC<{
   };
 
   const handleUpdate = async (status: ReqStatus, id: string) => {
-    if (data?.length) return;
-    setLoading?.(true);
-    const res = await postApi(`user/${id}`, { requestStatus: status });
+    try {
+      if (data?.length) return;
+      setLoading?.(true);
+      const res = await postApi(`user/${id}`, {requestStatus: status});
 
-    if (res.ok) {
-      setLoading?.(false);
-      toast.success('Status updated successfully', toastConfig);
-    } else {
+      if (res.ok) {
+        setLoading?.(false);
+        toast.success('Status updated successfully', toastConfig);
+      } else {
+        throw new Error("error");
+      }
+    } catch (error) {
       setLoading?.(false);
       toast.error('Error updating status', toastConfig);
     }

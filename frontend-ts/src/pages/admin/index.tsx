@@ -1,11 +1,11 @@
 import DashboardLayout from '@/pages/admin/components/DashboardLayout';
-import useUser, { LoginData } from '@/lib/useUser';
-import { AdminHeader } from '@/pages/admin/components/AdminHeader';
-import { ReqStatus, TableRow, TTableRow } from '@/pages/admin/components/TableRow';
-import { buildApiUrl } from '@/pages/data/appConfig';
-import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import useUser, {LoginData} from '@/lib/useUser';
+import {AdminHeader} from '@/pages/admin/components/AdminHeader';
+import {ReqStatus, TableRow, TTableRow} from '@/pages/admin/components/TableRow';
+import {buildApiUrl} from '@/pages/data/appConfig';
+import type {GetServerSideProps, InferGetServerSidePropsType} from 'next';
+import {useRouter} from 'next/router';
+import {useEffect, useState} from 'react';
 import Filter from '@/pages/admin/components/Filter';
 import RequestModal from '@/pages/admin/components/RequestModal';
 
@@ -25,14 +25,43 @@ function formatDate(date: Date): string {
   return `${day}/${month}/${year}`;
 }
 
-export const getServerSideProps = (async ({ query: { page = 0, cohortId } }) => {
-  const res = await fetch(
-    buildApiUrl(`user?requestStatus=pending&page=${page}${cohortId ? `&cohortId=${cohortId}` : ''}`)
-  );
-  const { data } = (await res.json()) as { data: { meta: MetaData; users: LoginData[] } };
-  console.log(data.meta);
+export const getServerSideProps = (async ({query: {page = 0, cohortId}}) => {
+  try {
+    const res = await fetch(
+      buildApiUrl(`user?&page=${page}${cohortId ? `&cohortId=${cohortId}` : ''}`)
+    );
+    const {data} = (await res.json()) as {data: {meta: MetaData; users: LoginData[];};};
+    console.log(data.meta);
 
-  if (!data)
+    if (!data)
+      return {
+        props: {
+          tableData: [],
+          meta: {
+            userCount: 0,
+            remainingData: 0,
+            currentPage: 0,
+            currentlyFetched: 0,
+            numberOfPagesLeft: 0,
+            numberOfPages: 0,
+          },
+        },
+      };
+
+    const tableData: TTableRow[] = data.users.map((d) => ({
+      email: d.email!,
+      name: `${d.firstName!} ${d.lastName!}`,
+      cohort: d.cohortId!,
+      date: formatDate(new Date(d.createdAt!)),
+      status: d.requestStatus! as ReqStatus,
+      action: 'Action',
+      id: d.id!,
+    }));
+
+    return {
+      props: {tableData, meta: data.meta},
+    };
+  } catch (error) {
     return {
       props: {
         tableData: [],
@@ -42,30 +71,17 @@ export const getServerSideProps = (async ({ query: { page = 0, cohortId } }) => 
           currentPage: 0,
           currentlyFetched: 0,
           numberOfPagesLeft: 0,
-          numberOfPages: 0,
-        },
-      },
+          numberOfPages: 0
+        }
+      }
     };
+  }
+}) satisfies GetServerSideProps<{tableData: TTableRow[];}>;
 
-  const tableData: TTableRow[] = data.users.map((d) => ({
-    email: d.email!,
-    name: `${d.firstname!} ${d.lastname!}`,
-    cohort: d.cohortId!,
-    date: formatDate(new Date(d.createdAt!)),
-    status: d.requestStatus! as ReqStatus,
-    action: 'Action',
-    id: d.id!,
-  }));
-
-  return {
-    props: { tableData, meta: data.meta },
-  };
-}) satisfies GetServerSideProps<{ tableData: TTableRow[] }>;
-
-const Admin = ({ tableData, meta }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const Admin = ({tableData, meta}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const [isOpen, setIsOpen] = useState(true);
   const [isApproving, setIsApproving] = useState(false);
-  const { user } = useUser();
+  const {user} = useUser();
   const router = useRouter();
 
   useEffect(() => {
@@ -74,17 +90,17 @@ const Admin = ({ tableData, meta }: InferGetServerSidePropsType<typeof getServer
 
   const handleNext = () => {
     if (meta?.numberOfPagesLeft > 0) {
-      router.replace({ query: { ...router.query, page: meta.currentPage } }).then((r) => r);
+      router.replace({query: {...router.query, page: meta.currentPage}}).then((r) => r);
     }
   };
 
   const handlePrevious = () => {
     if (meta?.currentPage > 1) {
-      router.replace({ query: { ...router.query, page: meta.currentPage - 2 } }).then((r) => r);
+      router.replace({query: {...router.query, page: meta.currentPage - 2}}).then((r) => r);
     }
   };
 
-  const handleFilter = (cohortId: string) => router.replace({ query: { cohortId } }).then((r) => r);
+  const handleFilter = (cohortId: string) => router.replace({query: {cohortId}}).then((r) => r);
 
   const tableHead = ['Email', 'Name', 'Cohort', 'Date', 'Status', 'Action'] as unknown as TTableRow;
   return (

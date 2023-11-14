@@ -9,7 +9,10 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <>
-      {ap.startsWith('/admin') ? (
+      {!ap ||
+      ap.startsWith('/admin') ||
+      ap.startsWith('/update-alumni') ||
+      ap.startsWith('/onboard') ? (
         <Component {...pageProps} />
       ) : (
         <>

@@ -1,13 +1,13 @@
 import YoutubeSnippet from '@/components/youtubeSnippet';
-import { PhotoGallery } from './components/PhotoGallery';
-import { Stories } from './components/Stories';
+import {PhotoGallery} from './components/PhotoGallery';
+import {Stories} from './components/Stories';
 import AsShowcased from '@/components/AsShowcased';
 import Footer from '@/components/Footer/footer';
-import { useRouter } from 'next/router';
+import {useRouter} from 'next/router';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
 import axios from 'axios';
-import { buildApiUrl } from '../data/appConfig';
+import {buildApiUrl} from '../data/appConfig';
 
 interface cohortDataProps {
   id: string;
@@ -27,13 +27,13 @@ interface UserData {
 
 const IndividualCohort = () => {
   const router = useRouter();
-  const { id } = router.query;
+  const {id} = router.query;
   const [cohortData, setCohortData] = useState<cohortDataProps | null>(null);
 
   console.log(cohortData);
 
   useEffect(() => {
-    const apiUrl = buildApiUrl(`/cohort/${id}/user`);
+    const apiUrl = buildApiUrl(`cohort/${id}/user`);
     let res;
     axios
       .get(apiUrl)
