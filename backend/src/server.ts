@@ -10,7 +10,7 @@ async function startApp() {
 
     logger('connect:', 'connected to database');
 
-    // seedUsers();
+    seedUsers();
     seedOnboarders();
     seedSuperAdmin();
 

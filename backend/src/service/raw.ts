@@ -266,7 +266,7 @@ function generateLoremIpsum(wordCount: number, paragraphs: number): string {
   return loremIpsum.join('\n\n');
 }
 
-for (let i = 0; i < 120; i++) {
+for (let i = 0; i < 3; i++) {
   students.push({
     email: `student${i + 1}@gmail.com`,
     password: 'password',
@@ -274,7 +274,7 @@ for (let i = 0; i < 120; i++) {
     role: {
       super: false,
       admin: false,
-      user: i < 50 ? false : true,
+      user: i < 2 ? false : true,
       student: true,
     },
     requestStatus: setApprovalStatus(i),

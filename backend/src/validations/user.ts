@@ -72,8 +72,14 @@ const user = {
         .optional()
         .label('social'),
       about: joi.string().optional().label('about'),
+      requestStatus: joi
+        .string()
+        .valid('approved', 'rejected')
+        .required()
+        .label('Request status is required. approved or rejected'),
     });
     const { error } = schema.validate(payload);
+    console.log(error);
     if (error) throw error.details[0].context.label;
     return true;
   },
