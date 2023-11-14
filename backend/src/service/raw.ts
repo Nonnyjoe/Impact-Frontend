@@ -87,7 +87,7 @@ export const onboarders = [
     cohortId: 'Cohort II',
     email: 'jaydhales@gmail.com',
     isBlacklisted: false,
-    hasOnboarded: true,
+    hasOnboarded: false,
   },
 ];
 
