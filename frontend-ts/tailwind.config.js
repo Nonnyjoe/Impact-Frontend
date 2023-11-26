@@ -11,6 +11,7 @@ module.exports = {
       'w3b-light-green': '#0080002a',
       'w3b-blue': '#0000FF',
       'w3b-light-blue': '#0000FF54',
+      'w3b-gray': '#D2D5DA',
       white: '#FFFFFF',
       black: '#000000',
       'hero-bg': '#312A2A',

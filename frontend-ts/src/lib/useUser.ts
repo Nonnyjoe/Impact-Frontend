@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
+import {useEffect} from 'react';
 import Router from 'next/router';
-import { useLocalStorage } from 'usehooks-ts';
-import { buildApiPostConfig, buildApiUrl } from '@/pages/data/appConfig';
+import {useLocalStorage} from 'usehooks-ts';
+import {buildApiPostConfig, buildApiUrl} from '@/pages/data/appConfig';
 import toast from 'react-hot-toast';
 
 export type LoginData = {
@@ -24,7 +24,19 @@ export type LoginData = {
   createdAt: string;
   updatedAt: string;
   story: string;
-  storyHeadder: string;
+  dob: string;
+  address: string;
+  city: string;
+  state: string;
+  phoneNumber: string;
+  gender: string;
+  about: string;
+  socialLinks: {
+    twitter: string;
+    linkedin: string;
+    github: string;
+    portfolio: string;
+  };
   __v: number;
 };
 
@@ -53,52 +65,58 @@ export default function useUser({
     Router.push(redirectTo).then((r) => r);
   };
 
-  const login = async ({ email = '' }) => {
-    const res = await fetch(buildApiUrl('auth/otp'), buildApiPostConfig({ email }));
+  const login = async ({email = ''}) => {
+    const res = await fetch(buildApiUrl('auth/otp'), buildApiPostConfig({email}));
 
-    const {
-      data: { otp },
-    } = await res.json();
+    const
+      data = await res.json();
+    return data.status;
+  };
 
-    if (!otp) {
-      throw new Error("OTP doesn't exist");
+  const updateOtp = async (email: string, otp: string) => {
+    try {
+      const res2 = await fetch(
+        buildApiUrl('auth/login'),
+        buildApiPostConfig({email, otp: Number(otp)})
+      );
+
+      const {data: data1} = await res2.json();
+
+      const {token, user: loginData} = data1;
+
+      if (access === 'Admin' && !loginData.role.admin) {
+        throw new Error('User is not an admin');
+      }
+
+      if (access === 'Alumni' && !loginData.role.user) {
+        throw new Error('User is not a student');
+      }
+
+      setUser({
+        isLoggedIn: true,
+        isAdmin: loginData.role.admin,
+        token,
+        user: {...loginData},
+      });
+
+      return true;
+    } catch (error) {
+      console.error(error);
+      return false;
     }
-
-    const res2 = await fetch(
-      buildApiUrl('auth/login'),
-      buildApiPostConfig({ email, otp: Number(otp) })
-    );
-
-    const { data: data1 } = await res2.json();
-
-    const { token, user: loginData } = data1;
-
-    if (access === 'Admin' && !loginData.role.admin) {
-      throw new Error('User is not an admin');
-    }
-
-    if (access === 'Alumni' && !loginData.role.user) {
-      throw new Error('User is not a student');
-    }
-
-    setUser({
-      isLoggedIn: true,
-      isAdmin: loginData.role.admin,
-      token,
-      user: { ...loginData },
-    });
   };
 
   async function refetchUser() {
     try {
       const id = user?.user?.id;
       const res = await fetch(buildApiUrl(`user/${id}`));
-      const { data } = await res.json();
+      const {data} = await res.json();
 
       setUser({
         ...user,
         user: data,
       });
+      return data;
     } catch (error) {
       console.error(error);
     }
@@ -141,5 +159,5 @@ export default function useUser({
     }
   }, [user, access]);
 
-  return { user: { ...user.user }, logout, login, postApi, refetchUser };
+  return {user: {...user.user}, logout, login, updateOtp, postApi, refetchUser};
 }

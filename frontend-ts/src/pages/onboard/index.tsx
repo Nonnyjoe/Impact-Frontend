@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import w3bLogo from '@/assets/Images/Logo.png';
 import {buildApiPostConfig, buildApiUrl} from '@/pages/data/appConfig';
 import {TailSpin} from 'react-loader-spinner';
+import toast from "react-hot-toast";
 
 const Onboard = () => {
   const [email, setEmail] = useState('');
@@ -19,9 +20,13 @@ const Onboard = () => {
       const res = await fetch(buildApiUrl('auth/onboard'), buildApiPostConfig({email}));
 
       if (res.ok) {
-        const {data} = await res.json();
-        const linkArr = data.link.split('/');
+        const response = await res.json();
+
+        if (response.message.toLowerCase().startsWith('email already onboarded')) throw new Error(response.message)
+        const linkArr = response.data.link.split('/');
         const link = linkArr[linkArr.length - 1];
+
+
 
         openInNewTab(encodeURI(`${window.location.href}/${link}`));
       } else {
@@ -30,6 +35,8 @@ const Onboard = () => {
       setLoading(false);
     } catch (error) {
       console.error(error);
+      // @ts-ignore
+      toast.error(error.message)
       setLoading(false);
     }
   };
