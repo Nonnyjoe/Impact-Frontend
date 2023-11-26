@@ -53,6 +53,7 @@ const UserSchema = new mongoose.Schema(
       twitter: { type: String },
       linkedin: { type: String },
       github: { type: String },
+      portfolio: { type: String },
     },
     cohortId: {
       type: String,
