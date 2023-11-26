@@ -119,19 +119,22 @@ export default function useUser({
       return data;
     } catch (error) {
       console.error(error);
+      return user.user;
     }
   }
 
-  async function postApi(path: string, body: any) {
+  async function postApi(path: string, body: any, disableStringify = false) {
     const res = await fetch(buildApiUrl(path), {
-      body: JSON.stringify(body),
+      body: disableStringify ? body : JSON.stringify(body),
       method: 'put',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
         Authorization: `Bearer ${user?.token}`,
       },
     });
-    return res;
+
+    return await res.json();
+
   }
 
   useEffect(() => {

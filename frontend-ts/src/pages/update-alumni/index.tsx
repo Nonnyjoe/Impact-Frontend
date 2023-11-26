@@ -11,13 +11,13 @@ const Alumni = () => {
     access: 'Alumni',
   });
   const [userData, setUserData] = useState({
-    firstName: '',
-    lastName: '',
+    firstname: '',
+    lastname: '',
     dob: '',
     address: '',
     city: '',
     state: '',
-    phoneNumber: '',
+    phonenumber: '',
     gender: '',
     about: '',
     socialLinks: {
@@ -30,31 +30,31 @@ const Alumni = () => {
     image: '',
   });
   const [termsChecked, setTermsChecked] = useState(false);
-  const [img, setImg] = useState('');
+  const [img, setImg] = useState<File>();
 
   useEffect(() => {
     if (!user) return;
     refetchUser()
-      .then((data) => {
+      .then((data) =>
         setUserData({
           ...userData,
-          firstName: data.firstName!,
-          lastName: data.lastName!,
-          dob: data.dob!,
-          address: data.address!,
-          city: data.city!,
-          state: data.state!,
-          phoneNumber: data.phoneNumber!,
-          gender: data.gender!,
-          about: data.about!,
+          firstname: data.firstname ?? '',
+          lastname: data.lastname! ?? '',
+          dob: data.dob! ?? '',
+          address: data.address! ?? '',
+          city: data.city! ?? '',
+          state: data.state! ?? '',
+          phonenumber: data.phonenumber! ?? '',
+          gender: data.gender! ?? 'male',
+          about: data.about! ?? '',
           socialLinks: {
-            twitter: data.socialLinks?.twitter!,
-            linkedin: data.socialLinks?.linkedin!,
-            github: data.socialLinks?.github!,
-            portfolio: data.socialLinks?.portfolio!,
+            twitter: data.socialLinks?.twitter! ?? '',
+            linkedin: data.socialLinks?.linkedin! ?? '',
+            github: data.socialLinks?.github! ?? '',
+            portfolio: data.socialLinks?.portfolio! ?? '',
           },
-        });
-      })
+        })
+      )
       .catch((err) => {
         console.error(err);
         toast.error('Error Loading User');
@@ -63,9 +63,10 @@ const Alumni = () => {
 
   const handleUpload = async () => {
     try {
-      const form = new FormData();
-      form.append('image', img);
-      const res = await postApi(`user/${user.id}/upload`, form);
+      const formData = new FormData();
+      formData.append('image', img!, '[PROXY]');
+
+      const res = await postApi(`user/${user.id}/upload`, formData, true);
       console.log(res);
     } catch (error) {
       console.error(error);
@@ -75,10 +76,14 @@ const Alumni = () => {
   const handleUpdate = async () => {
     try {
       const res = await postApi(`user/${user.id}`, userData);
+      if (res.status) {
+        toast.success('Data updated successfully');
+      } else {
+        toast.error(`Error updating data: ${res.message}`);
+      }
       console.log(res);
     } catch (error) {
       console.error(error);
-      toast.error(error.message);
     }
   };
 
@@ -94,10 +99,16 @@ const Alumni = () => {
         </div>
 
         <div className="flex gap-8 items-end">
-          <div className="w-36 h-36 rounded-full grid place-content-center overflow-hidden border border-w3b-red relative">
+          <div className="w-52 h-52 rounded-full grid place-content-center overflow-hidden border border-w3b-red relative">
             <label htmlFor="file">
-              <Image alt="user image" src={img} width={144} height={144} className="rounded-full" />
-              <div className=" absolute top-0 left-0 w-36 h-36 grid place-content-center bg-black/60 opacity-0 hover:opacity-100 text-w3b-red transition-all duration-300">
+              <Image
+                alt="user image"
+                src={img ? URL.createObjectURL(img!) : ''}
+                width={208}
+                height={208}
+                className="rounded-full"
+              />
+              <div className=" absolute top-0 left-0 w-52 h-52 grid place-content-center bg-black/60 opacity-0 hover:opacity-100 text-w3b-red transition-all duration-300">
                 <BiCamera size={40} />
               </div>
             </label>
@@ -105,16 +116,17 @@ const Alumni = () => {
               type="file"
               name="file"
               id="file"
+              value={''}
               onChange={(e) => {
                 if (!e.target.files) return;
-                setImg(URL.createObjectURL(e.target.files![0]));
+                setImg(e.target.files![0]);
               }}
               className="hidden"
             />
           </div>
 
           <button
-            className="border border-w3b-red rounded-md hover:bg-w3b-light-red disabled:bg-w3b-gray disabled:border-w3b-gray py-1 px-2"
+            className="border border-w3b-red rounded-md hover:bg-w3b-light-red  disabled:opacity-20 py-1 px-2"
             disabled={!img}
             onClick={handleUpload}
           >
@@ -123,27 +135,27 @@ const Alumni = () => {
         </div>
         <div className="form-group">
           <div className="form-item">
-            <label htmlFor="firstName">First name </label>
+            <label htmlFor="firstname">First name </label>
             <input
               className="input"
               type="text"
-              name="firstName"
-              id="firstName"
-              value={userData.firstName}
-              onChange={(e) => setUserData({ ...userData, firstName: e.target.value })}
+              name="firstname"
+              id="firstname"
+              value={userData.firstname}
+              onChange={(e) => setUserData({ ...userData, firstname: e.target.value })}
               placeholder="Your first name"
             />
           </div>
 
           <div className="form-item">
-            <label htmlFor="lastName">Last name </label>
+            <label htmlFor="lastname">Last name </label>
             <input
               className="input"
               type="text"
-              name="lastName"
-              id="lastName"
-              value={userData.lastName}
-              onChange={(e) => setUserData({ ...userData, lastName: e.target.value })}
+              name="lastname"
+              id="lastname"
+              value={userData.lastname}
+              onChange={(e) => setUserData({ ...userData, lastname: e.target.value })}
               placeholder="Your last name"
             />
           </div>
@@ -159,9 +171,9 @@ const Alumni = () => {
               value={userData.gender}
               onChange={(e) => setUserData({ ...userData, gender: e.target.value })}
             >
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-              <option value="Prefer not to say">Prefer not to say</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="prefer not to say">Prefer not to say</option>
             </select>
           </div>
           <div className="form-item">
@@ -177,14 +189,14 @@ const Alumni = () => {
           </div>
 
           <div className="form-item">
-            <label htmlFor="phoneNumber">Phone number </label>
+            <label htmlFor="phonenumber">Phone number </label>
             <input
               className="input"
               type="text"
-              name="phoneNumber"
-              id="phoneNumber"
-              value={userData.phoneNumber}
-              onChange={(e) => setUserData({ ...userData, phoneNumber: e.target.value })}
+              name="phonenumber"
+              id="phonenumber"
+              value={userData.phonenumber}
+              onChange={(e) => setUserData({ ...userData, phonenumber: e.target.value })}
               placeholder="234812345678"
             />
           </div>
@@ -343,7 +355,6 @@ const Alumni = () => {
             <input
               type="checkbox"
               id="terms"
-              cz
               name="terms"
               checked={termsChecked}
               onChange={(e) => setTermsChecked(e.target.checked)}
