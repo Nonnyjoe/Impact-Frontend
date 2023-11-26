@@ -68,6 +68,7 @@ const user = {
           twitter: joi.string().optional().label('twitter'),
           linkedin: joi.string().optional().label('linkedIn'),
           github: joi.string().optional().label('github'),
+          portfolio: joi.string().optional().label('portfolio'),
         })
         .optional()
         .label('social'),
