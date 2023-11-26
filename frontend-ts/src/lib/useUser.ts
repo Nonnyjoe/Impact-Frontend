@@ -77,7 +77,7 @@ export default function useUser({
     try {
       const res2 = await fetch(
         buildApiUrl('auth/login'),
-        buildApiPostConfig({email, otp: Number(otp)})
+        buildApiPostConfig({email, otp})
       );
 
       const {data: data1} = await res2.json();

@@ -1,9 +1,9 @@
 import Image from 'next/image';
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import w3bLogo from '@/assets/Images/Logo.png';
-import {buildApiPostConfig, buildApiUrl} from '@/pages/data/appConfig';
-import {TailSpin} from 'react-loader-spinner';
-import toast from "react-hot-toast";
+import { buildApiPostConfig, buildApiUrl } from '@/pages/data/appConfig';
+import { TailSpin } from 'react-loader-spinner';
+import toast from 'react-hot-toast';
 
 const Onboard = () => {
   const [email, setEmail] = useState('');
@@ -17,16 +17,15 @@ const Onboard = () => {
   const onboard = async () => {
     try {
       setLoading(true);
-      const res = await fetch(buildApiUrl('auth/onboard'), buildApiPostConfig({email}));
+      const res = await fetch(buildApiUrl('auth/onboard'), buildApiPostConfig({ email }));
 
       if (res.ok) {
         const response = await res.json();
 
-        if (response.message.toLowerCase().startsWith('email already onboarded')) throw new Error(response.message)
+        if (response.message.toLowerCase().startsWith('email already onboarded'))
+          throw new Error(response.message);
         const linkArr = response.data.link.split('/');
         const link = linkArr[linkArr.length - 1];
-
-
 
         openInNewTab(encodeURI(`${window.location.href}/${link}`));
       } else {
@@ -36,7 +35,7 @@ const Onboard = () => {
     } catch (error) {
       console.error(error);
       // @ts-ignore
-      toast.error(error.message)
+      toast.error(error.message);
       setLoading(false);
     }
   };
@@ -67,7 +66,7 @@ const Onboard = () => {
           disabled={loading}
         >
           {loading ? (
-            <div className="flex gap-[5%] items-center justify-center ">
+            <div className="flex gap-[5%] items-center justify-center">
               <TailSpin
                 height="auto"
                 width="2vw"

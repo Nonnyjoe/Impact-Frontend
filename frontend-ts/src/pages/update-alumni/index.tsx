@@ -17,7 +17,7 @@ const Alumni = () => {
     address: '',
     city: '',
     state: '',
-    phonenumber: '',
+    phoneNumber: '',
     gender: '',
     about: '',
     socialLinks: {
@@ -26,7 +26,7 @@ const Alumni = () => {
       github: '',
       portfolio: '',
     },
-    openToWork: 'no',
+    availabilityStatus: 'unavailable',
     image: '',
   });
   const [termsChecked, setTermsChecked] = useState(false);
@@ -44,7 +44,7 @@ const Alumni = () => {
           address: data.address! ?? '',
           city: data.city! ?? '',
           state: data.state! ?? '',
-          phonenumber: data.phonenumber! ?? '',
+          phoneNumber: data.phoneNumber! ?? '',
           gender: data.gender! ?? 'male',
           about: data.about! ?? '',
           socialLinks: {
@@ -64,12 +64,13 @@ const Alumni = () => {
   const handleUpload = async () => {
     try {
       const formData = new FormData();
-      formData.append('image', img!, '[PROXY]');
+      formData.append('image', img!);
 
       const res = await postApi(`user/${user.id}/upload`, formData, true);
       console.log(res);
     } catch (error) {
       console.error(error);
+      // @ts-ignore
       toast.error(error.message);
     }
   };
@@ -189,14 +190,14 @@ const Alumni = () => {
           </div>
 
           <div className="form-item">
-            <label htmlFor="phonenumber">Phone number </label>
+            <label htmlFor="phoneNumber">Phone number </label>
             <input
               className="input"
               type="text"
-              name="phonenumber"
-              id="phonenumber"
-              value={userData.phonenumber}
-              onChange={(e) => setUserData({ ...userData, phonenumber: e.target.value })}
+              name="phoneNumber"
+              id="phoneNumber"
+              value={userData.phoneNumber}
+              onChange={(e) => setUserData({ ...userData, phoneNumber: e.target.value })}
               placeholder="234812345678"
             />
           </div>
@@ -336,16 +337,16 @@ const Alumni = () => {
 
         <div className="form-group">
           <div className="form-item">
-            <label htmlFor="openToWork">Are you open to work?</label>
+            <label htmlFor="availabilityStatus">Are you open to work?</label>
             <select
-              name="openToWork"
-              id="openToWork"
+              name="availabilityStatus"
+              id="availabilityStatus"
               className="input"
-              value={userData.openToWork}
-              onChange={(e) => setUserData({ ...userData, openToWork: e.target.value })}
+              value={userData.availabilityStatus}
+              onChange={(e) => setUserData({ ...userData, availabilityStatus: e.target.value })}
             >
-              <option value="yes">Yes</option>
-              <option value="no">No</option>
+              <option value="available">Yes</option>
+              <option value="unavailable">No</option>
             </select>
           </div>
         </div>
