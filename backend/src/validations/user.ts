@@ -71,7 +71,12 @@ const user = {
         .string()
         .valid('approved', 'rejected')
         .optional()
-        .label('Request status is required. approved or rejected'),
+        .label('Request status is approved or rejected'),
+      availabilityStatus: joi
+        .string()
+        .valid('available', 'unavailable')
+        .optional()
+        .label('Availability status is available or unavailable'),
     });
     const { error } = schema.validate(payload);
     console.log(error);
