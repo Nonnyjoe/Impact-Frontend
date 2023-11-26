@@ -70,7 +70,7 @@ const user = {
       requestStatus: joi
         .string()
         .valid('approved', 'rejected')
-        .required()
+        .optional()
         .label('Request status is required. approved or rejected'),
     });
     const { error } = schema.validate(payload);
