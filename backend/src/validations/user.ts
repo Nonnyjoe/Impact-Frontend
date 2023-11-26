@@ -5,13 +5,7 @@ const user = {
   async validateUserOnboarding(payload: any) {
     const schema = joi.object({
       email: joi.string().email().required().label('Email is required'),
-      otp: joi
-        .number()
-        .integer()
-        .min(99999)
-        .max(999999)
-        .optional()
-        .label('Please input a valid otp.'),
+      otp: joi.string().min(6).max(6).optional().label('Please input a valid otp.'),
     });
     const { error } = schema.validate(payload);
     if (error) throw error.details[0].context.label;

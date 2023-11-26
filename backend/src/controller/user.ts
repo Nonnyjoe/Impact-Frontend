@@ -123,7 +123,7 @@ export async function logIn(req: Request, res: Response) {
     // to do
     // an admin do not need to be preboarded
 
-    if (!preboarder || !preboarder.hasOnboarded)
+    if (!preboarder || (!preboarder.hasOnboarded && (!user?.role.super || !user?.role.admin)))
       return res.status(StatusCode.BAD_REQUEST).json({
         status: !!ResponseCode.SUCCESS,
         message: 'You are not onboarded yet. Please onboard first.',
