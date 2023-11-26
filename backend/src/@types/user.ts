@@ -51,6 +51,7 @@ export interface UserInterface extends Document {
   isBlocked: boolean;
   token?: string;
   requestStatus?: 'pending' | 'approved' | 'rejected' | 'expired';
+  availabilityStatus?: 'available' | 'unavailable';
 }
 
 export type RegisterType = {
@@ -95,6 +96,7 @@ export type UpdateUserType = {
   about?: string;
   isBlocked?: boolean;
   requestStatus?: 'pending' | 'approved' | 'rejected' | 'expired';
+  availabilityStatus?: 'available' | 'unavailable';
   token?: string;
 };
 
