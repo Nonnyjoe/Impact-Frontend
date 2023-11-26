@@ -44,6 +44,7 @@ export interface UserInterface extends Document {
     twitter?: string;
     linkedin?: string;
     github?: string;
+    portfolio?: string;
   };
   cohortId?: string;
   about?: string;
