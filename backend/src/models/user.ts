@@ -39,7 +39,7 @@ const UserSchema = new mongoose.Schema(
       match: [/\d{10}$/, 'Please include valid phone number'],
     },
     otp: {
-      type: Number,
+      type: String,
       required: [false, 'Please include otp'],
     },
     image: String,
