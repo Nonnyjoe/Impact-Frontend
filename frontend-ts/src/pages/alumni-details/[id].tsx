@@ -14,7 +14,7 @@ interface studentRole {
 }
 
 interface studentData {
-  _id: string;
+  id: string;
   username: string;
   email: string;
   country: string;
@@ -28,9 +28,11 @@ interface studentDataProps {
   studentDataObj: studentData;
 }
 
-const Student = ({ studentDataObj }: studentDataProps) => {
+const Student = ({studentDataObj}: studentDataProps) => {
   const router = useRouter();
   const { id } = router.query;
+
+  console.log(id);
 
   console.log(studentDataObj);
   return (
@@ -40,7 +42,7 @@ const Student = ({ studentDataObj }: studentDataProps) => {
 
       <div className="flex flex-col bg-white">
         <LayoutWrapper>
-          <AlumniDetails studentDataObj={studentDataObj} />
+          <AlumniDetails studentDataObj={studentDataObj}/>
         </LayoutWrapper>
         <YoutubeSnippet />
         <Footer />
@@ -52,7 +54,6 @@ const Student = ({ studentDataObj }: studentDataProps) => {
 export default Student;
 
 export async function getStaticPaths() {
-  // Fetch the list of all users from your API or data source
   const apiUrl = buildApiUrl('/user');
   const res = await fetch(apiUrl);
   const usersData = await res.json();
@@ -60,7 +61,7 @@ export async function getStaticPaths() {
 
   // Generate an array of paths based on the list of users
   const paths = users.map((user: any) => ({
-    params: { id: user._id.toString() },
+    params: { id: user.id.toString() },
   }));
 
   // Return the paths
@@ -69,6 +70,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }: any) {
   const { id } = params;
+  console.log(id);
   const apiUrl = buildApiUrl(`/user/${id}`);
   const res = await fetch(apiUrl);
   const studentData = await res.json();

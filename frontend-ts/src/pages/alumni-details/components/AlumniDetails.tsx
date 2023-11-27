@@ -9,7 +9,7 @@ interface studentRole {
 }
 
 interface studentData {
-  _id: string;
+  id: string;
   username: string;
   email: string;
   country: string;
@@ -23,7 +23,7 @@ interface studentDataProps {
   studentDataObj: studentData;
 }
 
-const AlumniDetails = ({ studentDataObj }: studentDataProps) => {
+const AlumniDetails = ({studentDataObj}: studentDataProps) => {
   console.log(studentDataObj);
   return (
     <>

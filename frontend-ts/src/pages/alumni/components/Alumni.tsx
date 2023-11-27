@@ -12,7 +12,7 @@ interface alumniRole {
 }
 
 interface alumniData {
-  _id: string;
+  id: string;
   username: string;
   email: string;
   country: string;
@@ -29,11 +29,11 @@ const Students = ({ alumniDataArray }: alumniDataProps) => {
     return (
       item.role.student && (
         <div
-          key={item._id}
+          key={item.id}
           className="md:rounded-3xl sm:mt-5 md:mt-10 ring-gray-300 md:w-full lg:w-full"
         >
           <Link
-            href={`/alumni-details/${encodeURIComponent(item._id)
+            href={`/alumni-details/${encodeURIComponent(item.id)
               .toLowerCase()
               .split('%20')
               .join('-')}`}
