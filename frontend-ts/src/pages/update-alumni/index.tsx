@@ -66,7 +66,9 @@ const Alumni = () => {
       const formData = new FormData();
       formData.append('image', img!);
 
-      const res = await postApi(`user/${user.id}/upload`, formData, true);
+      console.log({ img, formData });
+
+      const res = await postApi(`user/${user.id}/upload`, formData, true, 'none');
       console.log(res);
     } catch (error) {
       console.error(error);

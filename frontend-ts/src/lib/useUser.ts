@@ -123,14 +123,17 @@ export default function useUser({
     }
   }
 
-  async function postApi(path: string, body: any, disableStringify = false) {
+  async function postApi(path: string, body: any, disableStringify = false, headerType = 'application/json; charset=utf-8') {
+    // const header = headerType === 'none' ? {} : {
+    //   'Content-Type': headerType,
+
+    // };
     const res = await fetch(buildApiUrl(path), {
       body: disableStringify ? body : JSON.stringify(body),
       method: 'put',
       headers: {
-        'Content-Type': 'application/json; charset=utf-8',
         Authorization: `Bearer ${user?.token}`,
-      },
+      }
     });
 
     return await res.json();
