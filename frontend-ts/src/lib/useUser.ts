@@ -123,13 +123,23 @@ export default function useUser({
     }
   }
 
-  async function postApi(path: string, body: any, disableStringify = false, headerType = 'application/json; charset=utf-8') {
-    // const header = headerType === 'none' ? {} : {
-    //   'Content-Type': headerType,
+  async function postApi(path: string, body: any) {
 
-    // };
     const res = await fetch(buildApiUrl(path), {
-      body: disableStringify ? body : JSON.stringify(body),
+      body: JSON.stringify(body),
+      method: 'put',
+      headers: {
+        Authorization: `Bearer ${user?.token}`,
+        'Content-Type': 'application/json; charset=utf-8'
+      }
+    });
+
+    return await res.json();
+
+  }
+  async function postFormData(path: string, body: FormData) {
+    const res = await fetch(buildApiUrl(path), {
+      body,
       method: 'put',
       headers: {
         Authorization: `Bearer ${user?.token}`,
@@ -137,7 +147,6 @@ export default function useUser({
     });
 
     return await res.json();
-
   }
 
   useEffect(() => {
@@ -165,5 +174,5 @@ export default function useUser({
     }
   }, [user, access]);
 
-  return {user: {...user.user}, logout, login, updateOtp, postApi, refetchUser};
+  return {user: {...user.user}, logout, login, updateOtp, postApi, postFormData, refetchUser};
 }

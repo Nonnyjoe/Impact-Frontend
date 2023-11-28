@@ -6,7 +6,7 @@ import { BiCamera } from 'react-icons/bi';
 import toast from 'react-hot-toast';
 
 const Alumni = () => {
-  const { user, refetchUser, postApi } = useUser({
+  const { user, refetchUser, postApi, postFormData } = useUser({
     redirectTo: '/update-alumni/login',
     access: 'Alumni',
   });
@@ -27,15 +27,16 @@ const Alumni = () => {
       portfolio: '',
     },
     availabilityStatus: 'unavailable',
-    image: '',
   });
   const [termsChecked, setTermsChecked] = useState(false);
-  const [img, setImg] = useState<File>();
+  const [img, setImg] = useState<File | string>();
 
   useEffect(() => {
     if (!user) return;
     refetchUser()
-      .then((data) =>
+      .then((data) => {
+        console.log(data);
+
         setUserData({
           ...userData,
           firstname: data.firstname ?? '',
@@ -53,8 +54,9 @@ const Alumni = () => {
             github: data.socialLinks?.github! ?? '',
             portfolio: data.socialLinks?.portfolio! ?? '',
           },
-        })
-      )
+        });
+        setImg(data.image);
+      })
       .catch((err) => {
         console.error(err);
         toast.error('Error Loading User');
@@ -68,7 +70,7 @@ const Alumni = () => {
 
       console.log({ img, formData });
 
-      const res = await postApi(`user/${user.id}/upload`, formData, true, 'none');
+      const res = await postFormData(`user/${user.id}/upload`, formData);
       console.log(res);
     } catch (error) {
       console.error(error);
@@ -106,7 +108,7 @@ const Alumni = () => {
             <label htmlFor="file">
               <Image
                 alt="user image"
-                src={img ? URL.createObjectURL(img!) : ''}
+                src={typeof img === 'object' ? URL.createObjectURL(img! as File) : img!}
                 width={208}
                 height={208}
                 className="rounded-full"
