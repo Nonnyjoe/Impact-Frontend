@@ -117,3 +117,10 @@ export type UserQueryType = {
   isBlocked?: number;
   userId?: string;
 };
+
+export type UserCSVType = {
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  cohortId?: string;
+};
