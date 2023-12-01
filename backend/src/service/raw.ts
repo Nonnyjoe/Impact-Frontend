@@ -89,6 +89,18 @@ export const onboarders = [
     isBlacklisted: false,
     hasOnboarded: false,
   },
+  {
+    cohortId: 'Cohort III',
+    email: 'mayowaobi74@gmail.com',
+    isBlacklisted: false,
+    hasOnboarded: false,
+  },
+  {
+    cohortId: 'Cohort IV',
+    email: 'alongepelumi15@gmail.com',
+    isBlacklisted: false,
+    hasOnboarded: false,
+  },
 ];
 
 export const superAdmin = {
