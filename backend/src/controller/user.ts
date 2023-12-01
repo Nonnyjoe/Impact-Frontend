@@ -63,6 +63,51 @@ export async function onboardUser(req: Request, res: Response) {
   }
 }
 
+export async function createUser(req: Request, res: Response) {
+  /*
+  #swagger.tags = ['Auth']
+  #swagger.requestBody = {
+            required: true,
+            content: {
+              "application/json": {
+                  schema: {
+                      $ref: "#/components/schemas/crateUserSchema"
+                  },
+                }
+            }
+        }
+  #swagger.security = [{
+            "bearerAuth": []
+    }]
+  */
+  try {
+    const { email } = req.body;
+    const token = createToken({ email }, '48h');
+    const link = `${FRONTEND_URL}/verify?token=${token}`;
+
+    const user = await UserService.createUser({
+      ...req.body,
+    });
+
+    // update preboarder
+    await PreboardService.updateOnboarder(user.email as string, { hasOnboarded: true });
+
+    // todo
+    // send a welcome mail
+    const message = `Welcome ${email}! `;
+
+    return res.status(StatusCode.OK).json({
+      status: !!ResponseCode.SUCCESS,
+      message: 'User created successfully',
+    });
+  } catch (error: GenericAnyType) {
+    return res.status(error.statusCode || StatusCode.INTERNAL_SERVER_ERROR).json({
+      status: !!ResponseCode.FAILURE,
+      message: error.message || 'Something went wrong',
+    });
+  }
+}
+
 export async function uploadStudents(req: Request, res: Response) {
   /*
   #swagger.tags = ['Auth']
@@ -117,9 +162,6 @@ export async function uploadStudents(req: Request, res: Response) {
           });
         }
         users.push(newUser);
-
-        // update preboarder
-        // PreboardService.updateOnboarder(newUser.email as string, { hasOnboarded: true });
       })
       .on('end', async () => {
         try {
@@ -141,14 +183,6 @@ export async function uploadStudents(req: Request, res: Response) {
           message: error.message || 'Error processing CSV file',
         });
       });
-
-    // const user = await UserService.createUser({
-    //   ...req.body,
-    // });
-
-    // todo
-    // send a welcome mail
-    // const message = `Welcome ${email}! `;
 
     return res.status(StatusCode.OK).json({
       status: !!ResponseCode.SUCCESS,
