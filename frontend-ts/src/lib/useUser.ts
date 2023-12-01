@@ -13,8 +13,8 @@ export type LoginData = {
   };
   id: string;
   username: string;
-  firstName: string;
-  lastName: string;
+  firstname: string;
+  lastname: string;
   email: string;
   isActive: boolean;
   country: string;

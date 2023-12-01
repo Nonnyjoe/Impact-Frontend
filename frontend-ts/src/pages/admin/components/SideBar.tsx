@@ -21,7 +21,7 @@ const SideBar: FC<Props> = ({ logout }) => {
         <div className="grid gap-[20%]">
           {[
             ['Dashboard', RxDashboard],
-            ['Analytics', BiAnalyse],
+            ['Cohorts', BiAnalyse],
             ['Notifications', BiAlarm],
             ['Settings', BiCog],
           ].map(([word, Icon]) => {

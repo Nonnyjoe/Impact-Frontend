@@ -25,9 +25,12 @@ interface alumniDataProps {
   alumniDataArray: alumniData[];
 }
 const Students = ({ alumniDataArray }: alumniDataProps) => {
+  console.log(alumniDataArray);
+
   const renderedAlumniGallery = alumniDataArray.map((item) => {
     return (
-      item.role.student && (
+      item.role.student ||
+      (item.role.user && (
         <div
           key={item.id}
           className="md:rounded-3xl sm:mt-5 md:mt-10 ring-gray-300 md:w-full lg:w-full"
@@ -38,14 +41,22 @@ const Students = ({ alumniDataArray }: alumniDataProps) => {
               .split('%20')
               .join('-')}`}
           >
-            <Image src={CM1} alt="Image Description" className="w-full h-auto md:h-full" />
+            <Image
+              src={item.image}
+              width={150}
+              height={50}
+              alt="Image Description"
+              className="w-full h-auto md:h-full"
+            />
             <div className="flex flex-col items-center  md:items-start">
-              <p className="text text-black font-poppins mt-2 text-lg">{item.username}</p>
+              <p className="text text-black font-poppins mt-2 text-lg">
+                {item.firstname} {item.lastname}
+              </p>
               <p className="text text-w3b-red font-poppins text-sm">{item.email}</p>{' '}
             </div>
           </Link>
         </div>
-      )
+      ))
     );
   });
 
