@@ -2,7 +2,6 @@ import User from '../models/user';
 import Cohort from '../models/cohort';
 import { Request, Response } from 'express';
 import {
-  Cohort,
   GenericAnyType,
   ResponseCode,
   StatusCode,
