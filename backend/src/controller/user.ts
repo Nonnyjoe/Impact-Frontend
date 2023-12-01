@@ -1,9 +1,12 @@
+import User from '../models/user';
+import Cohort from '../models/cohort';
 import { Request, Response } from 'express';
 import {
   Cohort,
   GenericAnyType,
   ResponseCode,
   StatusCode,
+  UserCSVType,
   UserInterface,
   UserQueryType,
 } from '../@types';
@@ -13,6 +16,8 @@ import { PreboardService, UserService } from '../service';
 import { customAlphabet } from 'nanoid';
 import { numbers } from 'nanoid-dictionary';
 import { verify } from '../mailTemplates/verify';
+import multer from 'multer';
+import csv from 'csv-parser';
 
 const nanoid = customAlphabet(numbers, 6);
 const { createToken } = Toolbox;
@@ -59,7 +64,7 @@ export async function onboardUser(req: Request, res: Response) {
   }
 }
 
-export async function createUser(req: Request, res: Response) {
+export async function uploadStudents(req: Request, res: Response) {
   /*
   #swagger.tags = ['Auth']
   #swagger.requestBody = {
@@ -77,19 +82,74 @@ export async function createUser(req: Request, res: Response) {
     }]
   */
   try {
-    const { email } = req.body;
-    const token = createToken({ email }, '48h');
-    const link = `${FRONTEND_URL}/verify?token=${token}`;
-    const user = await UserService.createUser({
-      ...req.body,
-    });
+    // const { email } = req.body;
+    // const token = createToken({ email }, '48h');
+    // const link = `${FRONTEND_URL}/verify?token=${token}`;
 
-    // update preboarder
-    await PreboardService.updateOnboarder(user.email as string, { hasOnboarded: true });
+    if (!req.file) {
+      return res.status(StatusCode.BAD_REQUEST).json({
+        status: !!ResponseCode.FAILURE,
+        message: 'No file uploaded.',
+      });
+    }
+
+    const csvData: String = req.file.buffer.toString('utf8');
+    const users: UserCSVType[] = [];
+
+    // Parsing CSV data
+    const parseStream = csv();
+    parseStream.write(csvData);
+    parseStream.end();
+
+    parseStream
+      .on('data', (row: { firstname: string; lastname: string; email: string; cohort: string }) => {
+        const newUser = new User({
+          firstname: row.firstname,
+          lastname: row.lastname,
+          email: row.email,
+          cohort: row.cohort,
+        });
+
+        const getCohort = Cohort.findOne({ name: row.cohort });
+        if (!getCohort) {
+          return res.status(StatusCode.BAD_REQUEST).json({
+            status: !!ResponseCode.FAILURE,
+            message: 'Cohort does not exist',
+          });
+        }
+        users.push(newUser);
+
+        // update preboarder
+        // PreboardService.updateOnboarder(newUser.email as string, { hasOnboarded: true });
+      })
+      .on('end', async () => {
+        try {
+          await User.insertMany(users);
+          console.log('Users successfully saved to the database.');
+          res.send('Users successfully saved to the database.');
+        } catch (error: GenericAnyType) {
+          console.error('Error saving users to the database:', error.message);
+          res.status(error.statusCode || StatusCode.INTERNAL_SERVER_ERROR).json({
+            status: !!ResponseCode.FAILURE,
+            message: error.message || 'Error saving users to the database.',
+          });
+        }
+      })
+      .on('error', (error: GenericAnyType) => {
+        console.error('Error processing CSV file:', error.message);
+        res.status(error.statusCode || StatusCode.INTERNAL_SERVER_ERROR).json({
+          status: !!ResponseCode.FAILURE,
+          message: error.message || 'Error processing CSV file',
+        });
+      });
+
+    // const user = await UserService.createUser({
+    //   ...req.body,
+    // });
 
     // todo
     // send a welcome mail
-    const message = `Welcome ${email}! `;
+    // const message = `Welcome ${email}! `;
 
     return res.status(StatusCode.OK).json({
       status: !!ResponseCode.SUCCESS,
