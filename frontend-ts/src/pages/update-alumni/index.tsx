@@ -4,6 +4,7 @@ import w3bLogo from '@/assets/Images/Logo.png';
 import Image from 'next/image';
 import { BiCamera } from 'react-icons/bi';
 import toast from 'react-hot-toast';
+import { TailSpin } from 'react-loader-spinner';
 
 const Alumni = () => {
   const { user, refetchUser, postApi, postFormData } = useUser({
@@ -29,7 +30,9 @@ const Alumni = () => {
     availabilityStatus: 'unavailable',
   });
   const [termsChecked, setTermsChecked] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [img, setImg] = useState<File | string>();
+  const [hasUploaded, setHasUploaded] = useState(false);
 
   useEffect(() => {
     if (!user) return;
@@ -56,6 +59,10 @@ const Alumni = () => {
           },
         });
         setImg(data.image);
+
+        if (data.image) {
+          setHasUploaded(true);
+        }
       })
       .catch((err) => {
         console.error(err);
@@ -64,21 +71,48 @@ const Alumni = () => {
   }, []);
 
   const handleUpload = async () => {
+    setHasUploaded(false);
+    setLoading(true);
     try {
       const formData = new FormData();
       formData.append('image', img!);
 
-      console.log({ img, formData });
-
       const res = await postFormData(`user/${user.id}/upload`, formData);
-      console.log(res);
+      if (res.ok) {
+        toast.success('Image successfully uploaded');
+      }
+      setLoading(false);
+      setHasUploaded(true);
     } catch (error) {
       console.error(error);
       // @ts-ignore
       toast.error(error.message);
+      setLoading(false);
     }
   };
   const handleUpdate = async () => {
+    if (
+      userData.socialLinks.twitter.startsWith('https://') ||
+      userData.socialLinks.twitter.startsWith('twitter.com/')
+    ) {
+      return toast.error('Only twitter usernames are allowed');
+    } else if (
+      userData.socialLinks.linkedin.startsWith('https://') ||
+      userData.socialLinks.linkedin.startsWith('linkedin.com/')
+    ) {
+      return toast.error('Only linkedin usernames are allowed');
+    } else if (
+      userData.socialLinks.github.startsWith('https://') ||
+      userData.socialLinks.github.startsWith('github.com/')
+    ) {
+      return toast.error('Only github usernames are allowed');
+    }
+
+    if (!hasUploaded) {
+      toast.error('Please upload an image');
+      return;
+    }
+
     try {
       const res = await postApi(`user/${user.id}`, userData);
       if (res.status) {
@@ -125,6 +159,7 @@ const Alumni = () => {
               onChange={(e) => {
                 if (!e.target.files) return;
                 setImg(e.target.files![0]);
+                setHasUploaded(false);
               }}
               className="hidden"
             />
@@ -266,7 +301,7 @@ const Alumni = () => {
           <p className="w-full -my-2">Social Links</p>
 
           <div className="form-item">
-            <label htmlFor="github">Github </label>
+            <label htmlFor="github">Github Username</label>
             <input
               className="input"
               type="text"
@@ -279,12 +314,12 @@ const Alumni = () => {
                   socialLinks: { ...userData.socialLinks, github: e.target.value },
                 })
               }
-              placeholder="https://github.com"
+              placeholder="johndoe"
             />
           </div>
 
           <div className="form-item">
-            <label htmlFor="twitter">Twitter </label>
+            <label htmlFor="twitter">Twitter Username </label>
             <input
               className="input"
               type="text"
@@ -297,13 +332,13 @@ const Alumni = () => {
                   socialLinks: { ...userData.socialLinks, twitter: e.target.value },
                 })
               }
-              placeholder="https://twitter.com"
+              placeholder="johndoe"
             />
           </div>
         </div>
         <div className="form-group">
           <div className="form-item">
-            <label htmlFor="linkedin">Linkedin </label>
+            <label htmlFor="linkedin">Linkedin Username </label>
             <input
               className="input"
               type="text"
@@ -316,7 +351,7 @@ const Alumni = () => {
                   socialLinks: { ...userData.socialLinks, linkedin: e.target.value },
                 })
               }
-              placeholder="https://linkedin.com"
+              placeholder="johndoe"
             />
           </div>
 
@@ -371,11 +406,26 @@ const Alumni = () => {
         </div>
 
         <button
-          className="bg-w3b-red text-white rounded-lg py-2 px-8 hover:bg-[#7a1515] disabled:bg-w3b-light-red"
+          className="bg-w3b-red text-white rounded-lg py-2 px-8 hover:bg-[#7a1515] disabled:bg-w3b-light-red font-bold"
           disabled={!termsChecked}
           onClick={handleUpdate}
         >
-          Submit
+          {loading ? (
+            <div className="flex gap-8 items-center justify-center ">
+              <TailSpin
+                height="auto"
+                width="20px"
+                color="#ffffff"
+                wrapperStyle={{}}
+                wrapperClass=""
+                visible={true}
+                ariaLabel="circles-with-bar-loading"
+              />
+              <p className="opacity-40">Submitting...</p>
+            </div>
+          ) : (
+            <>SUBMIT</>
+          )}
         </button>
       </div>
     </div>

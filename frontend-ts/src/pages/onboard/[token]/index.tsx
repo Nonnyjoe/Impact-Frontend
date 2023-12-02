@@ -1,48 +1,68 @@
 import Image from 'next/image';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import w3bLogo from '@/assets/Images/Logo.png';
-import {TailSpin} from 'react-loader-spinner';
-import {ValueOf} from 'next/dist/shared/lib/constants';
-import {buildApiPostConfig, buildApiUrl} from '@/pages/data/appConfig';
-import {useParams} from 'next/navigation';
-import {useRouter} from 'next/router';
+import { TailSpin } from 'react-loader-spinner';
+import { ValueOf } from 'next/dist/shared/lib/constants';
+import { buildApiPostConfig, buildApiUrl } from '@/pages/data/appConfig';
+import { useParams } from 'next/navigation';
+import { useRouter } from 'next/router';
+import toast from 'react-hot-toast';
 
 const CreateUser = () => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const [info, setInfo] = useState({
-    "firstname": "",
-    "lastname": "",
-    "gender": "",
-    "dob": "",
-    "username": "",
-    "email": "",
-    "cohortId": ""
+    firstname: '',
+    lastname: '',
+    gender: '',
+    dob: '',
+    username: '',
+    email: '',
+    cohortId: '',
   });
+  const [cohorts, setCohorts] = useState<any[]>([]);
+
+  const getCohort = async () => {
+    const res = await fetch(buildApiUrl('cohort'));
+    const { data } = await res.json();
+    if (data) {
+      setCohorts(data);
+    } else {
+      toast.error('Unable to fetch cohorts');
+    }
+  };
 
   useEffect(() => {
     setLoading(false);
+    getCohort().then((r) => r);
   }, []);
 
   useEffect(() => {
     if (router.query) {
       setInfo({
         ...info,
-        "email": router.query.email as string ?? "",
+        email: (router.query.email as string) ?? '',
       });
     }
   }, [router]);
 
-
   const handleSubmit = async () => {
     try {
       setLoading(true);
-      const res = await fetch(buildApiUrl(`auth/onboard/${router.query.token}`), buildApiPostConfig(info));
+      const res = await fetch(
+        buildApiUrl(`auth/onboard/${router.query.token}`),
+        buildApiPostConfig(info)
+      );
+
+      const data = await res.json();
+
       if (res.ok) {
-        console.log(await res.json());
+        console.log(data);
+        toast.success(data.message);
       } else {
-        throw new Error('Error');
+        toast.error(data.message);
+        throw new Error(data.message);
       }
       setLoading(false);
     } catch (error) {
@@ -53,42 +73,75 @@ const CreateUser = () => {
 
   return (
     <div className="min-h-screen grid place-content-center">
-      <div className="grid min-w-full w-[60vh] mx-auto gap-[4vh] text-[1.5vw]">
-        <Image
-          alt={'Web3Bridge Logo'}
-          src={w3bLogo}
-          className="absolute left-[8vw] top-[8vh] w-[20vw]"
-        />
-        <h1 className="text-[2vw] text-center">Onboarding</h1>
+      <div className="grid p-8 gap-4 text-center w-screen max-w-xl">
+        <Image alt={'Web3Bridge Logo'} src={w3bLogo} className="absolute left-16 top-16 w-56" />
+        <h1 className="text-xl font-bold">Onboarding</h1>
 
-
-        <div className='grid grid-cols-2 gap-[5%] h-max'>
+        <div className="form-group">
           {Object.entries(info).map(([key, value]) => (
-            <div key={key}>
-              <p className="my-[2%] text-rsm">{key}</p>
-              <input
-                type={key == 'email' ? "email" : "text"}
-                name={key}
-                value={value}
-                onChange={(e) => setInfo({...info, [key]: e.target.value})}
-                className="border border-w3b-red rounded-[0.4vw] py-[2%] px-[5%] w-full focus:outline-none text-rsm"
-                disabled={key == 'email'}
-              />
-
+            <div key={key} className="form-item">
+              <label htmlFor={key}>{key}</label>
+              {key === 'gender' ? (
+                <select
+                  name={key}
+                  value={value}
+                  onChange={(e) => setInfo({ ...info, [key]: e.target.value })}
+                  className="input"
+                >
+                  <option value="" disabled>
+                    Select Gender
+                  </option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                </select>
+              ) : key === 'dob' ? (
+                <input
+                  type="date"
+                  name={key}
+                  value={value}
+                  onChange={(e) => setInfo({ ...info, [key]: e.target.value })}
+                  className="input"
+                />
+              ) : key === 'cohortId' ? (
+                <select
+                  name={key}
+                  value={value}
+                  onChange={(e) => setInfo({ ...info, [key]: e.target.value })}
+                  className="input"
+                >
+                  <option value="" disabled>
+                    Select Cohort
+                  </option>
+                  {cohorts.map((cohort) => (
+                    <option key={cohort.id} value={cohort.name}>
+                      {cohort.name}
+                    </option>
+                  ))}
+                </select>
+              ) : (
+                <input
+                  type={key == 'email' ? 'email' : 'text'}
+                  name={key}
+                  value={value}
+                  onChange={(e) => setInfo({ ...info, [key]: e.target.value })}
+                  className="input"
+                  disabled={key == 'email'}
+                />
+              )}
             </div>
           ))}
         </div>
 
         <button
           onClick={handleSubmit}
-          className="border border-w3b-red rounded-[0.4vw] py-[0.5%] px-[2%] disabled:border-w3b-red/50 hover:bg-w3b-light-red mt-[10%]"
+          className="bg-w3b-red text-white rounded-lg py-2 px-8 hover:bg-[#7a1515] disabled:bg-w3b-light-red font-bold disabled:text-w3b-red"
           disabled={loading}
         >
           {loading ? (
-            <div className="flex gap-[5%] items-center justify-center ">
+            <div className="flex gap-8 items-center justify-center">
               <TailSpin
                 height="auto"
-                width="2vw"
+                width="20px"
                 color="#ff0000"
                 wrapperStyle={{}}
                 wrapperClass=""

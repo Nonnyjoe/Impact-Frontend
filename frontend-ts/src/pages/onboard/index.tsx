@@ -18,10 +18,8 @@ const Onboard = () => {
     try {
       setLoading(true);
       const res = await fetch(buildApiUrl('auth/onboard'), buildApiPostConfig({ email }));
-
+      const response = await res.json();
       if (res.ok) {
-        const response = await res.json();
-
         if (response.message.toLowerCase().startsWith('email already onboarded'))
           throw new Error(response.message);
         const linkArr = response.data.link.split('/');
@@ -29,7 +27,7 @@ const Onboard = () => {
 
         openInNewTab(encodeURI(`${window.location.href}/${link}`));
       } else {
-        throw new Error('Error');
+        throw new Error(response.message);
       }
       setLoading(false);
     } catch (error) {
@@ -41,35 +39,33 @@ const Onboard = () => {
   };
   return (
     <div className="min-h-screen grid place-content-center">
-      <div className="grid min-w-full w-[50vh] mx-auto gap-[4vh] text-[1.5vw] text-center">
-        <Image
-          alt={'Web3Bridge Logo'}
-          src={w3bLogo}
-          className="absolute left-[10vw] top-[10vh] w-[20vw]"
-        />
-        <h1 className="text-[2vw]">Onboarding</h1>
+      <div className="grid p-8 gap-4 text-center w-screen max-w-xl">
+        <Image alt={'Web3Bridge Logo'} src={w3bLogo} className="absolute left-16 top-16 w-56" />
+        <h1 className="text-xl font-bold">Onboarding</h1>
 
-        <div>
-          <p className="my-[2%]">Email</p>
+        <div className="form-item pt-3">
+          <label htmlFor="email">
+            <span className="text-xl">Email</span>
+          </label>
           <input
             type="email"
             name="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="border border-w3b-red rounded-[0.8vw] py-[2%] px-[4%] w-full focus:outline-none"
+            className="input"
           />
         </div>
 
         <button
           onClick={onboard}
-          className="border border-w3b-red rounded-[0.8vw] py-[2%] px-[4%] disabled:border-w3b-red/50 hover:bg-w3b-light-red"
+          className="bg-w3b-red text-white rounded-lg py-2 px-8 hover:bg-[#7a1515] disabled:bg-w3b-light-red font-bold disabled:text-w3b-red"
           disabled={loading}
         >
           {loading ? (
-            <div className="flex gap-[5%] items-center justify-center">
+            <div className="flex gap-8 items-center justify-center">
               <TailSpin
                 height="auto"
-                width="2vw"
+                width="20px"
                 color="#ff0000"
                 wrapperStyle={{}}
                 wrapperClass=""

@@ -70,7 +70,7 @@ export default function useUser({
 
     const
       data = await res.json();
-    return data.status;
+    return data;
   };
 
   const updateOtp = async (email: string, otp: string) => {
