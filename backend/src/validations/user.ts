@@ -5,13 +5,7 @@ const user = {
   async validateUserOnboarding(payload: any) {
     const schema = joi.object({
       email: joi.string().email().required().label('Email is required'),
-      otp: joi
-        .number()
-        .integer()
-        .min(99999)
-        .max(999999)
-        .optional()
-        .label('Please input a valid otp.'),
+      otp: joi.string().min(6).max(6).optional().label('Please input a valid otp.'),
     });
     const { error } = schema.validate(payload);
     if (error) throw error.details[0].context.label;
@@ -68,12 +62,24 @@ const user = {
           twitter: joi.string().optional().label('twitter'),
           linkedin: joi.string().optional().label('linkedIn'),
           github: joi.string().optional().label('github'),
+          portfolio: joi.string().optional().label('portfolio'),
         })
         .optional()
         .label('social'),
       about: joi.string().optional().label('about'),
+      requestStatus: joi
+        .string()
+        .valid('approved', 'rejected')
+        .optional()
+        .label('Request status is approved or rejected'),
+      availabilityStatus: joi
+        .string()
+        .valid('available', 'unavailable')
+        .optional()
+        .label('Availability status is available or unavailable'),
     });
     const { error } = schema.validate(payload);
+    console.log(error);
     if (error) throw error.details[0].context.label;
     return true;
   },

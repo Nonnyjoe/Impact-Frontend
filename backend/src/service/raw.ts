@@ -83,6 +83,24 @@ export const onboarders = [
     isBlacklisted: true,
     hasOnboarded: true,
   },
+  {
+    cohortId: 'Cohort II',
+    email: 'jaydhales@gmail.com',
+    isBlacklisted: false,
+    hasOnboarded: false,
+  },
+  {
+    cohortId: 'Cohort III',
+    email: 'mayowaobi74@gmail.com',
+    isBlacklisted: false,
+    hasOnboarded: false,
+  },
+  {
+    cohortId: 'Cohort IV',
+    email: 'alongepelumi15@gmail.com',
+    isBlacklisted: false,
+    hasOnboarded: false,
+  },
 ];
 
 export const superAdmin = {
@@ -260,7 +278,7 @@ function generateLoremIpsum(wordCount: number, paragraphs: number): string {
   return loremIpsum.join('\n\n');
 }
 
-for (let i = 0; i < 120; i++) {
+for (let i = 0; i < 3; i++) {
   students.push({
     email: `student${i + 1}@gmail.com`,
     password: 'password',
@@ -268,7 +286,7 @@ for (let i = 0; i < 120; i++) {
     role: {
       super: false,
       admin: false,
-      user: i < 50 ? false : true,
+      user: i < 2 ? false : true,
       student: true,
     },
     requestStatus: setApprovalStatus(i),

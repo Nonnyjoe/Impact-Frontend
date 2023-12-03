@@ -39,7 +39,7 @@ const UserSchema = new mongoose.Schema(
       match: [/\d{10}$/, 'Please include valid phone number'],
     },
     otp: {
-      type: Number,
+      type: String,
       required: [false, 'Please include otp'],
     },
     image: String,
@@ -53,6 +53,7 @@ const UserSchema = new mongoose.Schema(
       twitter: { type: String },
       linkedin: { type: String },
       github: { type: String },
+      portfolio: { type: String },
     },
     cohortId: {
       type: String,
@@ -69,6 +70,11 @@ const UserSchema = new mongoose.Schema(
       type: String,
       enum: ['rejected', 'approved', 'pending'],
       default: 'pending',
+    },
+    availabilityStatus: {
+      type: String,
+      enum: ['available', 'unavailable'],
+      default: 'available',
     },
     token: String,
   },

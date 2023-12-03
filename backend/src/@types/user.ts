@@ -44,12 +44,14 @@ export interface UserInterface extends Document {
     twitter?: string;
     linkedin?: string;
     github?: string;
+    portfolio?: string;
   };
   cohortId?: string;
   about?: string;
   isBlocked: boolean;
   token?: string;
   requestStatus?: 'pending' | 'approved' | 'rejected' | 'expired';
+  availabilityStatus?: 'available' | 'unavailable';
 }
 
 export type RegisterType = {
@@ -88,11 +90,13 @@ export type UpdateUserType = {
     twitter?: string;
     linkedin?: string;
     github?: string;
+    portfolio?: string;
   };
   cohortId?: string;
   about?: string;
   isBlocked?: boolean;
   requestStatus?: 'pending' | 'approved' | 'rejected' | 'expired';
+  availabilityStatus?: 'available' | 'unavailable';
   token?: string;
 };
 
@@ -102,6 +106,7 @@ export type UserQueryType = {
   page?: number;
   limit?: number;
   requestStatus?: string;
+  availabilityStatus?: string;
   firstName?: string;
   lastName?: string;
   email?: string;
@@ -111,4 +116,11 @@ export type UserQueryType = {
   country?: string;
   isBlocked?: number;
   userId?: string;
+};
+
+export type UserCSVType = {
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  cohortId?: string;
 };

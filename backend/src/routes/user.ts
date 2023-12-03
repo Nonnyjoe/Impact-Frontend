@@ -6,6 +6,7 @@ import {
   deleteUser,
   uploadImage,
   approveOnboarders,
+  uploadStudents,
 } from '../controller/user';
 import { UserMiddleware, AuthenticationsMiddleware, UploadsMiddleware } from '../middleware';
 
@@ -16,6 +17,13 @@ const { authorize } = AuthenticationsMiddleware;
 router.post('/logout');
 router.post('/refresh');
 router.get('/', listUsers);
+router.put('/:userId/upload', UploadsMiddleware.single('image'), uploadImage);
+router.post(
+  '/student-upload',
+  [authorize(['super', 'admin'])],
+  UploadsMiddleware.single('csvFile'),
+  uploadStudents
+);
 router.get('/:userId', getUser);
 router.put('/:userId', [inspectUpdateUser], updateUser);
 router.delete('/:userId', [authorize(['super', 'admin'])], deleteUser);
@@ -24,6 +32,5 @@ router.patch(
   [authorize(['super', 'admin']), inspectOnboardingRequest],
   approveOnboarders
 );
-router.put('/:userId/upload', UploadsMiddleware.single('image'), uploadImage);
 
 export default router;
