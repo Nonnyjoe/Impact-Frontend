@@ -1,12 +1,16 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { FC, Fragment, useState } from 'react';
 
-export default function RequestModal({
+export default function Modal({
   isOpen,
   setIsOpen,
+  title,
+  children,
 }: {
   isOpen: boolean;
   setIsOpen: (value: boolean) => void;
+  children: React.ReactNode;
+  title?: string;
 }) {
   function closeModal() {
     setIsOpen(false);
@@ -44,25 +48,13 @@ export default function RequestModal({
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                  <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900">
-                    Payment successful
+                  <Dialog.Title
+                    as="h3"
+                    className="text-lg font-medium leading-6 text-gray-900 mb-4"
+                  >
+                    {title}
                   </Dialog.Title>
-                  <div className="mt-2">
-                    <p className="text-sm text-gray-500">
-                      Your payment has been successfully submitted. We’ve sent you an email with all
-                      of the details of your order.
-                    </p>
-                  </div>
-
-                  <div className="mt-4">
-                    <button
-                      type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                      onClick={closeModal}
-                    >
-                      Got it, thanks!
-                    </button>
-                  </div>
+                  {children}
                 </Dialog.Panel>
               </Transition.Child>
             </div>

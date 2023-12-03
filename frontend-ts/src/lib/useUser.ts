@@ -123,11 +123,11 @@ export default function useUser({
     }
   }
 
-  async function postApi(path: string, body: any) {
+  async function postApi(path: string, body: any, method = 'put') {
 
     const res = await fetch(buildApiUrl(path), {
       body: JSON.stringify(body),
-      method: 'put',
+      method,
       headers: {
         Authorization: `Bearer ${user?.token}`,
         'Content-Type': 'application/json; charset=utf-8'
