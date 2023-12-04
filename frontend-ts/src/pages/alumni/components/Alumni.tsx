@@ -19,6 +19,10 @@ interface alumniData {
   cohortId: string;
   isActive: boolean;
   role: alumniRole;
+  availabilityStatus: string;
+  image: string;
+  firstname: string;
+  lastname: string;
 }
 
 interface alumniDataProps {

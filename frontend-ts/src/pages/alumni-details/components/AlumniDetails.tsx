@@ -17,6 +17,19 @@ interface studentData {
   isActive: boolean;
   story: string;
   role: studentRole;
+  image: string;
+  firstname: string;
+  lastname: string;
+  socialLinks: {
+    linkedin: string;
+    github: string;
+    twitter: string;
+  };
+
+  availabilityStatus: string;
+  about: string;
+  state: string;
+  city: string;
 }
 
 interface studentDataProps {
@@ -27,35 +40,49 @@ const AlumniDetails = ({ studentDataObj }: studentDataProps) => {
   console.log(studentDataObj);
   return (
     <>
-      <div className="flex justify-center items-center flex-col max-w-md md:max-w-xl p-6">
-        <img
-          src={studentDataObj.image ?? 'https://source.unsplash.com/200x200/?portrait?2'}
-          alt=""
-          className="flex-shrink-0 object-cover h-64 rounded-full md:rounded-3xl sm:h-96 aspect-square"
-        />
-        <div className="space-y-4 text-center divide-y divide-gray-700">
-          <div className="my-2 space-y-1">
-            <h2 className="text-xl font-semibold sm:text-2xl">
-              {studentDataObj.firstname} {studentDataObj.lastname}
-            </h2>
-            <h2 className="text-xl font-semibold sm:text-2xl">{studentDataObj.email}</h2>
-            <h2 className="text-xl font-semibold sm:text-2xl">
-              {studentDataObj.city}, {studentDataObj.state}, {studentDataObj.country}
-            </h2>
-            <p className="px-5 text-xs sm:text-base dark:text-gray-400">{studentDataObj.about}</p>
-            <div className="flex justify-center items-center gap-5">
-              <a target="_blank" href={studentDataObj.socialLinks.twitter}>
-                <TwitterIcon />
-              </a>
-              <a target="_blank" href={studentDataObj.socialLinks.linkedin}>
-                <LinkedInIcon />
-              </a>
-              <a target="_blank" href={studentDataObj.socialLinks.github}>
-                <GithubIcon />
-              </a>
-            </div>
+      <div className="flex justify-between items-center max-w-4xl p-6 gap-12">
+        <div className="flex-1">
+          <img
+            src={studentDataObj?.image ?? 'https://source.unsplash.com/200x200/?portrait?2'}
+            alt=""
+            className="w-full object-cover rounded-full md:rounded-3xl aspect-square"
+          />
+          <div className="flex justify-between items-center gap-3 py-4 px-12">
+            <a target="_blank" href={`https://twitter.com/${studentDataObj?.socialLinks?.twitter}`}>
+              <TwitterIcon fontsize="32px" />
+            </a>
+            <a
+              target="_blank"
+              href={`https://linkedin.com/in/${studentDataObj?.socialLinks?.linkedin}`}
+            >
+              <LinkedInIcon fontsize="32px" />
+            </a>
+            <a target="_blank" href={`https://github.com/${studentDataObj?.socialLinks?.github}`}>
+              <GithubIcon fontsize="32px" />
+            </a>
           </div>
-          <p>{studentDataObj.story}</p>
+        </div>
+
+        <div className=" flex-1 space-y-4 divide-y divide-gray-700">
+          <div className="my-2 space-y-1">
+            <h2 className="text-xl font-semibold">
+              <b className="font-bold">Name:</b> {studentDataObj?.firstname}{' '}
+              {studentDataObj?.lastname}
+            </h2>
+            <h2 className="text-xl font-semibold">
+              {' '}
+              <b className="font-bold">Name:</b> s{studentDataObj?.email}
+            </h2>
+            <h2 className="text-xl font-semibold">
+              <b className="font-bold">Name:</b> {studentDataObj?.city}, {studentDataObj?.state},{' '}
+              {studentDataObj?.country}
+            </h2>
+            <p className="text-xs sm:text-base dark:text-gray-400">
+              {' '}
+              <b className="font-bold">Name:</b> {studentDataObj?.about}
+            </p>
+          </div>
+          <p>{studentDataObj?.story}</p>
         </div>
       </div>
     </>
