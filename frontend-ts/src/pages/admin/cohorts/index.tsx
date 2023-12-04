@@ -2,7 +2,6 @@ import DashboardLayout from '@/components/Admin/DashboardLayout';
 import useUser from '@/lib/useUser';
 import AdminHeader from '@/components/Admin/AdminHeader';
 import {buildApiUrl} from '@/lib/data/appConfig';
-import {useRouter} from 'next/router';
 import {useEffect, useState} from 'react';
 import Modal from '@/components/Admin/RequestModal';
 import AddCohort from "@/components/Admin/addCohort";
@@ -53,8 +52,6 @@ const Admin = () => {
   const [tableData, setTableData] = useState<CohortData[]>([]);
   const { user, postApi } = useUser({ access: 'Admin' });
 
-  const router = useRouter();
-
   useEffect(() => {
 
     getCohorts().then((data) => {
@@ -63,7 +60,9 @@ const Admin = () => {
   }, [])
 
   const refreshData = () => {
-    router.replace(router.asPath);
+    getCohorts().then((data) => {
+      setTableData(data);
+    })
   };
 
   const tableHead = {

@@ -1,8 +1,9 @@
 import useUser from '@/lib/useUser';
 import { CohortData } from '@/pages/admin/cohorts';
+import CohortAction from '@/components/Admin/CohortAction';
 import { FC } from 'react';
 import toast, { Toast } from 'react-hot-toast';
-import { AiOutlineCheck, AiOutlineEllipsis } from 'react-icons/ai';
+import { AiOutlineCheck } from 'react-icons/ai';
 import { RxCross2 } from 'react-icons/rx';
 import { Dna } from 'react-loader-spinner';
 
@@ -122,11 +123,7 @@ const TableRow: FC<{
           </div>
         );
       case 'options':
-        return (
-          <div className="w-full grid place-content-center">
-            <AiOutlineEllipsis className="text-rlg" onClick={() => handleRead(data)} />
-          </div>
-        );
+        return <CohortAction data={data} />;
       default:
         return <p className="truncate">{value}</p>;
     }
@@ -135,7 +132,7 @@ const TableRow: FC<{
   return (
     <div
       className={`grid ${
-        type === 'admin' ? 'grid-cols-8' : `grid-cols-${  Object.keys(data).length - 1}`
+        type === 'admin' ? 'grid-cols-8' : `grid-cols-${Object.keys(data).length - 1}`
       } gap-x-[2%] items-center ${className}`}
     >
       {Object.entries(data)
@@ -144,11 +141,7 @@ const TableRow: FC<{
           return key !== 'id';
         })
         .map(([key, value], index) => (
-          <div
-            key={index}
-            className={`col-span-${widths[index]} text-center`}
-            onClick={() => handleRead(data)}
-          >
+          <div key={index} className={`col-span-${widths[index]} text-center`}>
             {renderCell(key, value, data.id)}
           </div>
         ))}
