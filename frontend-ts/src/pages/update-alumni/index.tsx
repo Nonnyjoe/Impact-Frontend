@@ -1,5 +1,5 @@
 import useUser from '@/lib/useUser';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import w3bLogo from '@/assets/Images/Logo.png';
 import Image from 'next/image';
 import { BiCamera } from 'react-icons/bi';
@@ -96,12 +96,12 @@ const Alumni = () => {
       userData.socialLinks.twitter.startsWith('twitter.com/')
     ) {
       return toast.error('Only twitter usernames are allowed');
-    } else if (
+    } if (
       userData.socialLinks.linkedin.startsWith('https://') ||
       userData.socialLinks.linkedin.startsWith('linkedin.com/')
     ) {
       return toast.error('Only linkedin usernames are allowed');
-    } else if (
+    } if (
       userData.socialLinks.github.startsWith('https://') ||
       userData.socialLinks.github.startsWith('github.com/')
     ) {

@@ -1,5 +1,3 @@
-import Image from 'next/image';
-
 export default function Copyright() {
   return (
     <div className="grid gap-2 md:gap-3 text-black">

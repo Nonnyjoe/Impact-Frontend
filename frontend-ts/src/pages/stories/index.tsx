@@ -1,7 +1,7 @@
 import AsShowcased from '@/components/AsShowcased';
 import Footer from '@/components/Footer/footer';
 import YoutubeSnippet from '@/components/youtubeSnippet';
-import MainStories from './components/MainStories';
+import MainStories from '../../components/Stories/MainStories';
 
 const Stories = () => (
   <div className="grid gap-12 lg:gap-24 pt-8">

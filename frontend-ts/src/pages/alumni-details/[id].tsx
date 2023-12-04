@@ -1,28 +1,11 @@
 import React from 'react';
-import { buildApiUrl } from '../data/appConfig';
 import { useRouter } from 'next/router';
 import Footer from '@/components/Footer/footer';
 import YoutubeSnippet from '@/components/youtubeSnippet';
 import LayoutWrapper from '@/components/LayoutWrapper';
-import AlumniDetails from './components/AlumniDetails';
+import { buildApiUrl } from '@/lib/data/appConfig';
+import AlumniDetails, {studentData} from '../../components/AlumniDetails';
 
-interface studentRole {
-  super: boolean;
-  admin: boolean;
-  user: boolean;
-  student: boolean;
-}
-
-interface studentData {
-  id: string;
-  username: string;
-  email: string;
-  country: string;
-  cohortId: string;
-  isActive: boolean;
-  story: string;
-  role: studentRole;
-}
 
 interface studentDataProps {
   studentDataObj: studentData;
@@ -31,7 +14,6 @@ interface studentDataProps {
 const Student = ({studentDataObj}: studentDataProps) => {
   const router = useRouter();
   const { id } = router.query;
-
   console.log(id);
 
   console.log(studentDataObj);
@@ -57,7 +39,7 @@ export async function getStaticPaths() {
   const apiUrl = buildApiUrl('/user');
   const res = await fetch(apiUrl);
   const usersData = await res.json();
-  const users = usersData.data.users;
+  const {users} = usersData.data;
 
   // Generate an array of paths based on the list of users
   const paths = users.map((user: any) => ({
@@ -73,8 +55,8 @@ export async function getStaticProps({ params }: any) {
   console.log(id);
   const apiUrl = buildApiUrl(`/user/${id}`);
   const res = await fetch(apiUrl);
-  const studentData = await res.json();
-  const studentDataObj = studentData.data;
+  const stuData = await res.json();
+  const studentDataObj = stuData.data;
 
   return { props: { studentDataObj } };
 }

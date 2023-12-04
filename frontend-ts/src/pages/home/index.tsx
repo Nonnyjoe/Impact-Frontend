@@ -3,10 +3,10 @@ import Footer from '@/components/Footer/footer';
 import LayoutWrapper from '@/components/LayoutWrapper';
 import RecentCohortStories from '@/components/recentCohortStories';
 import YoutubeSnippet from '@/components/youtubeSnippet';
-import Goal from '@/pages/home/components/Goal';
-import HearFrom from '@/pages/home/components/HearFrom';
-import Hero from '@/pages/home/components/Hero';
-import ImpactSpread from '@/pages/home/components/ImpactSpread';
+import Goal from '@/components/Home/Goal';
+import HearFrom from '@/components/Home/HearFrom';
+import Hero from '@/components/Home/Hero';
+import ImpactSpread from '@/components/Home/ImpactSpread';
 
 export default function HomeIndex() {
   return (

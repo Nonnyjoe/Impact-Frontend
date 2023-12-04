@@ -2,9 +2,7 @@ import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import w3bLogo from '@/assets/Images/Logo.png';
 import { TailSpin } from 'react-loader-spinner';
-import { ValueOf } from 'next/dist/shared/lib/constants';
-import { buildApiPostConfig, buildApiUrl } from '@/pages/data/appConfig';
-import { useParams } from 'next/navigation';
+import { buildApiPostConfig, buildApiUrl } from '@/lib/data/appConfig';
 import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
 
@@ -45,7 +43,7 @@ const CreateUser = () => {
         email: (router.query.email as string) ?? '',
       });
     }
-  }, [router]);
+  }, [router, info]);
 
   const handleSubmit = async () => {
     try {
@@ -120,12 +118,12 @@ const CreateUser = () => {
                 </select>
               ) : (
                 <input
-                  type={key == 'email' ? 'email' : 'text'}
+                  type={key === 'email' ? 'email' : 'text'}
                   name={key}
                   value={value}
                   onChange={(e) => setInfo({ ...info, [key]: e.target.value })}
                   className="input"
-                  disabled={key == 'email'}
+                  disabled={key === 'email'}
                 />
               )}
             </div>

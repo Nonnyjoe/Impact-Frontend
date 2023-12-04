@@ -1,19 +1,19 @@
-import {Stories} from './components/Stories';
-import {Goal} from './components/Goals';
-import {Gallery} from './components/Gallery';
 import YoutubeSnippet from '@/components/youtubeSnippet';
 import AsShowcased from '@/components/AsShowcased';
 import Footer from '@/components/Footer/footer';
-import {buildApiUrl} from '../data/appConfig';
+import {buildApiUrl} from '@/lib/data/appConfig';
+import Stories from '../../components/Cohorts/Stories';
+import Goal from '../../components/Cohorts/Goals';
+import Gallery from '../../components/Cohorts/Gallery';
 
-interface galleryData {
+interface IGalleryData {
   id: string;
   name: string;
   alias: number;
 }
 
 interface galleryDataProps {
-  galleryDataArray: galleryData[];
+  galleryDataArray: IGalleryData[];
 }
 
 export default function Index({galleryDataArray}: galleryDataProps) {

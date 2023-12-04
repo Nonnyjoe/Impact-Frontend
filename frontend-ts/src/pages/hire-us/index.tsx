@@ -1,17 +1,16 @@
 import LayoutWrapper from '@/components/LayoutWrapper';
-import { Hireus } from './components/HireUs';
-import { LetsWorkTog } from './components/LetsWork';
-import { ProductsWorked } from './components/Products';
-import { JoinCommunity } from './components/JoinCommunity';
 import AsShowcased from '@/components/AsShowcased';
 import Footer from '@/components/Footer/footer';
+import HireUs from '../../components/Hire-Us/HireUs';
+import  LetsWorkTog  from '../../components/Hire-Us/LetsWork';
+import ProductsWorked from '../../components/Hire-Us/Products';
+import JoinCommunity from '../../components/Hire-Us/JoinCommunity';
 
-const HireUs = () => {
-  return (
+const HireUsMain = () => (
     <div className="grid gap-12 lg:gap-24 ">
       <LayoutWrapper>
         <div className="grid gap-12 lg:gap-24 ">
-          <Hireus />
+          <HireUs />
           <LetsWorkTog />
           <ProductsWorked />
           <JoinCommunity />
@@ -21,6 +20,5 @@ const HireUs = () => {
       <Footer />
     </div>
   );
-};
 
-export default HireUs;
+export default HireUsMain;

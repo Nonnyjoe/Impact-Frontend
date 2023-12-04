@@ -2,26 +2,8 @@ import React, { useState } from 'react';
 import YoutubeSnippet from '@/components/youtubeSnippet';
 import AsShowcased from '@/components/AsShowcased';
 import Footer from '@/components/Footer/footer';
-import { buildApiUrl } from '../data/appConfig';
-import Students from './components/Alumni';
-
-interface alumniRole {
-  super: boolean;
-  admin: boolean;
-  user: boolean;
-  student: boolean;
-}
-
-interface alumniData {
-  id: string;
-  username: string;
-  email: string;
-  country: string;
-  cohortId: string;
-  isActive: boolean;
-  role: alumniRole;
-  availabilityStatus: string;
-}
+import { buildApiUrl } from '@/lib/data/appConfig';
+import Students, {alumniData} from '../../components/Alumni/Alumni';
 
 interface alumniDataProps {
   alumniDataArray: alumniData[];
@@ -31,20 +13,20 @@ const Alumni = ({ alumniDataArray }: alumniDataProps) => {
   const [selectedCohort, setSelectedCohort] = useState('');
   const [availability, setAvailability] = useState('');
 
-  let filteredData = selectedCohort
+  const filteredData = selectedCohort
     ? alumniDataArray.filter((student) => student.cohortId === selectedCohort)
     : alumniDataArray;
-  let uniqueCohortId = new Set();
+  const uniqueCohortId = new Set();
 
-  let uniqueCohortArray = filteredData.filter(
+  const uniqueCohortArray = filteredData.filter(
     (obj) => !uniqueCohortId.has(obj.cohortId) && uniqueCohortId.add(obj.cohortId)
   );
 
   const availabilityData = filteredData
     ? alumniDataArray.filter((student) => student.availabilityStatus === 'available')
     : alumniDataArray;
-  let uniqueJobStatus = new Set();
-  let uniqueJobArray = availabilityData.filter(
+  const uniqueJobStatus = new Set();
+  const uniqueJobArray = availabilityData.filter(
     (obj) =>
       !uniqueJobStatus.has(obj.availabilityStatus) && uniqueJobStatus.add(obj.availabilityStatus)
   );
@@ -99,8 +81,8 @@ export default Alumni;
 export async function getStaticProps() {
   const apiUrl = buildApiUrl('/user?requestStatus=approved');
   const res = await fetch(apiUrl);
-  const alumniData = await res.json();
-  const alumniDataArray = alumniData.data.users;
+  const aluData = await res.json();
+  const alumniDataArray = aluData.data.users;
 
   return { props: { alumniDataArray } };
 }

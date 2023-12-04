@@ -1,20 +1,13 @@
 import YoutubeSnippet from '@/components/youtubeSnippet';
-import {PhotoGallery} from './components/PhotoGallery';
-import {Stories} from './components/Stories';
 import AsShowcased from '@/components/AsShowcased';
 import Footer from '@/components/Footer/footer';
 import {useRouter} from 'next/router';
 import Link from 'next/link';
 import {useEffect, useState} from 'react';
 import axios from 'axios';
-import {buildApiUrl} from '../data/appConfig';
-
-interface cohortDataProps {
-  id: string;
-  name: string;
-  alias: number;
-  users: UserData[];
-}
+import {buildApiUrl} from '@/lib/data/appConfig';
+import Stories from '../../components/Individual-Cohort/Stories';
+import PhotoGallery from '../../components/Individual-Cohort/PhotoGallery';
 
 interface UserData {
   cohortId: string;
@@ -24,6 +17,15 @@ interface UserData {
   requestStatus: string;
   username: string;
 }
+
+interface cohortDataProps {
+  alias: number;
+  id: string;
+  name: string;
+  users: UserData[];
+}
+
+
 
 const IndividualCohort = () => {
   const router = useRouter();

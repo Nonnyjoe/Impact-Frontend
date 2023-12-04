@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import vector from '@/assets/Images/Vector.png';
 import Contact from './components/contact';
 import Products from './components/products';
 import Resource from './components/resource';
@@ -6,7 +7,6 @@ import Socials from './components/socials';
 import Web3bridge from './components/web3bridge';
 import Copyright from './components/copyright';
 import LayoutWrapper from '../LayoutWrapper';
-import vector from '@/assets/Images/Vector.png';
 
 export default function Footer() {
   return (

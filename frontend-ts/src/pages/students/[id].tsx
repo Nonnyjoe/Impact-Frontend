@@ -1,14 +1,12 @@
 import Footer from '@/components/Footer/footer';
 import YoutubeSnippet from '@/components/youtubeSnippet';
 import {useRouter} from 'next/router';
-import {buildApiUrl} from '../data/appConfig';
-import Stories from './components/Stories';
 import LayoutWrapper from '@/components/LayoutWrapper';
+import Stories from '../../components/Students/Stories';
 
 const IndividualStudent = () => {
   const router = useRouter();
-  const {id} = router.query;
-
+  // const {id} = router.query;
   // const apiUrl = buildApiUrl(`cohorts/${id}/students/${id}`);
 
   return (

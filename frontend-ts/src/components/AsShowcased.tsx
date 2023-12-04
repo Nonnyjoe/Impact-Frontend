@@ -3,7 +3,7 @@ import Link from 'next/link';
 import standardIcon from '@/assets/Images/Standard.png';
 import technextLogo from '@/assets/Images/Technext-Logo-2022-01.png';
 import techcabalLogo from '@/assets/Images/techcabal-10.png';
-import sun_logo from '@/assets/Images/sun_logo.png';
+import sunLogo from '@/assets/Images/sun_logo.png';
 import Webp from '@/assets/Images/Webp.png';
 import palava from '@/assets/Images/61aea8e1fc3ed8447ec6a382_Panvala-Identity.png';
 import LayoutWrapper from '@/components/LayoutWrapper';
@@ -31,7 +31,7 @@ export default function AsShowcased() {
         </Link>
 
         <Link href={'/'}>
-          <Image src={sun_logo} alt="My Image" width={80} height={30} />
+          <Image src={sunLogo} alt="My Image" width={80} height={30} />
         </Link>
 
         <Link href={'https://blockbuild.africa/?s=web3bridge'}>

@@ -1,4 +1,5 @@
 'use client';
+
 import Image from 'next/image';
 import { FC } from 'react';
 import img11 from '@/assets/Images/IMG11.png';

@@ -1,13 +1,12 @@
-import DashboardLayout from '@/pages/admin/components/DashboardLayout';
+import DashboardLayout from '@/components/Admin/DashboardLayout';
 import useUser, { LoginData } from '@/lib/useUser';
-import { AdminHeader } from '@/pages/admin/components/AdminHeader';
-import { ReqStatus, TableRow, TTableRow } from '@/pages/admin/components/TableRow';
-import { buildApiUrl } from '@/pages/data/appConfig';
+import  AdminHeader  from '@/components/Admin/AdminHeader';
+import  TableRow,{ ReqStatus, TTableRow } from '@/components/Admin/TableRow';
+import { buildApiUrl } from '@/lib/data/appConfig';
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import Filter from '@/pages/admin/components/Filter';
-import RequestModal from '@/pages/admin/components/RequestModal';
+import Filter from '@/components/Admin/Filter';
 
 type MetaData = {
   userCount: number;
@@ -79,7 +78,7 @@ export const getServerSideProps = (async ({ query: { page = 0, cohortId } }) => 
 }) satisfies GetServerSideProps<{ tableData: TTableRow[] }>;
 
 const Admin = ({ tableData, meta }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  const [isOpen, setIsOpen] = useState(true);
+  // const [isOpen, setIsOpen] = useState(true);
   const [isApproving, setIsApproving] = useState(false);
   const { user } = useUser({ access: 'Admin' });
   const router = useRouter();

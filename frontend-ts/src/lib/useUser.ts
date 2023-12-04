@@ -1,8 +1,7 @@
-import {useEffect} from 'react';
+import {useCallback, useEffect} from 'react';
 import Router from 'next/router';
 import {useLocalStorage} from 'usehooks-ts';
-import {buildApiPostConfig, buildApiUrl} from '@/pages/data/appConfig';
-import toast from 'react-hot-toast';
+import {buildApiPostConfig, buildApiUrl} from '@/lib/data/appConfig';
 
 export type LoginData = {
   role: {
@@ -57,13 +56,13 @@ export default function useUser({
     isAdmin: false,
   });
 
-  const logout = () => {
+  const logout = useCallback(() => {
     setUser({
       isLoggedIn: false,
       isAdmin: false,
     });
     Router.push(redirectTo).then((r) => r);
-  };
+  }, [setUser, redirectTo]);
 
   const login = async ({email = ''}) => {
     const res = await fetch(buildApiUrl('auth/otp'), buildApiPostConfig({email}));
@@ -134,7 +133,7 @@ export default function useUser({
       }
     });
 
-    return await res.json();
+    return res.json();
 
   }
   async function postFormData(path: string, body: FormData) {
@@ -146,7 +145,7 @@ export default function useUser({
       }
     });
 
-    return await res.json();
+    return res.json();
   }
 
   useEffect(() => {
@@ -172,7 +171,7 @@ export default function useUser({
     if (access === 'Alumni' && !user.user?.role.user) {
       logout();
     }
-  }, [user, access]);
+  }, [user, access, logout]);
 
   return {user: {...user.user}, logout, login, updateOtp, postApi, postFormData, refetchUser};
 }

@@ -11,6 +11,10 @@
         "tsx": "never"
       }
     ],
-    "require-jsdoc": "off"
+    "require-jsdoc": "off",
+    "no-nested-ternary": "off",
+    "react/no-unescaped-entities": "off",
+    "import/no-cycle": "off",
+    "no-console": "off"
   }
 }

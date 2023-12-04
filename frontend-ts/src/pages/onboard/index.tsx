@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import React, { useState } from 'react';
 import w3bLogo from '@/assets/Images/Logo.png';
-import { buildApiPostConfig, buildApiUrl } from '@/pages/data/appConfig';
+import { buildApiPostConfig, buildApiUrl } from '@/lib/data/appConfig';
 import { TailSpin } from 'react-loader-spinner';
 import toast from 'react-hot-toast';
 
