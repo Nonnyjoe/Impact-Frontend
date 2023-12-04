@@ -47,7 +47,7 @@ export type User = {
 };
 
 export default function useUser({
-  redirectTo = 'admin/login',
+  redirectTo = '/admin/login',
   redirectIfFound = false,
   access = 'Admin',
 } = {}) {

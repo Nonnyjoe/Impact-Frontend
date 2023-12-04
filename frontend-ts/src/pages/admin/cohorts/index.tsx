@@ -32,8 +32,6 @@ async function getCohorts()   {
 
     if (!data) return  []
 
-
-
     return data.map((d) => ({
       name: d.name,
       startDate: formatDate(new Date(d.startDate)),
@@ -58,11 +56,11 @@ const Admin = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (!user) return;
+
     getCohorts().then((data) => {
       setTableData(data);
     })
-  }, [user])
+  }, [])
 
   const refreshData = () => {
     router.replace(router.asPath);
