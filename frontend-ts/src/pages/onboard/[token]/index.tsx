@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import w3bLogo from '@/assets/Images/Logo.png';
@@ -43,7 +44,7 @@ const CreateUser = () => {
         email: (router.query.email as string) ?? '',
       });
     }
-  }, [router, info]);
+  }, [router]);
 
   const handleSubmit = async () => {
     try {
