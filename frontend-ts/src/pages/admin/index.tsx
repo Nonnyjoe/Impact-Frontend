@@ -83,9 +83,9 @@ const Admin = ({ tableData, meta }: InferGetServerSidePropsType<typeof getServer
   const { user } = useUser({ access: 'Admin' });
   const router = useRouter();
 
-  useEffect(() => {
-    window.history.pushState({}, '', '/admin');
-  }, [router.query.page]);
+  // useEffect(() => {
+  //   window.history.pushState({}, '', '/admin');
+  // }, [router.query.page]);
 
   const handleNext = () => {
     if (meta?.numberOfPagesLeft > 0) {
