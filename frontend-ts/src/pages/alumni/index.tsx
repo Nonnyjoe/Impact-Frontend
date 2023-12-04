@@ -1,17 +1,25 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import YoutubeSnippet from '@/components/youtubeSnippet';
 import AsShowcased from '@/components/AsShowcased';
 import Footer from '@/components/Footer/footer';
 import { buildApiUrl } from '@/lib/data/appConfig';
 import Students, {alumniData} from '../../components/Alumni/Alumni';
 
-interface alumniDataProps {
-  alumniDataArray: alumniData[];
-}
 
-const Alumni = ({ alumniDataArray }: alumniDataProps) => {
+const Alumni = () => {
   const [selectedCohort, setSelectedCohort] = useState('');
   const [availability, setAvailability] = useState('');
+  const [alumniDataArray, setAlumniData] = useState<alumniData[]>([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const apiUrl = buildApiUrl('/user?requestStatus=approved');
+      const res = await fetch(apiUrl);
+      const aluData = await res.json();
+      return  aluData.data.users;
+    }
+    fetchData().then((data) => setAlumniData(data));
+  }, []);
 
   const filteredData = selectedCohort
     ? alumniDataArray.filter((student) => student.cohortId === selectedCohort)
@@ -78,11 +86,3 @@ const Alumni = ({ alumniDataArray }: alumniDataProps) => {
 
 export default Alumni;
 
-export async function getServerSideProps() {
-  const apiUrl = buildApiUrl('/user?requestStatus=approved');
-  const res = await fetch(apiUrl);
-  const aluData = await res.json();
-  const alumniDataArray = aluData.data.users;
-
-  return { props: { alumniDataArray } };
-}

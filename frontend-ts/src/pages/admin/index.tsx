@@ -3,7 +3,6 @@ import useUser, { LoginData } from '@/lib/useUser';
 import  AdminHeader  from '@/components/Admin/AdminHeader';
 import  TableRow,{ ReqStatus, TTableRow } from '@/components/Admin/TableRow';
 import { buildApiUrl } from '@/lib/data/appConfig';
-import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Filter from '@/components/Admin/Filter';
@@ -24,68 +23,81 @@ function formatDate(date: Date): string {
   return `${day}/${month}/${year}`;
 }
 
-export const getServerSideProps = (async ({ query: { page = 0, cohortId } }) => {
-  try {
-    const res = await fetch(
-      buildApiUrl(`user?&page=${page}${cohortId ? `&cohortId=${cohortId}` : ''}`)
-    );
-    const { data } = (await res.json()) as { data: { meta: MetaData; users: LoginData[] } };
-    console.log(data.meta);
 
-    if (!data)
-      return {
-        props: {
-          tableData: [],
-          meta: {
-            userCount: 0,
-            remainingData: 0,
-            currentPage: 0,
-            currentlyFetched: 0,
-            numberOfPagesLeft: 0,
-            numberOfPages: 0,
-          },
-        },
-      };
-
-    const tableData: TTableRow[] = data.users.map((d) => ({
-      email: d.email!,
-      name: `${d.firstname!} ${d.lastname!}`,
-      cohort: d.cohortId!,
-      date: formatDate(new Date(d.createdAt!)),
-      status: d.requestStatus! as ReqStatus,
-      action: 'Action',
-      id: d.id!,
-    }));
-
-    return {
-      props: { tableData, meta: data.meta },
-    };
-  } catch (error) {
-    return {
-      props: {
-        tableData: [],
-        meta: {
-          userCount: 0,
-          remainingData: 0,
-          currentPage: 0,
-          currentlyFetched: 0,
-          numberOfPagesLeft: 0,
-          numberOfPages: 0,
-        },
-      },
-    };
-  }
-}) satisfies GetServerSideProps<{ tableData: TTableRow[] }>;
-
-const Admin = ({ tableData, meta }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const Admin = () => {
   // const [isOpen, setIsOpen] = useState(true);
   const [isApproving, setIsApproving] = useState(false);
+  const [tableData, setTableData] = useState<TTableRow[]>([]);
+  const [meta, setMeta] = useState<MetaData>({
+    userCount: 0,
+    remainingData: 0,
+    currentPage: 0,
+    currentlyFetched: 0,
+    numberOfPagesLeft: 0,
+    numberOfPages: 0,
+  })
   const { user } = useUser({ access: 'Admin' });
   const router = useRouter();
 
+  const { page, cohortId } = router.query;
+
   // useEffect(() => {
   //   window.history.pushState({}, '', '/admin');
-  // }, [router.query.page]);
+  // }, [page]);
+
+  useEffect(() => {
+    async function fetchData()  {
+      try {
+        const res = await fetch(
+            buildApiUrl(`user?&page=${page}${cohortId ? `&cohortId=${cohortId}` : ''}`)
+        );
+        const { data } = (await res.json()) as { data: { meta: MetaData; users: LoginData[] } };
+        console.log(data.meta);
+
+        if (!data)
+          return {
+              tabData: [],
+              meta: {
+                userCount: 0,
+                remainingData: 0,
+                currentPage: 0,
+                currentlyFetched: 0,
+                numberOfPagesLeft: 0,
+                numberOfPages: 0,
+              }
+          };
+
+        const tabData: TTableRow[] = data.users.map((d) => ({
+          email: d.email!,
+          name: `${d.firstname!} ${d.lastname!}`,
+          cohort: d.cohortId!,
+          date: formatDate(new Date(d.createdAt!)),
+          status: d.requestStatus! as ReqStatus,
+          action: 'Action',
+          id: d.id!,
+        }));
+
+        return  { tabData, meta: data.meta }
+      } catch (error) {
+        return {
+            tabData: [],
+            meta: {
+              userCount: 0,
+              remainingData: 0,
+              currentPage: 0,
+              currentlyFetched: 0,
+              numberOfPagesLeft: 0,
+              numberOfPages: 0,
+          },
+        };
+      }
+    }
+
+    fetchData().then((data) => {
+      setTableData(data.tabData);
+      setMeta(data.meta);
+    });
+  }, [cohortId, page]);
 
   const handleNext = () => {
     if (meta?.numberOfPagesLeft > 0) {
@@ -99,7 +111,7 @@ const Admin = ({ tableData, meta }: InferGetServerSidePropsType<typeof getServer
     }
   };
 
-  const handleFilter = (cohortId: string) => router.replace({ query: { cohortId } }).then((r) => r);
+  const handleFilter = (_cohortId: string) => router.replace({ query: { _cohortId } }).then((r) => r);
 
   const tableHead = {
     Email: 'Email',
