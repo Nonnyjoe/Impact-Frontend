@@ -4,14 +4,13 @@ import Footer from '@/components/Footer/footer';
 import YoutubeSnippet from '@/components/youtubeSnippet';
 import LayoutWrapper from '@/components/LayoutWrapper';
 import { buildApiUrl } from '@/lib/data/appConfig';
-import AlumniDetails, {studentData} from '../../components/AlumniDetails';
-
+import AlumniDetails, { studentData } from '../../components/AlumniDetails';
 
 interface studentDataProps {
   studentDataObj: studentData;
 }
 
-const Student = ({studentDataObj}: studentDataProps) => {
+const Student = ({ studentDataObj }: studentDataProps) => {
   const router = useRouter();
   const { id } = router.query;
   console.log(id);
@@ -19,12 +18,9 @@ const Student = ({studentDataObj}: studentDataProps) => {
   console.log(studentDataObj);
   return (
     <div>
-      <h1>AlumniDetails</h1>
-      {id}
-
       <div className="flex flex-col bg-white">
         <LayoutWrapper>
-          <AlumniDetails studentDataObj={studentDataObj}/>
+          <AlumniDetails studentDataObj={studentDataObj} />
         </LayoutWrapper>
         <YoutubeSnippet />
         <Footer />
@@ -39,7 +35,7 @@ export async function getStaticPaths() {
   const apiUrl = buildApiUrl('/user');
   const res = await fetch(apiUrl);
   const usersData = await res.json();
-  const {users} = usersData.data;
+  const { users } = usersData.data;
 
   // Generate an array of paths based on the list of users
   const paths = users.map((user: any) => ({

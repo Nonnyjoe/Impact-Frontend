@@ -38,14 +38,16 @@ interface studentDataProps {
 }
 
 const AlumniDetails = ({ studentDataObj }: studentDataProps) => {
-  console.log(studentDataObj);
+
   return (
-    <>
-      <div className="flex justify-between items-center max-w-4xl p-6 gap-12">
+    <div className='max-w-3xl p-6'>
+      <div className="flex justify-between items-end  gap-12">
         <div className="flex-1">
           <Image
             src={studentDataObj?.image ?? 'https://source.unsplash.com/200x200/?portrait?2'}
             alt=""
+            width={1000}
+            height={1000}
             className="w-full object-cover rounded-full md:rounded-3xl aspect-square"
           />
           <div className="flex justify-between items-center gap-3 py-4 px-12">
@@ -64,29 +66,33 @@ const AlumniDetails = ({ studentDataObj }: studentDataProps) => {
           </div>
         </div>
 
-        <div className=" flex-1 space-y-4 divide-y divide-gray-700">
-          <div className="my-2 space-y-1">
-            <h2 className="text-xl font-semibold">
+        <div className=" flex-1 space-y-4 divide-y divide-gray-700 pb-16">
+          <div className="my-2 space-y-4">
+            <h2 className="text-xl">
               <b className="font-bold">Name:</b> {studentDataObj?.firstname}{' '}
               {studentDataObj?.lastname}
             </h2>
-            <h2 className="text-xl font-semibold">
+            <h2 className="text-xl">
               {' '}
-              <b className="font-bold">Name:</b> s{studentDataObj?.email}
+              <b className="font-bold">Email:</b> {studentDataObj?.email}
             </h2>
-            <h2 className="text-xl font-semibold">
-              <b className="font-bold">Name:</b> {studentDataObj?.city}, {studentDataObj?.state},{' '}
+            <h2 className="text-xl">
+              <b className="font-bold">Location:</b> {studentDataObj?.city}, {studentDataObj?.state},{' '}
               {studentDataObj?.country}
             </h2>
-            <p className="text-xs sm:text-base dark:text-gray-400">
-              {' '}
-              <b className="font-bold">Name:</b> {studentDataObj?.about}
-            </p>
+
           </div>
-          <p>{studentDataObj?.story}</p>
+
         </div>
+
       </div>
-    </>
+      <div>
+        <p className="text-base sm:text-lg text-justify dark:text-gray-400">
+          {studentDataObj?.about}
+        </p>
+      </div>
+
+    </div>
   );
 };
 
