@@ -78,7 +78,7 @@ const Alumni = ({ alumniDataArray }: alumniDataProps) => {
 
 export default Alumni;
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const apiUrl = buildApiUrl('/user?requestStatus=approved');
   const res = await fetch(apiUrl);
   const aluData = await res.json();

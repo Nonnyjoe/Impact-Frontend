@@ -31,22 +31,22 @@ const Student = ({ studentDataObj }: studentDataProps) => {
 
 export default Student;
 
-export async function getStaticPaths() {
-  const apiUrl = buildApiUrl('/user');
-  const res = await fetch(apiUrl);
-  const usersData = await res.json();
-  const { users } = usersData.data;
+// export async function getStaticPaths() {
+//   const apiUrl = buildApiUrl('/user');
+//   const res = await fetch(apiUrl);
+//   const usersData = await res.json();
+//   const { users } = usersData.data;
+//
+//   // Generate an array of paths based on the list of users
+//   const paths = users.map((user: any) => ({
+//     params: { id: user.id.toString() },
+//   }));
+//
+//   // Return the paths
+//   return { paths, fallback: false };
+// }
 
-  // Generate an array of paths based on the list of users
-  const paths = users.map((user: any) => ({
-    params: { id: user.id.toString() },
-  }));
-
-  // Return the paths
-  return { paths, fallback: false };
-}
-
-export async function getStaticProps({ params }: any) {
+export async function getServerSideProps({ params }: any) {
   const { id } = params;
   console.log(id);
   const apiUrl = buildApiUrl(`/user/${id}`);
