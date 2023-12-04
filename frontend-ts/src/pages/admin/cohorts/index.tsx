@@ -2,7 +2,6 @@ import DashboardLayout from '@/components/Admin/DashboardLayout';
 import useUser from '@/lib/useUser';
 import AdminHeader from '@/components/Admin/AdminHeader';
 import {buildApiUrl} from '@/lib/data/appConfig';
-import type {GetServerSideProps, InferGetServerSidePropsType} from 'next';
 import {useRouter} from 'next/router';
 import {useEffect, useState} from 'react';
 import Modal from '@/components/Admin/RequestModal';
