@@ -4,7 +4,7 @@ import AdminHeader from '@/components/Admin/AdminHeader';
 import {buildApiUrl} from '@/lib/data/appConfig';
 import type {GetServerSideProps, InferGetServerSidePropsType} from 'next';
 import {useRouter} from 'next/router';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import Modal from '@/components/Admin/RequestModal';
 import AddCohort from "@/components/Admin/addCohort";
 import TableRow, {TTableRow} from "@/components/Admin/TableRow";
@@ -26,19 +26,16 @@ function formatDate(date: Date): string {
   return `${day}/${month}/${year}`;
 }
 
-export const getServerSideProps = (async () => {
+async function getCohorts()   {
   try {
     const res = await fetch(buildApiUrl(`cohort`));
     const { data } = (await res.json()) as { data: CohortData[] };
 
-    if (!data)
-      return {
-        props: {
-          tableData: [],
-        },
-      };
+    if (!data) return  []
 
-    const tableData: CohortData[] = data.map((d) => ({
+
+
+    return data.map((d) => ({
       name: d.name,
       startDate: formatDate(new Date(d.startDate)),
       endDate: formatDate(new Date(d.endDate)),
@@ -47,23 +44,26 @@ export const getServerSideProps = (async () => {
       options: '',
     }));
 
-    return {
-      props: { tableData },
-    };
-  } catch (error) {
-    return {
-      props: {
-        tableData: [],
-      },
-    };
-  }
-}) satisfies GetServerSideProps<{ tableData: CohortData[] }>;
 
-const Admin = ({ tableData }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  } catch (error) {
+    return  []
+  }
+}
+
+const Admin = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isApproving, setIsApproving] = useState(false);
+  const [tableData, setTableData] = useState<CohortData[]>([]);
   const { user, postApi } = useUser({ access: 'Admin' });
+
   const router = useRouter();
+
+  useEffect(() => {
+    if (!user) return;
+    getCohorts().then((data) => {
+      setTableData(data);
+    })
+  }, [user])
 
   const refreshData = () => {
     router.replace(router.asPath);
