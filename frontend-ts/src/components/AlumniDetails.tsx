@@ -37,9 +37,7 @@ interface studentDataProps {
   studentDataObj: studentData;
 }
 
-const AlumniDetails = ({ studentDataObj }: studentDataProps) => {
-
-  return (
+const AlumniDetails = ({ studentDataObj }: studentDataProps) => (
     <div className='max-w-3xl p-6'>
       <div className="flex justify-between items-end  gap-12">
         <div className="flex-1">
@@ -94,6 +92,5 @@ const AlumniDetails = ({ studentDataObj }: studentDataProps) => {
 
     </div>
   );
-};
 
 export default AlumniDetails;
