@@ -46,6 +46,7 @@ export const getServerSideProps = (async ({ query: { page = 0, cohortId } }) => 
       endDate: formatDate(new Date(d.endDate)),
       isActive: d.isActive,
       id: d.id,
+      options: '',
     }));
 
     return {
@@ -70,7 +71,14 @@ const Admin = ({ tableData }: InferGetServerSidePropsType<typeof getServerSidePr
     router.replace(router.asPath);
   };
 
-  const tableHead = ['Name', 'Start Date', 'End Date', 'Status', 'Action'] as unknown as TTableRow;
+  const tableHead = {
+    Name: 'Name',
+    'Start Date': 'Start Date',
+    'End Date': 'End Date',
+    Status: 'Status',
+    Action: 'Action',
+    id: 'id',
+  } as unknown as TTableRow;
   return (
     <DashboardLayout>
       <>
@@ -89,7 +97,7 @@ const Admin = ({ tableData }: InferGetServerSidePropsType<typeof getServerSidePr
           </div>
 
           <div className={'p-[2%] relative flex-1 flex flex-col gap-y-[4%]'}>
-            <TableRow data={tableHead} className={'font-bold text-rsm'} />
+            <TableRow data={tableHead} className={'font-bold text-rsm'} type="cohort" />
             <div
               className={
                 'flex flex-col gap-y-[3%] text-rmin max-h-[55vh] flex-1 overflow-auto no-scrollbar'
@@ -102,6 +110,7 @@ const Admin = ({ tableData }: InferGetServerSidePropsType<typeof getServerSidePr
                   className={'h-max'}
                   loading={isApproving}
                   setLoading={setIsApproving}
+                  type="cohort"
                 />
               ))}
             </div>

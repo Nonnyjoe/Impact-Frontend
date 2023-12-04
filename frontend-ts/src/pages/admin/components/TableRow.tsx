@@ -2,7 +2,7 @@ import useUser from '@/lib/useUser';
 import { CohortData } from '@/pages/admin/cohorts';
 import { FC, useState } from 'react';
 import toast, { Toast } from 'react-hot-toast';
-import { AiOutlineCheck } from 'react-icons/ai';
+import { AiOutlineCheck, AiOutlineEllipsis } from 'react-icons/ai';
 import { RxCross2 } from 'react-icons/rx';
 import { Dna } from 'react-loader-spinner';
 
@@ -23,14 +23,14 @@ export const TableRow: FC<{
   className?: string;
   loading?: boolean;
   setLoading?: (loading: boolean) => void;
-}> = ({ data, className, loading, setLoading }) => {
+  type?: 'admin' | 'cohort';
+}> = ({ data, className, loading, setLoading, type = 'admin' }) => {
   const { postApi } = useUser();
   const toastConfig: Partial<Pick<Toast, 'id' | 'position'>> = {
     position: 'top-right',
     id: 'update-status',
   };
-  const dataLength = Object.keys(data).length;
-  const widths = dataLength > 5 ? [2, 2, 1, 1, 1, 1] : [1, 1, 1, 1, 1, 1];
+  const widths = type === 'admin' ? [2, 2, 1, 1, 1, 1] : [1, 1, 1, 1, 1, 1];
 
   const getColor = (status: string | boolean) => {
     switch (status) {
@@ -120,6 +120,12 @@ export const TableRow: FC<{
             {value ? 'Active' : 'Inactive'}
           </div>
         );
+      case 'options':
+        return (
+          <div className="w-full grid place-content-center">
+            <AiOutlineEllipsis className="text-rlg" onClick={() => handleRead(data)} />
+          </div>
+        );
       default:
         return <p className="truncate">{value}</p>;
     }
@@ -127,12 +133,15 @@ export const TableRow: FC<{
 
   return (
     <div
-      className={`grid grid-cols-${
-        dataLength > 5 ? 8 : dataLength
+      className={`grid ${
+        type === 'admin' ? 'grid-cols-8' : 'grid-cols-' + (Object.keys(data).length - 1)
       } gap-x-[2%] items-center ${className}`}
     >
       {Object.entries(data)
-        .filter(([key]) => key !== 'id')
+        .filter(([key]) => {
+          console.log(key);
+          return key !== 'id';
+        })
         .map(([key, value], index) => (
           <div
             key={index}

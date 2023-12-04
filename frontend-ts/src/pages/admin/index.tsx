@@ -102,7 +102,15 @@ const Admin = ({ tableData, meta }: InferGetServerSidePropsType<typeof getServer
 
   const handleFilter = (cohortId: string) => router.replace({ query: { cohortId } }).then((r) => r);
 
-  const tableHead = ['Email', 'Name', 'Cohort', 'Date', 'Status', 'Action'] as unknown as TTableRow;
+  const tableHead = {
+    Email: 'Email',
+    Name: 'Name',
+    Cohort: 'Cohort',
+    Date: 'Date',
+    Status: 'Status',
+    Action: 'Action',
+    id: 'id',
+  } as unknown as TTableRow;
   return (
     <DashboardLayout>
       <>
