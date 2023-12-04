@@ -4,6 +4,8 @@ import w3bLogo from '@/assets/Images/Logo.png';
 import { buildApiPostConfig, buildApiUrl } from '@/lib/data/appConfig';
 import { TailSpin } from 'react-loader-spinner';
 import toast from 'react-hot-toast';
+import CustomToast from '@/components/CustomToast';
+import { IoIosMailOpen } from 'react-icons/io';
 
 const Onboard = () => {
   const [email, setEmail] = useState('');
@@ -25,7 +27,19 @@ const Onboard = () => {
         const linkArr = response.data.link.split('/');
         const link = linkArr[linkArr.length - 1];
 
-        openInNewTab(encodeURI(`${window.location.href}/${link}`));
+        toast.custom((t) => (
+          <CustomToast t={t}>
+            <div className="text-center w-max px-[5vw] grid gap-[2vh] ">
+              <IoIosMailOpen className="text-[10vw] text-w3b-red mx-auto" />
+              <p>A verification link has been sent to your email</p>
+              <p className="text-rlg w-2/3 mx-auto">
+                Please check your email and click on the link to continue onboarding
+              </p>
+            </div>
+          </CustomToast>
+        ));
+
+        // openInNewTab(encodeURI(`${window.location.href}/${link}`));
       } else {
         throw new Error(response.message);
       }
@@ -37,6 +51,21 @@ const Onboard = () => {
       setLoading(false);
     }
   };
+
+  // const testToast = () => {
+  //   toast.custom((t) => (
+  //     <CustomToast t={t}>
+  //       <div className="text-center w-max px-[5vw] grid gap-[2vh] ">
+  //         <IoIosMailOpen className="text-[10vw] text-w3b-red mx-auto" />
+  //         <p>A verification link has been sent to your email</p>
+  //         <p className="text-rlg w-2/3 mx-auto">
+  //           Please check your email and click on the link to continue onboarding
+  //         </p>
+  //       </div>
+  //     </CustomToast>
+  //   ));
+  // };
+
   return (
     <div className="min-h-screen grid place-content-center">
       <div className="grid p-8 gap-4 text-center w-screen max-w-xl">
