@@ -7,7 +7,6 @@ import { buildApiPostConfig, buildApiUrl } from '@/lib/data/appConfig';
 import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
 import CustomToast from '@/components/CustomToast';
-import { IoIosMailOpen } from 'react-icons/io';
 import useUser from '@/lib/useUser';
 
 const CreateUser = () => {
@@ -50,6 +49,10 @@ const CreateUser = () => {
     }
   }, [router]);
 
+  const handleProfileUpdate = () => {
+    router.push('/update-alumni');
+  };
+
   const handleSubmit = async () => {
     try {
       setLoading(true);
@@ -62,7 +65,23 @@ const CreateUser = () => {
 
       if (res.ok) {
         console.log(data);
-        toast.success(data.message);
+        toast.custom((t) => (
+          <CustomToast t={t}>
+            <div className="text-center w-max px-[2vw] grid gap-[2vh] ">
+              <p className="text-[6vw]">🎉</p>
+              <p>Onboarding Successfully</p>
+              <p className="text-rsm w-2/3 mx-auto">
+                While waiting for admin approval, you can update your profile
+              </p>
+              <button
+                className="border border-w3b-red text-w3b-red w-max mx-auto px-[3vw] py-[0.5vh] rounded-[1.5vh] text-[0.9vw]"
+                onClick={handleProfileUpdate}
+              >
+                Update Profile
+              </button>
+            </div>
+          </CustomToast>
+        ));
       } else {
         toast.error(data.message);
         throw new Error(data.message);
@@ -74,38 +93,11 @@ const CreateUser = () => {
     }
   };
 
-  const handleProfileUpdate = () => {
-    router.push('/update-alumni');
-  };
-
-  const testToast = () => {
-    toast.custom((t) => (
-      <CustomToast t={t}>
-        <div className="text-center w-max px-[2vw] grid gap-[2vh] ">
-          <p className="text-[6vw]">🎉</p>
-          <p>Onboarding Successfully</p>
-          <p className="text-rsm w-2/3 mx-auto">
-            While waiting for admin approval, you can update your profile
-          </p>
-          <button
-            className="border border-w3b-red text-w3b-red w-max mx-auto px-[3vw] py-[0.5vh] rounded-[1.5vh] text-[0.9vw]"
-            onClick={handleProfileUpdate}
-          >
-            Update Profile
-          </button>
-        </div>
-      </CustomToast>
-    ));
-  };
-
   return (
     <div className="min-h-screen grid place-content-center">
       <div className="grid p-8 gap-4 text-center w-screen max-w-xl">
         <Image alt={'Web3Bridge Logo'} src={w3bLogo} className="absolute left-16 top-16 w-56" />
         <h1 className="text-xl font-bold">Onboarding</h1>
-        <button className="btn" onClick={testToast}>
-          Test
-        </button>
 
         <div className="form-group">
           {Object.entries(info).map(([key, value]) => (
@@ -160,7 +152,6 @@ const CreateUser = () => {
               )}
             </div>
           ))}
-          b
         </div>
 
         <button
