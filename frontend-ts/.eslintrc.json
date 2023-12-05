@@ -1,0 +1,21 @@
+{
+  "extends": ["next", "prettier", "next/core-web-vitals"],
+  "rules": {
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+    ],
+    "require-jsdoc": "off",
+    "no-nested-ternary": "off",
+    "react/no-unescaped-entities": "off",
+    "import/no-cycle": "off",
+    "no-console": "off",
+    "react-hooks/exhaustive-deps": "off"
+  }
+}

@@ -59,6 +59,7 @@ typings/
 .rts2_cache_es/
 .rts2_cache_umd/
 
+
 # Optional REPL history
 .node_repl_history
 
@@ -108,3 +109,5 @@ config.txt
 
 # remove package-lock.json
 package-lock.json
+
+.idea
