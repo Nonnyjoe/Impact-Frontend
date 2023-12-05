@@ -3,23 +3,12 @@ import { BiFilterAlt } from 'react-icons/bi';
 
 interface FilterProps {
   // eslint-disable-next-line no-unused-vars
-  handleFilter: (cohortId: string) => Promise<boolean>;
+  handleFilter: (cohortId: string) => void;
+  cohorts: any[];
 }
 
-const Filter: FC<FilterProps> = ({ handleFilter }) => {
+const Filter: FC<FilterProps> = ({ handleFilter, cohorts }) => {
   const [cohortId, setCohortId] = useState('');
-  const cohort = [
-    'Cohort I',
-    'Cohort II',
-    'Cohort III',
-    'Cohort IV',
-    'Cohort V',
-    'Cohort VI',
-    'Cohort VII',
-    'Cohort VIII',
-    'Cohort IX',
-    'Cohort X',
-  ];
 
   return (
     <div className={'flex gap-[10%] items-center'}>
@@ -33,11 +22,11 @@ const Filter: FC<FilterProps> = ({ handleFilter }) => {
         className="text-rsm flex justify-center items-center border-[0.1vw] border-w3b-red h-[80%] w-[12vw] rounded-[1vw] bg-white px-[5%]"
       >
         <option value="" className="bg-[#bbb]">
-          cohort
+          All Cohorts
         </option>
-        {cohort.map((c, index) => (
-          <option key={index} value={c}>
-            {c}
+        {cohorts.map((cohort) => (
+          <option key={cohort.id} value={cohort.name}>
+            {cohort.name}
           </option>
         ))}
         Cohort

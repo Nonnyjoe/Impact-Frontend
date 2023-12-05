@@ -1,7 +1,8 @@
-import {useCallback, useEffect} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import Router from 'next/router';
 import {useLocalStorage} from 'usehooks-ts';
 import {buildApiPostConfig, buildApiUrl} from '@/lib/data/appConfig';
+import toast from 'react-hot-toast';
 
 export type LoginData = {
   role: {
@@ -55,6 +56,9 @@ export default function useUser({
     isLoggedIn: false,
     isAdmin: false,
   });
+  const [cohorts, setCohorts] = useState<any[]>([]);
+
+
 
   const logout = useCallback(() => {
     setUser({
@@ -105,6 +109,16 @@ export default function useUser({
     }
   };
 
+  const getCohort = async () => {
+    const res = await fetch(buildApiUrl('cohort'));
+    const {data} = await res.json();
+    if (data) {
+      setCohorts(data);
+    } else {
+      toast.error('Unable to fetch cohorts');
+    }
+  };
+
   async function refetchUser() {
     try {
       const id = user?.user?.id;
@@ -149,6 +163,10 @@ export default function useUser({
   }
 
   useEffect(() => {
+    getCohort().then((r) => r);
+  }, []);
+
+  useEffect(() => {
     // if no redirect needed, just return (example: already on /dashboard)
     // if user data not yet there (fetch in progress, logged in or not) then don't do anything yet
     if (!redirectTo || !user) return;
@@ -173,5 +191,5 @@ export default function useUser({
     }
   }, [user, access, logout]);
 
-  return {user: {...user.user}, logout, login, updateOtp, postApi, postFormData, refetchUser};
+  return {user: {...user.user}, logout, login, updateOtp, postApi, postFormData, refetchUser, cohorts};
 }

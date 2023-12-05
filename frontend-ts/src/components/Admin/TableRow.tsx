@@ -1,7 +1,7 @@
 import useUser from '@/lib/useUser';
 import { CohortData } from '@/pages/admin/cohorts';
 import CohortAction from '@/components/Admin/CohortAction';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import toast, { Toast } from 'react-hot-toast';
 import { AiOutlineCheck } from 'react-icons/ai';
 import { RxCross2 } from 'react-icons/rx';
@@ -22,12 +22,11 @@ export type TTableRow = {
 const TableRow: FC<{
   data: TTableRow | CohortData;
   className?: string;
-  loading?: boolean;
-  // eslint-disable-next-line no-unused-vars
-  setLoading?: (loading: boolean) => void;
+  refetchData?: () => void;
   type?: 'admin' | 'cohort';
-}> = ({ data, className, loading, setLoading, type = 'admin' }) => {
-  const { postApi } = useUser();
+}> = ({ data, className, type = 'admin', refetchData = () => {} }) => {
+  const { postApi, refetchUser } = useUser();
+  const [loading, setLoading] = useState(false);
   const toastConfig: Partial<Pick<Toast, 'id' | 'position'>> = {
     position: 'top-right',
     id: 'update-status',
@@ -49,20 +48,16 @@ const TableRow: FC<{
     }
   };
 
-  const handleRead = (_data: TTableRow | CohortData) => {
-    if (_data?.length) return;
-    console.log(_data.id);
-  };
-
   const handleUpdate = async (status: ReqStatus, id: string) => {
     try {
       if (data?.length) return;
       setLoading?.(true);
       const res = await postApi(`user/${id}`, { requestStatus: status });
 
-      if (res.ok) {
+      if (res.status) {
         setLoading?.(false);
         toast.success('Status updated successfully', toastConfig);
+        refetchData();
       } else {
         throw new Error('error');
       }
@@ -136,10 +131,7 @@ const TableRow: FC<{
       } gap-x-[2%] items-center ${className}`}
     >
       {Object.entries(data)
-        .filter(([key]) => {
-          console.log(key);
-          return key !== 'id';
-        })
+        .filter(([key]) => key !== 'id')
         .map(([key, value], index) => (
           <div key={index} className={`col-span-${widths[index]} text-center`}>
             {renderCell(key, value, data.id)}

@@ -1,10 +1,10 @@
 import DashboardLayout from '@/components/Admin/DashboardLayout';
 import useUser, { LoginData } from '@/lib/useUser';
-import  AdminHeader  from '@/components/Admin/AdminHeader';
-import  TableRow,{ ReqStatus, TTableRow } from '@/components/Admin/TableRow';
+import AdminHeader from '@/components/Admin/AdminHeader';
+import TableRow, { ReqStatus, TTableRow } from '@/components/Admin/TableRow';
 import { buildApiUrl } from '@/lib/data/appConfig';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Filter from '@/components/Admin/Filter';
 
 type MetaData = {
@@ -23,11 +23,10 @@ function formatDate(date: Date): string {
   return `${day}/${month}/${year}`;
 }
 
-
 const Admin = () => {
   // const [isOpen, setIsOpen] = useState(true);
-  const [isApproving, setIsApproving] = useState(false);
   const [tableData, setTableData] = useState<TTableRow[]>([]);
+  const [filter, setFilter] = useState('');
   const [meta, setMeta] = useState<MetaData>({
     userCount: 0,
     remainingData: 0,
@@ -35,68 +34,74 @@ const Admin = () => {
     currentlyFetched: 0,
     numberOfPagesLeft: 0,
     numberOfPages: 0,
-  })
-  const { user } = useUser({ access: 'Admin' });
+  });
+  const { user, cohorts } = useUser({ access: 'Admin' });
   const router = useRouter();
-
   const { page, cohortId } = router.query;
+
+  const filteredData = useMemo(() => {
+    if (!filter) return tableData;
+    return tableData.filter((d) => d.cohort.toLowerCase() === filter.toLowerCase());
+  }, [filter, tableData]);
 
   // useEffect(() => {
   //   window.history.pushState({}, '', '/admin');
   // }, [page]);
+  async function fetchData() {
+    try {
+      const res = await fetch(
+        buildApiUrl(`user?&page=${page}${cohortId ? `&cohortId=${cohortId}` : ''}`)
+      );
+      const { data } = (await res.json()) as { data: { meta: MetaData; users: LoginData[] } };
+      console.log(data.meta);
 
-  useEffect(() => {
-    async function fetchData()  {
-      try {
-        const res = await fetch(
-            buildApiUrl(`user?&page=${page}${cohortId ? `&cohortId=${cohortId}` : ''}`)
-        );
-        const { data } = (await res.json()) as { data: { meta: MetaData; users: LoginData[] } };
-        console.log(data.meta);
-
-        if (!data)
-          return {
-              tabData: [],
-              meta: {
-                userCount: 0,
-                remainingData: 0,
-                currentPage: 0,
-                currentlyFetched: 0,
-                numberOfPagesLeft: 0,
-                numberOfPages: 0,
-              }
-          };
-
-        const tabData: TTableRow[] = data.users.map((d) => ({
-          email: d.email!,
-          name: `${d.firstname!} ${d.lastname!}`,
-          cohort: d.cohortId!,
-          date: formatDate(new Date(d.createdAt!)),
-          status: d.requestStatus! as ReqStatus,
-          action: 'Action',
-          id: d.id!,
-        }));
-
-        return  { tabData, meta: data.meta }
-      } catch (error) {
+      if (!data)
         return {
-            tabData: [],
-            meta: {
-              userCount: 0,
-              remainingData: 0,
-              currentPage: 0,
-              currentlyFetched: 0,
-              numberOfPagesLeft: 0,
-              numberOfPages: 0,
+          tabData: [],
+          meta: {
+            userCount: 0,
+            remainingData: 0,
+            currentPage: 0,
+            currentlyFetched: 0,
+            numberOfPagesLeft: 0,
+            numberOfPages: 0,
           },
         };
-      }
-    }
 
+      const tabData: TTableRow[] = data.users.map((d) => ({
+        email: d.email!,
+        name: `${d.firstname!} ${d.lastname!}`,
+        cohort: d.cohortId!,
+        date: formatDate(new Date(d.createdAt!)),
+        status: d.requestStatus! as ReqStatus,
+        action: 'Action',
+        id: d.id!,
+      }));
+
+      return { tabData, meta: data.meta };
+    } catch (error) {
+      return {
+        tabData: [],
+        meta: {
+          userCount: 0,
+          remainingData: 0,
+          currentPage: 0,
+          currentlyFetched: 0,
+          numberOfPagesLeft: 0,
+          numberOfPages: 0,
+        },
+      };
+    }
+  }
+  const refetchData = () => {
     fetchData().then((data) => {
       setTableData(data.tabData);
       setMeta(data.meta);
     });
+  };
+
+  useEffect(() => {
+    refetchData();
   }, [cohortId, page]);
 
   const handleNext = () => {
@@ -111,7 +116,7 @@ const Admin = () => {
     }
   };
 
-  const handleFilter = (_cohortId: string) => router.replace({ query: { _cohortId } }).then((r) => r);
+  const handleFilter = (_cohortId: string) => setFilter(_cohortId);
 
   const tableHead = {
     Email: 'Email',
@@ -129,7 +134,7 @@ const Admin = () => {
           <AdminHeader name={user.username!} />
           <div className={'flex justify-between mt-[4vh] mb-[2vh]'}>
             <p className={'text-rlg font-semibold'}>Pending Reviews</p>
-            <Filter handleFilter={handleFilter} />
+            <Filter handleFilter={handleFilter} cohorts={cohorts} />
           </div>
 
           <div className={'p-[2%] relative flex-1 flex flex-col gap-y-[4%]'}>
@@ -139,14 +144,8 @@ const Admin = () => {
                 'flex flex-col gap-y-[3%] text-rmin max-h-[55vh] flex-1 overflow-auto no-scrollbar'
               }
             >
-              {tableData.map((row) => (
-                <TableRow
-                  data={row}
-                  key={row.name}
-                  className={'h-max'}
-                  loading={isApproving}
-                  setLoading={setIsApproving}
-                />
+              {filteredData.map((row) => (
+                <TableRow data={row} key={row.id} className={'h-max'} refetchData={refetchData} />
               ))}
             </div>
             <div className={'text-rmin flex justify-end items-center gap-[2%]'}>

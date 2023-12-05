@@ -11,7 +11,7 @@ import useUser from '@/lib/useUser';
 
 const CreateUser = () => {
   const [loading, setLoading] = useState(false);
-  const { refetchUser } = useUser({ redirectTo: '' });
+  const { cohorts } = useUser({ redirectTo: '' });
   const router = useRouter();
 
   const [info, setInfo] = useState({
@@ -23,22 +23,6 @@ const CreateUser = () => {
     email: '',
     cohortId: '',
   });
-  const [cohorts, setCohorts] = useState<any[]>([]);
-
-  const getCohort = async () => {
-    const res = await fetch(buildApiUrl('cohort'));
-    const { data } = await res.json();
-    if (data) {
-      setCohorts(data);
-    } else {
-      toast.error('Unable to fetch cohorts');
-    }
-  };
-
-  useEffect(() => {
-    setLoading(false);
-    getCohort().then((r) => r);
-  }, []);
 
   useEffect(() => {
     if (router.query) {
