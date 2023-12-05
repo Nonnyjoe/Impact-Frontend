@@ -66,7 +66,6 @@ const Alumni = () => {
       })
       .catch((err) => {
         console.error(err);
-        toast.error('Error Loading User');
       });
   }, []);
 
@@ -96,12 +95,14 @@ const Alumni = () => {
       userData.socialLinks.twitter.startsWith('twitter.com/')
     ) {
       return toast.error('Only twitter usernames are allowed');
-    } if (
+    }
+    if (
       userData.socialLinks.linkedin.startsWith('https://') ||
       userData.socialLinks.linkedin.startsWith('linkedin.com/')
     ) {
       return toast.error('Only linkedin usernames are allowed');
-    } if (
+    }
+    if (
       userData.socialLinks.github.startsWith('https://') ||
       userData.socialLinks.github.startsWith('github.com/')
     ) {

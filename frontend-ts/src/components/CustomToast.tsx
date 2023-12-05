@@ -12,7 +12,7 @@ const CustomToast: React.FC<{ t: Toast; children: React.ReactNode }> = ({ t, chi
       <div className="w-max mx-auto p-[2%]">
         <button
           onClick={() => toast.dismiss(t.id)}
-          className="px-[3vw] py-[0.5vw] font-bold text-white bg-w3b-red/80 rounded-[1vh] hover:bg-w3b-red/50 text-rmd"
+          className="px-[3vw] py-[0.5vh] font-bold text-white bg-w3b-red/80 rounded-[1.5vh] hover:bg-w3b-red/50 text-rsm"
         >
           Close
         </button>

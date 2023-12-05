@@ -29,10 +29,10 @@ const Onboard = () => {
 
         toast.custom((t) => (
           <CustomToast t={t}>
-            <div className="text-center w-max px-[5vw] grid gap-[2vh] ">
-              <IoIosMailOpen className="text-[10vw] text-w3b-red mx-auto" />
+            <div className="text-center w-max px-[2vw] grid gap-[2vh] ">
+              <IoIosMailOpen className="text-[6vw] text-w3b-red mx-auto" />
               <p>A verification link has been sent to your email</p>
-              <p className="text-rlg w-2/3 mx-auto">
+              <p className="text-rsm w-2/3 mx-auto">
                 Please check your email and click on the link to continue onboarding
               </p>
             </div>
@@ -51,20 +51,6 @@ const Onboard = () => {
       setLoading(false);
     }
   };
-
-  // const testToast = () => {
-  //   toast.custom((t) => (
-  //     <CustomToast t={t}>
-  //       <div className="text-center w-max px-[5vw] grid gap-[2vh] ">
-  //         <IoIosMailOpen className="text-[10vw] text-w3b-red mx-auto" />
-  //         <p>A verification link has been sent to your email</p>
-  //         <p className="text-rlg w-2/3 mx-auto">
-  //           Please check your email and click on the link to continue onboarding
-  //         </p>
-  //       </div>
-  //     </CustomToast>
-  //   ));
-  // };
 
   return (
     <div className="min-h-screen grid place-content-center">
