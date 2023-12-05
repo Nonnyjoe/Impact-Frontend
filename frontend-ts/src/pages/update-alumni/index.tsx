@@ -67,6 +67,7 @@ const Alumni = () => {
       .catch((err) => {
         console.error(err);
       });
+
   }, []);
 
   const handleUpload = async () => {

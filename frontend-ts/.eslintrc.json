@@ -15,6 +15,7 @@
     "no-nested-ternary": "off",
     "react/no-unescaped-entities": "off",
     "import/no-cycle": "off",
-    "no-console": "off"
+    "no-console": "off",
+    "react-hooks/exhaustive-deps": "off"
   }
 }

@@ -11,10 +11,10 @@ const Onboard = () => {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const openInNewTab = (url: string | URL | undefined) => {
-    const newWindow = window.open(`${url}?email=${email}`, '_blank', 'noopener,noreferrer');
-    if (newWindow) newWindow.opener = null;
-  };
+  // const openInNewTab = (url: string | URL | undefined) => {
+  //   const newWindow = window.open(`${url}?email=${email}`, '_blank', 'noopener,noreferrer');
+  //   if (newWindow) newWindow.opener = null;
+  // };
 
   const onboard = async () => {
     try {
@@ -26,6 +26,7 @@ const Onboard = () => {
           throw new Error(response.message);
         const linkArr = response.data.link.split('/');
         const link = linkArr[linkArr.length - 1];
+        console.log(link);
 
         toast.custom((t) => (
           <CustomToast t={t}>

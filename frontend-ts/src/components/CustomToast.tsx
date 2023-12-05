@@ -1,8 +1,7 @@
 import React from 'react';
 import toast, { Toast } from 'react-hot-toast';
 
-const CustomToast: React.FC<{ t: Toast; children: React.ReactNode }> = ({ t, children }) => {
-  return (
+const CustomToast: React.FC<{ t: Toast; children: React.ReactNode }> = ({ t, children }) => (
     <div
       className={`${
         t.visible ? 'animate-enter' : 'animate-leave'
@@ -19,6 +18,5 @@ const CustomToast: React.FC<{ t: Toast; children: React.ReactNode }> = ({ t, chi
       </div>
     </div>
   );
-};
 
 export default CustomToast;

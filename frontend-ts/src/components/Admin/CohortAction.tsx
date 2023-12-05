@@ -1,6 +1,5 @@
 import Modal from '@/components/Admin/RequestModal';
 import { TTableRow } from '@/components/Admin/TableRow';
-import { buildApiUrl } from '@/lib/data/appConfig';
 import useUser from '@/lib/useUser';
 import { CohortData } from '@/pages/admin/cohorts';
 import { Menu, Transition } from '@headlessui/react';
@@ -10,7 +9,6 @@ import { TailSpin } from 'react-loader-spinner';
 
 const CohortAction: React.FC<{ data: CohortData | TTableRow }> = ({ data }) => {
   console.log(data);
-
   const [isOpen, setIsOpen] = useState(false);
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
@@ -29,7 +27,8 @@ const CohortAction: React.FC<{ data: CohortData | TTableRow }> = ({ data }) => {
     formData.append('csvFile', file);
     try {
       const res = await postFormData('user/student-upload', formData);
-      const { data } = (await res.json()) as { data: boolean };
+      const da = await res.json();
+      console.log(da);
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -60,7 +59,7 @@ const CohortAction: React.FC<{ data: CohortData | TTableRow }> = ({ data }) => {
               className="p-[3%] text-[0.8vw] w-full text-center hover:bg-w3b-light-red"
               onClick={() => setIsOpen(true)}
             >
-              {({ active }) => <>Add Students</>}
+              {() => <>Add Students</>}
             </Menu.Item>
           </Menu.Items>
         </Transition>
@@ -70,43 +69,43 @@ const CohortAction: React.FC<{ data: CohortData | TTableRow }> = ({ data }) => {
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         title={'Upload CSV'}
-        children={
-          <div className="flex flex-col gap-y-[1vh]">
-            <div>
-              <input
+
+      >
+        <div className="flex flex-col gap-y-[1vh]">
+          <div>
+            <input
                 type="file"
                 name="file"
                 id="file"
                 onChange={(e) => handleCSVRead(e)}
                 accept={'text/csv'}
-              />
-            </div>
+            />
+          </div>
 
-            <button
+          <button
               className=" bg-w3b-red disabled:bg-w3b-light-red/60 text-white py-[2%] p-[3%] rounded-[0.3vw] hover:bg-w3b-red/60 flex gap-x-[1vw] justify-center"
               disabled={!file}
               onClick={handleCSVUpload}
-            >
-              {loading ? (
+          >
+            {loading ? (
                 <>
                   <TailSpin
-                    height="auto"
-                    width="20px"
-                    color="#fff"
-                    wrapperStyle={{}}
-                    wrapperClass=""
-                    visible={true}
-                    ariaLabel="circles-with-bar-loading"
+                      height="auto"
+                      width="20px"
+                      color="#fff"
+                      wrapperStyle={{}}
+                      wrapperClass=""
+                      visible={true}
+                      ariaLabel="circles-with-bar-loading"
                   />
                   <p className="">Uploading...</p>
                 </>
-              ) : (
+            ) : (
                 <>Upload</>
-              )}
-            </button>
-          </div>
-        }
-      />
+            )}
+          </button>
+        </div>
+      </Modal>
     </div>
   );
 };

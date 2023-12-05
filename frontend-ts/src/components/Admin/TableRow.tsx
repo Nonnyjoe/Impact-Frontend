@@ -25,7 +25,7 @@ const TableRow: FC<{
   refetchData?: () => void;
   type?: 'admin' | 'cohort';
 }> = ({ data, className, type = 'admin', refetchData = () => {} }) => {
-  const { postApi, refetchUser } = useUser();
+  const { postApi } = useUser();
   const [loading, setLoading] = useState(false);
   const toastConfig: Partial<Pick<Toast, 'id' | 'position'>> = {
     position: 'top-right',

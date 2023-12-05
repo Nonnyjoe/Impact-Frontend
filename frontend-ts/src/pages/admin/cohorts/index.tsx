@@ -1,11 +1,11 @@
 import DashboardLayout from '@/components/Admin/DashboardLayout';
 import useUser from '@/lib/useUser';
 import AdminHeader from '@/components/Admin/AdminHeader';
-import {buildApiUrl} from '@/lib/data/appConfig';
-import {useEffect, useState} from 'react';
+import { buildApiUrl } from '@/lib/data/appConfig';
+import { useEffect, useState } from 'react';
 import Modal from '@/components/Admin/RequestModal';
-import AddCohort from "@/components/Admin/addCohort";
-import TableRow, {TTableRow} from "@/components/Admin/TableRow";
+import AddCohort from '@/components/Admin/addCohort';
+import TableRow, { TTableRow } from '@/components/Admin/TableRow';
 
 export type CohortData = {
   name: string;
@@ -24,12 +24,12 @@ function formatDate(date: Date): string {
   return `${day}/${month}/${year}`;
 }
 
-async function getCohorts()   {
+async function getCohorts() {
   try {
     const res = await fetch(buildApiUrl(`cohort`));
     const { data } = (await res.json()) as { data: CohortData[] };
 
-    if (!data) return  []
+    if (!data) return [];
 
     return data.map((d) => ({
       name: d.name,
@@ -39,31 +39,25 @@ async function getCohorts()   {
       id: d.id,
       options: '',
     }));
-
-
   } catch (error) {
-    return  []
+    return [];
   }
 }
 
 const Admin = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isApproving, setIsApproving] = useState(false);
   const [tableData, setTableData] = useState<CohortData[]>([]);
   const { user, postApi } = useUser({ access: 'Admin' });
-
-  useEffect(() => {
-
-    getCohorts().then((data) => {
-      setTableData(data);
-    })
-  }, [])
 
   const refreshData = () => {
     getCohorts().then((data) => {
       setTableData(data);
-    })
+    });
   };
+
+  useEffect(() => {
+    refreshData();
+  }, []);
 
   const tableHead = {
     Name: 'Name',
@@ -102,8 +96,6 @@ const Admin = () => {
                   data={row}
                   key={row.name}
                   className={'h-max'}
-                  loading={isApproving}
-                  setLoading={setIsApproving}
                   type="cohort"
                 />
               ))}
