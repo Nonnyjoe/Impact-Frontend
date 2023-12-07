@@ -1,7 +1,7 @@
-import {useCallback, useEffect, useState} from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Router from 'next/router';
-import {useLocalStorage} from 'usehooks-ts';
-import {buildApiPostConfig, buildApiUrl} from '@/lib/data/appConfig';
+import { useLocalStorage } from 'usehooks-ts';
+import { buildApiPostConfig, buildApiUrl } from '@/lib/data/appConfig';
 import toast from 'react-hot-toast';
 
 export type LoginData = {
@@ -58,8 +58,6 @@ export default function useUser({
   });
   const [cohorts, setCohorts] = useState<any[]>([]);
 
-
-
   const logout = useCallback(() => {
     setUser({
       isLoggedIn: false,
@@ -68,24 +66,20 @@ export default function useUser({
     Router.push(redirectTo).then((r) => r);
   }, [setUser, redirectTo]);
 
-  const login = async ({email = ''}) => {
-    const res = await fetch(buildApiUrl('auth/otp'), buildApiPostConfig({email}));
+  const login = async ({ email = '' }) => {
+    const res = await fetch(buildApiUrl('auth/otp'), buildApiPostConfig({ email }));
 
-    const
-      data = await res.json();
+    const data = await res.json();
     return data;
   };
 
   const updateOtp = async (email: string, otp: string) => {
     try {
-      const res2 = await fetch(
-        buildApiUrl('auth/login'),
-        buildApiPostConfig({email, otp})
-      );
+      const res2 = await fetch(buildApiUrl('auth/login'), buildApiPostConfig({ email, otp }));
 
-      const {data: data1} = await res2.json();
+      const { data: data1 } = await res2.json();
 
-      const {token, user: loginData} = data1;
+      const { token, user: loginData } = data1;
 
       if (access === 'Admin' && !loginData.role.admin) {
         throw new Error('User is not an admin');
@@ -99,7 +93,7 @@ export default function useUser({
         isLoggedIn: true,
         isAdmin: loginData.role.admin,
         token,
-        user: {...loginData},
+        user: { ...loginData },
       });
 
       return true;
@@ -111,7 +105,7 @@ export default function useUser({
 
   const getCohort = async () => {
     const res = await fetch(buildApiUrl('cohort'));
-    const {data} = await res.json();
+    const { data } = await res.json();
     if (data) {
       setCohorts(data);
     } else {
@@ -123,7 +117,7 @@ export default function useUser({
     try {
       const id = user?.user?.id;
       const res = await fetch(buildApiUrl(`user/${id}`));
-      const {data} = await res.json();
+      const { data } = await res.json();
 
       setUser({
         ...user,
@@ -137,18 +131,16 @@ export default function useUser({
   }
 
   async function postApi(path: string, body: any, method = 'put') {
-
     const res = await fetch(buildApiUrl(path), {
       body: JSON.stringify(body),
       method,
       headers: {
         Authorization: `Bearer ${user?.token}`,
-        'Content-Type': 'application/json; charset=utf-8'
-      }
+        'Content-Type': 'application/json; charset=utf-8',
+      },
     });
 
     return res.json();
-
   }
   async function postFormData(path: string, body: FormData) {
     const res = await fetch(buildApiUrl(path), {
@@ -156,7 +148,7 @@ export default function useUser({
       method: 'put',
       headers: {
         Authorization: `Bearer ${user?.token}`,
-      }
+      },
     });
 
     return res.json();
@@ -191,5 +183,14 @@ export default function useUser({
     }
   }, [user, access, logout]);
 
-  return {user: {...user.user}, logout, login, updateOtp, postApi, postFormData, refetchUser, cohorts};
+  return {
+    user: { ...user.user },
+    logout,
+    login,
+    updateOtp,
+    postApi,
+    postFormData,
+    refetchUser,
+    cohorts,
+  };
 }

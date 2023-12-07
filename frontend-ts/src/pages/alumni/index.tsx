@@ -1,10 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import YoutubeSnippet from '@/components/youtubeSnippet';
 import AsShowcased from '@/components/AsShowcased';
 import Footer from '@/components/Footer/footer';
 import { buildApiUrl } from '@/lib/data/appConfig';
-import Students, {alumniData} from '../../components/Alumni/Alumni';
-
+import Students, { alumniData } from '../../components/Alumni/Alumni';
 
 const Alumni = () => {
   const [selectedCohort, setSelectedCohort] = useState('');
@@ -16,7 +15,7 @@ const Alumni = () => {
       const apiUrl = buildApiUrl('/user?requestStatus=approved');
       const res = await fetch(apiUrl);
       const aluData = await res.json();
-      return  aluData.data.users;
+      return aluData.data.users;
     }
     fetchData().then((data) => setAlumniData(data));
   }, []);
@@ -40,15 +39,18 @@ const Alumni = () => {
   );
 
   return (
-    <div>
+    <div className="">
+      <div className="w-9/12 mx-auto text-rxlg font-bold font-poppins px-4 py-12">
+        Meet our Alumni
+      </div>
       <div className="flex flex-col gap-24 bg-white">
-        <div className="flex">
+        <div className="flex px-4 py-2 gap-8 w-9/12 mx-auto">
           <div className="">
             <select
               value={selectedCohort}
               name="cohort"
               onChange={(e) => setSelectedCohort(e.target.value)}
-              className="mt-2 py-4 px-4 pe-9 block border-gray-200 rounded-lg text-sm focus:border-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+              className="mt-2 py-4 px-4 pe-9 block border-gray-200 rounded-lg text-sm focus:border-w3b-red disabled:opacity-50 disabled:pointer-events-none"
             >
               <option value="">All cohorts</option>
               {uniqueCohortArray.map((student) => (
@@ -85,4 +87,3 @@ const Alumni = () => {
 };
 
 export default Alumni;
-

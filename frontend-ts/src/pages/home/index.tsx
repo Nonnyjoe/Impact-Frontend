@@ -19,9 +19,9 @@ export default function HomeIndex() {
         </div>
       </LayoutWrapper>
       <HearFrom />
-      <LayoutWrapper>
+      {/* <LayoutWrapper>
         <RecentCohortStories />
-      </LayoutWrapper>
+      </LayoutWrapper> */}
 
       <YoutubeSnippet />
       <AsShowcased />

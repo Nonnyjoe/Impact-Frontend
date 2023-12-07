@@ -41,7 +41,7 @@ const Admin = () => {
 
   const filteredData = useMemo(() => {
     if (!filter) return tableData;
-    return tableData.filter((d) => d.cohort.toLowerCase() === filter.toLowerCase());
+    return tableData.filter((d) => d.cohort?.toLowerCase() === filter.toLowerCase());
   }, [filter, tableData]);
 
   // useEffect(() => {
