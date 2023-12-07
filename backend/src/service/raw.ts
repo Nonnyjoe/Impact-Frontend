@@ -96,6 +96,12 @@ export const onboarders = [
     hasOnboarded: false,
   },
   {
+    cohortId: 'Cohort III',
+    email: 'mayowaobi74+1@gmail.com',
+    isBlacklisted: false,
+    hasOnboarded: false,
+  },
+  {
     cohortId: 'Cohort IV',
     email: 'alongepelumi15@gmail.com',
     isBlacklisted: false,
