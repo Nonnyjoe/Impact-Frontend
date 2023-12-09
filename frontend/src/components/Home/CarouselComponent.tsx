@@ -1,8 +1,7 @@
-import quotesData from '@/utils/usersQuotes';
-import { useEffect, useState } from 'react';
-import { alumniData } from '../Alumni/Alumni';
-import { buildApiUrl } from '@/lib/data/appConfig';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { buildApiUrl } from '@/lib/data/appConfig';
+import { alumniData } from '../Alumni/Alumni';
 
 export default function CarouselComponent() {
   const [alumniDataArray, setAlumniData] = useState<alumniData[]>([]);

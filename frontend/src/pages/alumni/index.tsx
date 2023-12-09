@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import YoutubeSnippet from '@/components/youtubeSnippet';
-import AsShowcased from '@/components/AsShowcased';
 import Footer from '@/components/Footer/footer';
 import { buildApiUrl } from '@/lib/data/appConfig';
 import Students, { alumniData } from '../../components/Alumni/Alumni';
