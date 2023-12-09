@@ -45,7 +45,7 @@ export async function onboardUser(req: Request, res: Response) {
       });
     }
     const token = createToken({ email }, '48h');
-    const link = `${FRONTEND_URL}/api/auth/onboard/${token}`;
+    const link = `${FRONTEND_URL}/api/auth/onboard/${token}?email=${email}`;
     // const message = `Hello ${email}, please click on the link below to get onboarded: ${link}`;
     const message = await verify({ url: link, year: new Date().getFullYear() });
     await sendEmail(email, 'Verify your account', message);
