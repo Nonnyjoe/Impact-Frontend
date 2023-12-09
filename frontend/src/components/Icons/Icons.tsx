@@ -15,32 +15,32 @@ interface IconProps {
 }
 
 export function TwitterIcon({ color = 'text-blue-400', fontsize = '20px' }: IconProps) {
-  return <BiLogoTwitter class={color} fontSize={fontsize} />;
+  return <BiLogoTwitter className={color} fontSize={fontsize} />;
 }
 
 export function FacebookIcon({ color = 'text-w3b-blue', fontsize = '20px' }: IconProps) {
-  return <BiLogoFacebookSquare class={color} fontSize={fontsize} />;
+  return <BiLogoFacebookSquare className={color} fontSize={fontsize} />;
 }
 
 export function WhatsappIcon({ color = 'text-w3b-green', fontsize = '20px' }: IconProps) {
-  return <BiLogoWhatsappSquare class={color} fontSize={fontsize} />;
+  return <BiLogoWhatsappSquare className={color} fontSize={fontsize} />;
 }
 
 export function LinkedInIcon({ color = 'text-blue-600', fontsize = '20px' }: IconProps) {
-  return <BiLogoLinkedinSquare class={color} fontSize={fontsize} />;
+  return <BiLogoLinkedinSquare className={color} fontSize={fontsize} />;
 }
 
 export function TelegramIcon({ color = 'text-w3b-red', fontsize = '20px' }: IconProps) {
-  return <BiLogoTelegram class={color} fontSize={fontsize} />;
+  return <BiLogoTelegram className={color} fontSize={fontsize} />;
 }
 
 export function YoutubeIcon({ color = 'text-w3b-red', fontsize = '20px' }: IconProps) {
-  return <BiLogoYoutube class={color} fontSize={fontsize} />;
+  return <BiLogoYoutube className={color} fontSize={fontsize} />;
 }
 
 export function InstagramIcon({ color = 'text-w3b-red', fontsize = '20px' }: IconProps) {
-  return <BiLogoInstagram class={color} fontSize={fontsize} />;
+  return <BiLogoInstagram className={color} fontSize={fontsize} />;
 }
 export function GithubIcon({ color = 'text-w3b-black', fontsize = '20px' }: IconProps) {
-  return <BiLogoGithub class={color} fontSize={fontsize} />;
+  return <BiLogoGithub className={color} fontSize={fontsize} />;
 }

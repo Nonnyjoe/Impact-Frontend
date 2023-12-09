@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import letterSend1 from '@/assets/Images/letter-send-1.png';
 
-const HireUsForm = () => {
+function HireUsForm() {
   return (
     <div className="bg-[#FA1011] pt-16 pb-10 px-9 rounded-xl md:w-[45%] relative">
       <form className="grid gap-y-5">
@@ -42,6 +42,6 @@ const HireUsForm = () => {
       />
     </div>
   );
-};
+}
 
 export default HireUsForm;

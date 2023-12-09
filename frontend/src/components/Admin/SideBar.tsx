@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { AiOutlineLogout } from 'react-icons/ai';
 import { RxDashboard } from 'react-icons/rx';
+import { IconType } from 'react-icons/lib';
 
 type Props = {
   logout: () => void;
@@ -19,14 +20,16 @@ const SideBar: FC<Props> = ({ logout }) => {
       <Image src={w3blogo} alt={'Web3Bridge Logo'} className={'row-span-1 w-full'} />
       <div className="flex flex-col justify-between row-span-5">
         <div className="grid gap-[20%]">
-          {[
-            ['Dashboard', RxDashboard],
-            ['Cohorts', BiAnalyse],
-            ['Notifications', BiAlarm],
-            ['Settings', BiCog],
-          ].map(([word, Icon]) => {
+          {(
+            [
+              ['Dashboard', RxDashboard],
+              ['Cohorts', BiAnalyse],
+              ['Notifications', BiAlarm],
+              ['Settings', BiCog],
+            ] as [string, IconType][]
+          ).map(([word, Icon]) => {
             const path = `/admin${
-              word.toLowerCase() === 'dashboard' ? '' : `/${  encodeURI(word.toLowerCase())}`
+              word.toLowerCase() === 'dashboard' ? '' : `/${encodeURI(word.toLowerCase())}`
             }`;
 
             return (

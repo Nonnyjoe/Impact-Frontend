@@ -1,7 +1,5 @@
-import AsShowcased from '@/components/AsShowcased';
 import Footer from '@/components/Footer/footer';
 import LayoutWrapper from '@/components/LayoutWrapper';
-import RecentCohortStories from '@/components/recentCohortStories';
 import YoutubeSnippet from '@/components/youtubeSnippet';
 import Goal from '@/components/Home/Goal';
 import HearFrom from '@/components/Home/HearFrom';

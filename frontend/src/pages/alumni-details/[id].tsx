@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Footer from '@/components/Footer/footer';
 import YoutubeSnippet from '@/components/youtubeSnippet';
-import LayoutWrapper from '@/components/LayoutWrapper';
 import { buildApiUrl } from '@/lib/data/appConfig';
 import AlumniDetails, { studentData } from '../../components/AlumniDetails';
 

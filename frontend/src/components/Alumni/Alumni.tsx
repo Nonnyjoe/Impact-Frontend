@@ -31,6 +31,7 @@ export interface alumniData {
   image: string;
   firstname: string;
   lastname: string;
+  about: string;
 }
 
 interface alumniDataProps {

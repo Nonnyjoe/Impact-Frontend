@@ -1,5 +1,3 @@
-import Image from 'next/image';
-import ytEmbed from '@/assets/Images/YouTubeEmbed.png';
 import LayoutWrapper from './LayoutWrapper';
 
 export default function YoutubeSnippet() {
