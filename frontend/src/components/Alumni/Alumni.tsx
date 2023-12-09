@@ -112,7 +112,7 @@ const Students = ({ alumniDataArray }: alumniDataProps) => {
   return (
     <>
       <div className="flex justify-center items-center flex-col w-9/12 mx-auto">
-        {alumniDataArray.length > 0 ? (
+        {alumniDataArray.filter((t) => t.role.user || t.role.student).length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 md:gap-4">
             {renderedAlumniGallery}
           </div>
@@ -125,7 +125,7 @@ const Students = ({ alumniDataArray }: alumniDataProps) => {
           {renderedAlumniGallery}
         </div> */}
       </div>
-      {alumniDataArray.length > 0 && <Pagination />}
+      {alumniDataArray.filter((t) => t.role.user).length > 0 && <Pagination />}
     </>
   );
 };
