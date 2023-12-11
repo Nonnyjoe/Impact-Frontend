@@ -122,7 +122,7 @@ export const admins = [
     },
     requestStatus: 'approved',
     isActive: true,
-    cohortId: 'Cohort 8',
+    cohortId: 'Cohort VIII',
   },
 ];
 
