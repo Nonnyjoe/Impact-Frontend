@@ -1,7 +1,7 @@
 import User from './user';
 import Onboard from './preboard';
 import { env, logger } from '../config';
-import { onboarders, superAdmin, users } from '../service';
+import { admins, onboarders, superAdmin, users } from '../service';
 
 const { SUPER_ADMIN_EMAIL } = env;
 
