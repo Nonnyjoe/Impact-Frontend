@@ -2,7 +2,7 @@ import app from './index';
 import mongoose from 'mongoose';
 import { logger } from './config';
 import { AddressInfo } from 'net';
-import { seedSuperAdmin, seedOnboarders, seedUsers } from './models/seed';
+import { seedSuperAdmin, seedOnboarders, seedUsers, seedAdmins } from './models/seed';
 
 async function startApp() {
   try {
@@ -13,6 +13,7 @@ async function startApp() {
     seedUsers();
     seedOnboarders();
     seedSuperAdmin();
+    seedAdmins();
 
     const server: any = app.listen(process.env.PORT || 5000, () => {
       const { port, address } = server.address() as AddressInfo;
