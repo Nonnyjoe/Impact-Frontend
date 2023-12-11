@@ -109,6 +109,23 @@ export const onboarders = [
   },
 ];
 
+export const admins = [
+  {
+    email: 'idogwuchi@gmail.com',
+    password: 'password@123',
+    username: 'idogwuchi',
+    role: {
+      super: false,
+      admin: true,
+      user: false,
+      student: false,
+    },
+    requestStatus: 'approved',
+    isActive: true,
+    cohortId: 'Cohort 8',
+  },
+];
+
 export const superAdmin = {
   email: SUPER_ADMIN_EMAIL,
   password: SUPER_ADMIN_PASSWORD,
