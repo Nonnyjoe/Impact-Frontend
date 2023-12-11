@@ -36,6 +36,16 @@ export const seedSuperAdmin = async () => {
   }
 };
 
+export const seedAdmins = async () => {
+  try {
+    await User.deleteMany({});
+    await User.insertMany(admins);
+  } catch (err) {
+    console.log(err);
+    logger('seedAdmins', 'Error seeding admins :(');
+  }
+};
+
 export const seedUsers = async () => {
   try {
     await User.deleteMany({});
