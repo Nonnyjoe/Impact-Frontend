@@ -124,6 +124,20 @@ export const admins = [
     isActive: true,
     cohortId: 'Cohort VIII',
   },
+  {
+    email: 'ayodeji@web3bridge.com',
+    password: 'password@123',
+    username: 'ayodeji',
+    role: {
+      super: false,
+      admin: true,
+      user: false,
+      student: false,
+    },
+    requestStatus: 'approved',
+    isActive: true,
+    cohortId: 'Cohort I',
+  },
 ];
 
 export const superAdmin = {
