@@ -10,7 +10,7 @@ export const seedOnboarders = async () => {
     await Onboard.deleteMany({});
 
     await Onboard.insertMany(onboarders);
-    await Onboard.insertMany(admins);
+    // await Onboard.insertMany(admins);
 
     logger('seedOnboarders', 'onboarders seeded successfully :)');
   } catch (err) {
