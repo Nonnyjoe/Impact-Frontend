@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { BiCamera } from 'react-icons/bi';
 import toast from 'react-hot-toast';
 import { TailSpin } from 'react-loader-spinner';
+import { useRouter } from 'next/router';
 
 const Alumni = () => {
   const { user, refetchUser, postApi, postFormData } = useUser({
@@ -33,6 +34,7 @@ const Alumni = () => {
   const [loading, setLoading] = useState(false);
   const [img, setImg] = useState<File | string>();
   const [hasUploaded, setHasUploaded] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     if (!user) return;
@@ -67,7 +69,6 @@ const Alumni = () => {
       .catch((err) => {
         console.error(err);
       });
-
   }, []);
 
   const handleUpload = async () => {
@@ -119,6 +120,7 @@ const Alumni = () => {
       const res = await postApi(`user/${user.id}`, userData);
       if (res.status) {
         toast.success('Data updated successfully');
+        router.push('/');
       } else {
         toast.error(`Error updating data: ${res.message}`);
       }

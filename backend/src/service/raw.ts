@@ -106,6 +106,49 @@ export const onboarders = [
     isBlacklisted: false,
     hasOnboarded: false,
   },
+  {
+    cohortId: 'Cohort VIII',
+    email: 'idogwuchi@gmail.com',
+    isBlacklisted: false,
+    hasOnboarded: true,
+  },
+  {
+    cohortId: 'Cohort I',
+    email: 'ayodeji@web3bridge.com',
+    isBlacklisted: false,
+    hasOnboarded: true,
+  },
+];
+
+export const admins = [
+  {
+    email: 'idogwuchi@gmail.com',
+    password: 'password@123',
+    username: 'idogwuchi',
+    role: {
+      super: false,
+      admin: true,
+      user: false,
+      student: false,
+    },
+    requestStatus: 'approved',
+    isActive: true,
+    cohortId: 'Cohort VIII',
+  },
+  {
+    email: 'ayodeji@web3bridge.com',
+    password: 'password@123',
+    username: 'ayodeji',
+    role: {
+      super: false,
+      admin: true,
+      user: false,
+      student: false,
+    },
+    requestStatus: 'approved',
+    isActive: true,
+    cohortId: 'Cohort I',
+  },
 ];
 
 export const superAdmin = {
