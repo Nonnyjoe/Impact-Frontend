@@ -1,6 +1,8 @@
 import User from '../models/user';
 import Cohort from '../models/cohort';
+import Onboarder from '../models/preboard';
 import { Request, Response } from 'express';
+import fs from 'fs';
 import {
   GenericAnyType,
   ResponseCode,
@@ -16,7 +18,7 @@ import { customAlphabet } from 'nanoid';
 import { numbers } from 'nanoid-dictionary';
 import { verify } from '../mailTemplates/verify';
 import multer from 'multer';
-import csv from 'csv-parser';
+import csvParser from 'csv-parser';
 
 const nanoid = customAlphabet(numbers, 6);
 const { createToken } = Toolbox;
@@ -108,87 +110,54 @@ export async function createUser(req: Request, res: Response) {
   }
 }
 
-export async function uploadStudents(req: Request, res: Response) {
-  /*
-  #swagger.tags = ['Auth']
-  #swagger.requestBody = {
-            required: true,
-            content: {
-              "application/json": {
-                  schema: {
-                      $ref: "#/components/schemas/crateUserSchema"
-                  },
-                }
-            }
-        }
-  #swagger.security = [{
-            "bearerAuth": []
-    }]
-  */
+export async function uploadPreboardersList(req: Request, res: Response) {
   try {
-    // const { email } = req.body;
-    // const token = createToken({ email }, '48h');
-    // const link = `${FRONTEND_URL}/verify?token=${token}`;
-
     if (!req.file) {
       return res.status(StatusCode.BAD_REQUEST).json({
         status: !!ResponseCode.FAILURE,
         message: 'No file uploaded.',
       });
     }
+    console.log('I got here...')
 
-    const csvData: String = req.file.buffer.toString('utf8');
-    const users: UserCSVType[] = [];
+    const filePath = req.file.path;
+    const onboarders: UserCSVType[] = [];
 
-    // Parsing CSV data
-    const parseStream = csv();
-    parseStream.write(csvData);
-    parseStream.end();
-
-    parseStream
-      .on('data', (row: { firstname: string; lastname: string; email: string; cohort: string }) => {
-        const newUser = new User({
-          firstname: row.firstname,
-          lastname: row.lastname,
+    fs.createReadStream(filePath)
+    .pipe(csvParser())
+      .on('data', (row: {
+        email: string;
+        cohortId: string;
+        isBlacklisted: boolean;
+      }) => {
+        onboarders.push({
           email: row.email,
-          cohort: row.cohort,
+          cohortId: row.cohortId,
+          isBlacklisted: !!row.isBlacklisted,
         });
-
-        const getCohort = Cohort.findOne({ name: row.cohort });
-        if (!getCohort) {
-          return res.status(StatusCode.BAD_REQUEST).json({
-            status: !!ResponseCode.FAILURE,
-            message: 'Cohort does not exist',
-          });
-        }
-        users.push(newUser);
       })
       .on('end', async () => {
-        try {
-          await User.insertMany(users);
-          console.log('Users successfully saved to the database.');
-          res.send('Users successfully saved to the database.');
-        } catch (error: GenericAnyType) {
-          console.error('Error saving users to the database:', error.message);
-          res.status(error.statusCode || StatusCode.INTERNAL_SERVER_ERROR).json({
-            status: !!ResponseCode.FAILURE,
-            message: error.message || 'Error saving users to the database.',
+        fs.unlinkSync(filePath);
+        console.log('CSV file successfully processed.');
+          await Onboarder.insertMany(onboarders);
+          console.log('Onboarders successfully saved to the database.');
+          return res.status(StatusCode.OK).json({
+            status: !!ResponseCode.SUCCESS,
+            message: 'CSV file successfully processed.',
           });
-        }
       })
       .on('error', (error: GenericAnyType) => {
-        console.error('Error processing CSV file:', error.message);
-        res.status(error.statusCode || StatusCode.INTERNAL_SERVER_ERROR).json({
+        console.error('Error processing CSV file:', error);
+        fs.unlinkSync(filePath);
+        return res.status(error.statusCode || StatusCode.INTERNAL_SERVER_ERROR).json({
           status: !!ResponseCode.FAILURE,
           message: error.message || 'Error processing CSV file',
         });
       });
 
-    return res.status(StatusCode.OK).json({
-      status: !!ResponseCode.SUCCESS,
-      message: 'User created successfully',
-    });
+    return null;
   } catch (error: GenericAnyType) {
+    console.log(error)
     return res.status(error.statusCode || StatusCode.INTERNAL_SERVER_ERROR).json({
       status: !!ResponseCode.FAILURE,
       message: error.message || 'Something went wrong',

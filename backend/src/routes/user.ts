@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import multer from 'multer';
 import {
   listUsers,
   getUser,
@@ -6,23 +7,24 @@ import {
   deleteUser,
   uploadImage,
   approveOnboarders,
-  uploadStudents,
+  uploadPreboardersList,
 } from '../controller/user';
 import { UserMiddleware, AuthenticationsMiddleware, UploadsMiddleware } from '../middleware';
 
 const router = Router();
 const { inspectUpdateUser, inspectOnboardingRequest } = UserMiddleware;
 const { authorize } = AuthenticationsMiddleware;
+const CSVUploader = multer({ dest: 'uploads/' });
 
 router.post('/logout');
 router.post('/refresh');
 router.get('/', listUsers);
 router.put('/:userId/upload', UploadsMiddleware.single('image'), uploadImage);
 router.post(
-  '/student-upload',
-  [authorize(['super', 'admin'])],
-  UploadsMiddleware.single('csvFile'),
-  uploadStudents
+  '/upload-preboarders',
+  // [authorize(['super', 'admin'])],
+  CSVUploader.single('csvFile'),
+  uploadPreboardersList
 );
 router.get('/:userId', getUser);
 router.put('/:userId', [inspectUpdateUser], updateUser);

@@ -119,8 +119,7 @@ export type UserQueryType = {
 };
 
 export type UserCSVType = {
-  firstName?: string;
-  lastName?: string;
-  email?: string;
-  cohortId?: string;
+  email: string;
+  cohortId: string;
+  isBlacklisted: boolean;
 };

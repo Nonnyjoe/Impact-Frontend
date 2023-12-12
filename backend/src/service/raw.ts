@@ -1,5 +1,4 @@
 import { env } from '../config';
-import { LoremIpsum } from 'lorem-ipsum';
 
 const { SUPER_ADMIN_EMAIL, SUPER_ADMIN_PASSWORD, SUPER_ADMIN_USERNAME } = env;
 
