@@ -107,6 +107,18 @@ export const onboarders = [
     isBlacklisted: false,
     hasOnboarded: false,
   },
+  {
+    cohortId: 'Cohort VIII',
+    email: 'idogwuchi@gmail.com',
+    isBlacklisted: false,
+    hasOnboarded: true,
+  },
+  {
+    cohortId: 'Cohort I',
+    email: 'ayodeji@web3bridge.com',
+    isBlacklisted: false,
+    hasOnboarded: true,
+  },
 ];
 
 export const admins = [
