@@ -15,6 +15,7 @@ export type CohortData = {
   endDate: string;
   id: string;
   length?: any;
+  students?: number;
 };
 
 function formatDate(date: Date): string {
@@ -63,6 +64,7 @@ const Admin = () => {
     Name: 'Name',
     'Start Date': 'Start Date',
     'End Date': 'End Date',
+    Students: 'Students',
     Status: 'Status',
     Action: 'Action',
     id: 'id',
@@ -92,12 +94,7 @@ const Admin = () => {
               }
             >
               {tableData.map((row) => (
-                <TableRow
-                  data={row}
-                  key={row.name}
-                  className={'h-max'}
-                  type="cohort"
-                />
+                <TableRow data={row} key={row.name} className={'h-max'} type="cohort" />
               ))}
             </div>
           </div>

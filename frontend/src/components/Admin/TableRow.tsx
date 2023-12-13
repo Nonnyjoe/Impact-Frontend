@@ -16,6 +16,7 @@ export type TTableRow = {
   cohort: string;
   date: string;
   action: string;
+  students: number;
   status: ReqStatus;
   id: string;
 };
