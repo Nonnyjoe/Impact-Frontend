@@ -15,9 +15,9 @@ const user = {
     const schema = joi.object({
       cohortId: joi
         .string()
-        .valid(...cohortList)
         .required()
         .label('Cohort ID is required. See admin for valid cohort IDs'),
+      // .valid(...cohortList)
       username: joi.string().required().label('Username is required'),
       firstname: joi.string().optional().label('Firstname is required'),
       lastname: joi.string().optional().label('Lastname is required'),
