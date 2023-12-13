@@ -134,7 +134,25 @@ export async function uploadPreboardersList(req: Request, res: Response) {
       })
       .on('end', async () => {
         fs.unlinkSync(filePath);
-        console.log('CSV file successfully processed.');
+        console.log('CSV file successfully processed. Checking data...');
+
+        // Check for existing emails before inserting into the database
+        const existingEmails: UserQueryType[] = await Onboarder.find({
+          email: { $in: onboarders.map((onboarder) => onboarder.email) },
+        });
+
+        if (existingEmails.length > 0) {
+          const existingEmailList = existingEmails.map((existingEmail) => existingEmail.email);
+
+          return res.status(StatusCode.BAD_REQUEST).json({
+            status: !!ResponseCode.FAILURE,
+            message: `Some emails already exist in the database. Kindly remove them: ${existingEmailList.join(
+              ', '
+            )}`,
+            data: existingEmailList,
+          });
+        }
+
         await Onboarder.insertMany(onboarders);
         console.log('Onboarders successfully saved to the database.');
         return res.status(StatusCode.OK).json({
