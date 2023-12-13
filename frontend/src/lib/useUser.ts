@@ -148,6 +148,7 @@ export default function useUser({
       method: 'put',
       headers: {
         Authorization: `Bearer ${user?.token}`,
+        'Content-Type': 'multipart/form-data',
       },
     });
 
