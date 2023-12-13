@@ -118,18 +118,14 @@ export async function uploadPreboardersList(req: Request, res: Response) {
         message: 'No file uploaded.',
       });
     }
-    console.log('I got here...')
+    console.log('I got here...');
 
     const filePath = req.file.path;
     const onboarders: UserCSVType[] = [];
 
     fs.createReadStream(filePath)
-    .pipe(csvParser())
-      .on('data', (row: {
-        email: string;
-        cohortId: string;
-        isBlacklisted: boolean;
-      }) => {
+      .pipe(csvParser())
+      .on('data', (row: { email: string; cohortId: string; isBlacklisted: boolean }) => {
         onboarders.push({
           email: row.email,
           cohortId: row.cohortId,
@@ -139,12 +135,12 @@ export async function uploadPreboardersList(req: Request, res: Response) {
       .on('end', async () => {
         fs.unlinkSync(filePath);
         console.log('CSV file successfully processed.');
-          await Onboarder.insertMany(onboarders);
-          console.log('Onboarders successfully saved to the database.');
-          return res.status(StatusCode.OK).json({
-            status: !!ResponseCode.SUCCESS,
-            message: 'CSV file successfully processed.',
-          });
+        await Onboarder.insertMany(onboarders);
+        console.log('Onboarders successfully saved to the database.');
+        return res.status(StatusCode.OK).json({
+          status: !!ResponseCode.SUCCESS,
+          message: 'CSV file successfully processed.',
+        });
       })
       .on('error', (error: GenericAnyType) => {
         console.error('Error processing CSV file:', error);
@@ -157,7 +153,7 @@ export async function uploadPreboardersList(req: Request, res: Response) {
 
     return null;
   } catch (error: GenericAnyType) {
-    console.log(error)
+    console.log(error);
     return res.status(error.statusCode || StatusCode.INTERNAL_SERVER_ERROR).json({
       status: !!ResponseCode.FAILURE,
       message: error.message || 'Something went wrong',
