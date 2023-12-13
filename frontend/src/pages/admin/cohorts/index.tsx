@@ -14,8 +14,8 @@ export type CohortData = {
   startDate: string;
   endDate: string;
   id: string;
+  students: number;
   length?: any;
-  students?: number;
 };
 
 function formatDate(date: Date): string {
@@ -36,6 +36,7 @@ async function getCohorts() {
       name: d.name,
       startDate: formatDate(new Date(d.startDate)),
       endDate: formatDate(new Date(d.endDate)),
+      students: d.students,
       isActive: d.isActive,
       id: d.id,
       options: '',
