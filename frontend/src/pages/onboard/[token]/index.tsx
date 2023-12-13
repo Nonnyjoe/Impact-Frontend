@@ -11,7 +11,7 @@ import useUser from '@/lib/useUser';
 
 const CreateUser = () => {
   const [loading, setLoading] = useState(false);
-  const [cohorts, setCohorts] = useState<string[]>([]);
+  const [cohorts, setCohorts] = useState<any[]>([]);
   const { getCohort } = useUser({ redirectTo: '' });
   const router = useRouter();
 

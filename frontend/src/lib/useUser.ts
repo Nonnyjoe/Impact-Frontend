@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useState} from 'react';
+import {useCallback, useEffect} from 'react';
 import Router from 'next/router';
 import {useLocalStorage} from 'usehooks-ts';
 import {buildApiPostConfig, buildApiUrl} from '@/lib/data/appConfig';
@@ -108,11 +108,12 @@ export default function useUser({
       const {data} = await res.json();
       if (data) {
         return (data);
-      } else {
-        toast.error('Unable to fetch cohorts');
-        return [];
       }
+      toast.error('Unable to fetch cohorts');
+      return [];
+
     } catch (error) {
+      toast.error('Unable to fetch cohorts');
       return [];
     }
   };
@@ -147,12 +148,12 @@ export default function useUser({
     return res.json();
   }
   async function postFormData(path: string, body: FormData) {
-    let headers = new Headers();
+    const headers = new Headers();
     headers.append('Authorization', `Bearer ${user?.token}`);
     const res = await fetch(buildApiUrl(path), {
       body,
       method: 'post',
-      headers: headers,
+      headers,
     });
 
     return res.json();

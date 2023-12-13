@@ -1,7 +1,6 @@
 import DashboardLayout from '@/components/Admin/DashboardLayout';
 import useUser from '@/lib/useUser';
 import AdminHeader from '@/components/Admin/AdminHeader';
-import { buildApiUrl } from '@/lib/data/appConfig';
 import { useEffect, useMemo, useState } from 'react';
 import Modal from '@/components/Admin/RequestModal';
 import AddCohort from '@/components/Admin/addCohort';
