@@ -54,7 +54,7 @@ class CohortService {
   async getCohortStudents(cohortId: string) {
     try {
       const cohort = await Cohort.findById(cohortId);
-      const cohortStudents = await User.findOne({ cohortId: cohort?.id });
+      const cohortStudents = await User.find({ cohortId: cohort?.name, 'role.admin': false });
       return { cohort, cohortStudents };
     } catch (error) {
       throw new ApiError(
