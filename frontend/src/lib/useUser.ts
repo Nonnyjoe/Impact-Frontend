@@ -145,7 +145,7 @@ export default function useUser({
   async function postFormData(path: string, body: FormData) {
     const res = await fetch(buildApiUrl(path), {
       body,
-      method: 'put',
+      method: 'post',
       headers: {
         Authorization: `Bearer ${user?.token}`,
         'Content-Type': 'multipart/form-data',
