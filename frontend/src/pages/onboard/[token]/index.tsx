@@ -11,7 +11,8 @@ import useUser from '@/lib/useUser';
 
 const CreateUser = () => {
   const [loading, setLoading] = useState(false);
-  const { cohorts } = useUser({ redirectTo: '' });
+  const [cohorts, setCohorts] = useState<string[]>([]);
+  const { getCohort } = useUser({ redirectTo: '' });
   const router = useRouter();
 
   const [info, setInfo] = useState({
@@ -32,6 +33,12 @@ const CreateUser = () => {
       });
     }
   }, [router]);
+
+  useEffect(() => {
+    getCohort().then((data) => {
+      setCohorts(data);
+    });
+  }, []);
 
   const handleProfileUpdate = () => {
     router.push('/update-alumni');
