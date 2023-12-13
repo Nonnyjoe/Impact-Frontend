@@ -2,7 +2,7 @@ import DashboardLayout from '@/components/Admin/DashboardLayout';
 import useUser from '@/lib/useUser';
 import AdminHeader from '@/components/Admin/AdminHeader';
 import { buildApiUrl } from '@/lib/data/appConfig';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Modal from '@/components/Admin/RequestModal';
 import AddCohort from '@/components/Admin/addCohort';
 import TableRow, { TTableRow } from '@/components/Admin/TableRow';
@@ -25,35 +25,28 @@ function formatDate(date: Date): string {
   return `${day}/${month}/${year}`;
 }
 
-async function getCohorts() {
-  try {
-    const res = await fetch(buildApiUrl(`cohort`));
-    const { data } = (await res.json()) as { data: CohortData[] };
-
-    if (!data) return [];
-
-    return data.map((d) => ({
-      name: d.name,
-      startDate: formatDate(new Date(d.startDate)),
-      endDate: formatDate(new Date(d.endDate)),
-      students: d.students,
-      isActive: d.isActive,
-      id: d.id,
-      options: '',
-    }));
-  } catch (error) {
-    return [];
-  }
-}
-
 const Admin = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [tableData, setTableData] = useState<CohortData[]>([]);
-  const { user, postApi } = useUser({ access: 'Admin' });
+  const [cohorts, setCohorts] = useState<CohortData[]>([]);
+  const { user, postApi, getCohort } = useUser({ access: 'Admin' });
 
-  const refreshData = () => {
-    getCohorts().then((data) => {
-      setTableData(data);
+  const tableData = useMemo<CohortData[]>(
+    () =>
+      cohorts.map((d) => ({
+        name: d.name,
+        startDate: formatDate(new Date(d.startDate)),
+        endDate: formatDate(new Date(d.endDate)),
+        students: d.students,
+        isActive: d.isActive,
+        id: d.id,
+        options: '',
+      })),
+    [cohorts]
+  );
+
+  const refreshData = async () => {
+    getCohort().then((data) => {
+      setCohorts(data);
     });
   };
 
