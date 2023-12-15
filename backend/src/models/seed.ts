@@ -39,9 +39,10 @@ export const seedSuperAdmin = async () => {
 
 export const seedAdmins = async () => {
   try {
+    const allAdmins = [...admins, superAdmin];
     // Onboard admins by default
     await Onboard.deleteMany({});
-    const adminsEmailList = admins.map((adminEmail) => ({
+    const adminsEmailList = allAdmins.map((adminEmail) => ({
       email: adminEmail.email,
       cohortId: adminEmail.cohortId,
       isBlacklisted: false,

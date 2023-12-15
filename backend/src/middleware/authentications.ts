@@ -7,6 +7,40 @@ import { ApiError, StatusCode, Toolbox } from '../utils';
 const { verifyToken } = Toolbox;
 
 const Authentications = {
+  async authenticateMe(req: Request, res: Response, next: NextFunction) {
+    try {
+      // if (req.method === 'GET') return next();
+      const authToken = req.headers.authorization;
+      if (!authToken)
+        return res.status(StatusCode.UNAUTHORIZED).json({
+          status: !!ResponseCode.FAILURE,
+          message: 'No token in header',
+        });
+      const tokenString = authToken.split('Bearer')[1].trim();
+      if (!tokenString)
+        return res.status(StatusCode.UNAUTHORIZED).json({
+          status: !!ResponseCode.FAILURE,
+          message: 'Invalid token string',
+        });
+      const decoded: any = await verifyToken(tokenString);
+      const user = await User.findOne({ email: decoded.email }).exec();
+
+      if (!decoded || !user)
+        return res.status(StatusCode.UNAUTHORIZED).json({
+          status: !!ResponseCode.FAILURE,
+          message: 'Invalid token',
+        });
+      res.locals.user = user;
+      console.log('RES LOCAL USER', res.locals.user);
+      next();
+    } catch (error: any) {
+      return res.status(error.statusCode || StatusCode.INTERNAL_SERVER_ERROR).json({
+        status: !!ResponseCode.FAILURE,
+        message: error.message,
+      });
+    }
+  },
+
   async authenticate(req: Request, res: Response, next: NextFunction) {
     try {
       if (req.method === 'GET') return next();
