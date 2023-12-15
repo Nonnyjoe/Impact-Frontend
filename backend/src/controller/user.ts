@@ -357,6 +357,31 @@ export const getUser = async (req: Request, res: Response) => {
   }
 };
 
+export const getMe = async (req: Request, res: Response) => {
+  try {
+    const user = res.locals.user;
+
+    if (!user) {
+      return res.status(StatusCode.NOT_FOUND).json({
+        status: !!ResponseCode.FAILURE,
+        message: 'User not found',
+        data: null,
+      });
+    }
+
+    return res.status(StatusCode.OK).json({
+      status: !!ResponseCode.SUCCESS,
+      message: 'User fetch successful',
+      data: user,
+    });
+  } catch (err: GenericAnyType) {
+    return res.status(err.status || StatusCode.INTERNAL_SERVER_ERROR).json({
+      status: !!ResponseCode.FAILURE,
+      message: err.message || 'Server Error',
+    });
+  }
+};
+
 export const updateUser = async (req: Request, res: Response) => {
   /*
   #swagger.tags = ['User']

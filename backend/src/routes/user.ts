@@ -8,17 +8,19 @@ import {
   uploadImage,
   approveOnboarders,
   uploadPreboardersList,
+  getMe,
 } from '../controller/user';
 import { UserMiddleware, AuthenticationsMiddleware, UploadsMiddleware } from '../middleware';
 
 const router = Router();
 const { inspectUpdateUser, inspectOnboardingRequest } = UserMiddleware;
-const { authorize } = AuthenticationsMiddleware;
+const { authenticateMe, authorize } = AuthenticationsMiddleware;
 const CSVUploader = multer({ dest: 'uploads/' });
 
 router.post('/logout');
 router.post('/refresh');
 router.get('/', listUsers);
+router.get('/me', authenticateMe, getMe);
 router.put('/:userId/upload', UploadsMiddleware.single('image'), uploadImage);
 router.post(
   '/upload-preboarders',
