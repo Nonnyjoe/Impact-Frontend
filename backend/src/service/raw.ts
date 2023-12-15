@@ -151,20 +151,6 @@ export const admins = [
     isActive: true,
     cohortId: 'Cohort I',
   },
-  {
-    email: 'samoskydev@gmail.com',
-    password: 'password@123',
-    username: 'samoskydev',
-    role: {
-      super: false,
-      admin: true,
-      user: false,
-      student: false,
-    },
-    requestStatus: 'approved',
-    isActive: true,
-    cohortId: 'Cohort I',
-  },
 ];
 
 export const superAdmin = {
