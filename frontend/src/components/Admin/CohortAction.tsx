@@ -4,11 +4,11 @@ import useUser from '@/lib/useUser';
 import { CohortData } from '@/pages/admin/cohorts';
 import { Menu, Transition } from '@headlessui/react';
 import React, { Fragment, useState } from 'react';
+import toast from 'react-hot-toast';
 import { AiOutlineEllipsis } from 'react-icons/ai';
 import { TailSpin } from 'react-loader-spinner';
 
 const CohortAction: React.FC<{ data: CohortData | TTableRow }> = ({ data }) => {
-  console.log(data);
   const [isOpen, setIsOpen] = useState(false);
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
@@ -27,12 +27,18 @@ const CohortAction: React.FC<{ data: CohortData | TTableRow }> = ({ data }) => {
     formData.append('csvFile', file);
     try {
       const res = await postFormData('user/upload-preboarders', formData);
-      const da = await res.json();
-      console.log(da);
+      if (!res.status) {
+        throw Error(res.message);
+        return;
+      }
+      setIsOpen(false);
+      setFile(null);
       setLoading(false);
-    } catch (error) {
+      toast.success(res.message);
       setLoading(false);
-      console.log(error);
+    } catch (error: any) {
+      setLoading(false);
+      toast.error(error.message);
     }
   };
 
@@ -59,7 +65,7 @@ const CohortAction: React.FC<{ data: CohortData | TTableRow }> = ({ data }) => {
               className="p-[3%] text-[0.8vw] w-full text-center hover:bg-w3b-light-red"
               onClick={() => setIsOpen(true)}
             >
-              {() => <>Add Students</>}
+              <>Add Students</>
             </Menu.Item>
           </Menu.Items>
         </Transition>
