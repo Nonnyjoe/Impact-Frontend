@@ -4,15 +4,18 @@ import React, { useEffect, useState } from 'react';
 import w3bLogo from '@/assets/Images/Logo.png';
 import { TailSpin } from 'react-loader-spinner';
 import { buildApiPostConfig, buildApiUrl } from '@/lib/data/appConfig';
-import { useRouter } from 'next/router';
+import Router, { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
 import CustomToast from '@/components/CustomToast';
-import useUser from '@/lib/useUser';
+import useUser, { LoginData, User } from '@/lib/useUser';
+import { useLocalStorage } from 'usehooks-ts';
 
 const CreateUser = () => {
   const [loading, setLoading] = useState(false);
-  const [cohorts, setCohorts] = useState<any[]>([]);
-  const { getCohort } = useUser({ redirectTo: '' });
+  const [user, setUser] = useLocalStorage<User>('userData', {
+    isLoggedIn: false,
+    isAdmin: false,
+  });
   const router = useRouter();
 
   const [info, setInfo] = useState({
@@ -30,18 +33,38 @@ const CreateUser = () => {
       setInfo({
         ...info,
         email: (router.query.email as string) ?? '',
+        cohortId: (router.query.cohortId as string) ?? '',
       });
     }
   }, [router]);
 
-  useEffect(() => {
-    getCohort().then((data) => {
-      setCohorts(data);
-    });
-  }, []);
+  const handleProfileUpdate = async () => {
+    const token = router.query.token as string;
+    // router.push('/update-alumni');
 
-  const handleProfileUpdate = () => {
-    router.push('/update-alumni');
+    try {
+      const headers = new Headers();
+      toast.loading('Updating profile');
+
+      headers.append('Authorization', `Bearer ${token}`);
+
+      const res = await fetch(buildApiUrl(`user/me`), {
+        headers,
+      });
+      if (res.ok) {
+        const { data }: { data: LoginData } = await res.json();
+        console.log({ data, res });
+        toast.dismiss();
+        toast.loading('Redirecting');
+        setUser({ isLoggedIn: true, isAdmin: data.role.admin, token, user: { ...data } });
+        Router.replace('/update-alumni');
+        toast.dismiss();
+      }
+    } catch (error) {
+      console.log(error);
+      toast.dismiss();
+      toast.error('Error updating profile');
+    }
   };
 
   const handleSubmit = async () => {
@@ -57,7 +80,7 @@ const CreateUser = () => {
       if (res.ok) {
         console.log(data);
         toast.custom((t) => (
-          <CustomToast t={t}>
+          <CustomToast t={{ ...t, duration: 15000 }}>
             <div className="text-center w-max px-[2vw] grid gap-[2vh] ">
               <p className="text-[6vw]">🎉</p>
               <p>Onboarding Successfully</p>
@@ -90,59 +113,52 @@ const CreateUser = () => {
         <Image alt={'Web3Bridge Logo'} src={w3bLogo} className="absolute left-16 top-16 w-56" />
         <h1 className="text-xl font-bold">Onboarding</h1>
 
+        <div className="text-center">
+          <p>{info.email}</p>
+          <p>{info.cohortId}</p>
+        </div>
+
         <div className="form-group">
-          {Object.entries(info).map(([key, value]) => (
-            <div key={key} className="form-item">
-              <label htmlFor={key}>{key}</label>
-              {key === 'gender' ? (
-                <select
-                  name={key}
-                  value={value}
-                  onChange={(e) => setInfo({ ...info, [key]: e.target.value })}
-                  className="input"
-                >
-                  <option value="" disabled>
-                    Select Gender
-                  </option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                </select>
-              ) : key === 'dob' ? (
-                <input
-                  type="date"
-                  name={key}
-                  value={value}
-                  onChange={(e) => setInfo({ ...info, [key]: e.target.value })}
-                  className="input"
-                />
-              ) : key === 'cohortId' ? (
-                <select
-                  name={key}
-                  value={value}
-                  onChange={(e) => setInfo({ ...info, [key]: e.target.value })}
-                  className="input"
-                >
-                  <option value="" disabled>
-                    Select Cohort
-                  </option>
-                  {cohorts.map((cohort) => (
-                    <option key={cohort.id} value={cohort.name}>
-                      {cohort.name}
+          {Object.entries(info).map(([key, value]) => {
+            if (key === 'cohortId') return null;
+            if (key === 'email') return null;
+            return (
+              <div key={key} className="form-item">
+                <label htmlFor={key}>{key}</label>
+                {key === 'gender' ? (
+                  <select
+                    name={key}
+                    value={value}
+                    onChange={(e) => setInfo({ ...info, [key]: e.target.value })}
+                    className="input"
+                  >
+                    <option value="" disabled>
+                      Select Gender
                     </option>
-                  ))}
-                </select>
-              ) : (
-                <input
-                  type={key === 'email' ? 'email' : 'text'}
-                  name={key}
-                  value={value}
-                  onChange={(e) => setInfo({ ...info, [key]: e.target.value })}
-                  className="input"
-                  disabled={key === 'email'}
-                />
-              )}
-            </div>
-          ))}
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                  </select>
+                ) : key === 'dob' ? (
+                  <input
+                    type="date"
+                    name={key}
+                    value={value}
+                    onChange={(e) => setInfo({ ...info, [key]: e.target.value })}
+                    className="input"
+                  />
+                ) : (
+                  <input
+                    type={key === 'email' ? 'email' : 'text'}
+                    name={key}
+                    value={value}
+                    onChange={(e) => setInfo({ ...info, [key]: e.target.value })}
+                    className="input"
+                    disabled={key === 'email'}
+                  />
+                )}
+              </div>
+            );
+          })}
         </div>
 
         <button
