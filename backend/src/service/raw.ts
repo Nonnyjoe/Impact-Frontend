@@ -15,7 +15,9 @@ export const cohortList = [
   'Cohort X',
 ];
 
-export const onboarders = [
+export const onboarders = [];
+
+export const onboarders2 = [
   {
     cohortId: 'Cohort I',
     email: 'samsonajulor@gmail.com',

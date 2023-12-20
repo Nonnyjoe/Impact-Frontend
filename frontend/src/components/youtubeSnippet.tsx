@@ -9,11 +9,10 @@ export default function YoutubeSnippet() {
             <span className="text-white font-poppins "> Our Latest from YouTube </span>
           </p>
         </div>
-        <div className="mt-5 items-center justify-center flex mb-[4rem] md:mb-[100px] ">
+        <div className="mt-5 mb-[4rem] md:mb-[100px] w-full">
           <div>
             <iframe
-              width="1368"
-              height="720"
+              className="w-full aspect-video"
               src="https://www.youtube.com/embed/uFQSNwzH-bo?si=7WXHjwLT4sN19dV8"
               title="YouTube video player"
               frameBorder="0"

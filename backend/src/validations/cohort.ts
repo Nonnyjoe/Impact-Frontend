@@ -4,11 +4,8 @@ import { cohortList } from '../service';
 const cohort = {
   async validateCreateCohort(payload: any) {
     const schema = joi.object({
-      name: joi
-        .string()
-        .valid(...cohortList)
-        .required()
-        .label('Cohort Name'),
+      name: joi.string().required().label('Cohort Name'),
+      // .valid(...cohortList)
       numberOfStudents: joi
         .number()
         .integer()

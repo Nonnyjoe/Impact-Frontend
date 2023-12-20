@@ -35,7 +35,8 @@ const Admin = () => {
     numberOfPagesLeft: 0,
     numberOfPages: 0,
   });
-  const { user, cohorts } = useUser({ access: 'Admin' });
+  const { user, getCohort } = useUser({ access: 'Admin' });
+  const [cohorts, setCohorts] = useState<string[]>([]);
   const router = useRouter();
   const { page, cohortId } = router.query;
 
@@ -43,6 +44,12 @@ const Admin = () => {
     if (!filter) return tableData;
     return tableData.filter((d) => d.cohort?.toLowerCase() === filter.toLowerCase());
   }, [filter, tableData]);
+
+  useEffect(() => {
+    getCohort().then((data) => {
+      setCohorts(data);
+    });
+  }, []);
 
   // useEffect(() => {
   //   window.history.pushState({}, '', '/admin');

@@ -41,10 +41,21 @@ export const listCohorts = async (_: Request, res: Response) => {
   try {
     const cohorts = await CohortService.getAllCohort();
 
+    const cohortWithStudents = await Promise.all(
+      cohorts.map(async (eachCohort) => {
+        const { cohort, cohortStudents } = await CohortService.getCohortStudents(eachCohort.id);
+        return {
+          ...cohort?.toObject(),
+          students: cohortStudents.length,
+        };
+      })
+    );
+
     return res.status(StatusCode.OK).json({
       status: !!ResponseCode.SUCCESS,
       message: 'Cohort fetch successful',
-      data: cohorts,
+      // data: cohorts,
+      data: cohortWithStudents,
     });
   } catch (err: any) {
     return res.status(err.statusCode || StatusCode.INTERNAL_SERVER_ERROR).json({

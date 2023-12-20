@@ -118,18 +118,14 @@ export async function uploadPreboardersList(req: Request, res: Response) {
         message: 'No file uploaded.',
       });
     }
-    console.log('I got here...')
+    console.log('I got here...');
 
     const filePath = req.file.path;
     const onboarders: UserCSVType[] = [];
 
     fs.createReadStream(filePath)
-    .pipe(csvParser())
-      .on('data', (row: {
-        email: string;
-        cohortId: string;
-        isBlacklisted: boolean;
-      }) => {
+      .pipe(csvParser())
+      .on('data', (row: { email: string; cohortId: string; isBlacklisted: boolean }) => {
         onboarders.push({
           email: row.email,
           cohortId: row.cohortId,
@@ -138,13 +134,31 @@ export async function uploadPreboardersList(req: Request, res: Response) {
       })
       .on('end', async () => {
         fs.unlinkSync(filePath);
-        console.log('CSV file successfully processed.');
-          await Onboarder.insertMany(onboarders);
-          console.log('Onboarders successfully saved to the database.');
-          return res.status(StatusCode.OK).json({
-            status: !!ResponseCode.SUCCESS,
-            message: 'CSV file successfully processed.',
+        console.log('CSV file successfully processed. Checking data...');
+
+        // Check for existing emails before inserting into the database
+        const existingEmails: UserQueryType[] = await Onboarder.find({
+          email: { $in: onboarders.map((onboarder) => onboarder.email) },
+        });
+
+        if (existingEmails.length > 0) {
+          const existingEmailList = existingEmails.map((existingEmail) => existingEmail.email);
+
+          return res.status(StatusCode.BAD_REQUEST).json({
+            status: !!ResponseCode.FAILURE,
+            message: `Some emails already exist in the database. Kindly remove them: ${existingEmailList.join(
+              ', '
+            )}`,
+            data: existingEmailList,
           });
+        }
+
+        await Onboarder.insertMany(onboarders);
+        console.log('Onboarders successfully saved to the database.');
+        return res.status(StatusCode.OK).json({
+          status: !!ResponseCode.SUCCESS,
+          message: 'CSV file successfully processed.',
+        });
       })
       .on('error', (error: GenericAnyType) => {
         console.error('Error processing CSV file:', error);
@@ -157,7 +171,7 @@ export async function uploadPreboardersList(req: Request, res: Response) {
 
     return null;
   } catch (error: GenericAnyType) {
-    console.log(error)
+    console.log(error);
     return res.status(error.statusCode || StatusCode.INTERNAL_SERVER_ERROR).json({
       status: !!ResponseCode.FAILURE,
       message: error.message || 'Something went wrong',
@@ -321,6 +335,31 @@ export const getUser = async (req: Request, res: Response) => {
   try {
     const { userId } = req.params;
     const user = await UserService.getUserById(userId);
+
+    if (!user) {
+      return res.status(StatusCode.NOT_FOUND).json({
+        status: !!ResponseCode.FAILURE,
+        message: 'User not found',
+        data: null,
+      });
+    }
+
+    return res.status(StatusCode.OK).json({
+      status: !!ResponseCode.SUCCESS,
+      message: 'User fetch successful',
+      data: user,
+    });
+  } catch (err: GenericAnyType) {
+    return res.status(err.status || StatusCode.INTERNAL_SERVER_ERROR).json({
+      status: !!ResponseCode.FAILURE,
+      message: err.message || 'Server Error',
+    });
+  }
+};
+
+export const getMe = async (req: Request, res: Response) => {
+  try {
+    const user = res.locals.user;
 
     if (!user) {
       return res.status(StatusCode.NOT_FOUND).json({

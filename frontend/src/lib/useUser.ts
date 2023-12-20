@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import Router from 'next/router';
 import { useLocalStorage } from 'usehooks-ts';
 import { buildApiPostConfig, buildApiUrl } from '@/lib/data/appConfig';
@@ -56,7 +56,6 @@ export default function useUser({
     isLoggedIn: false,
     isAdmin: false,
   });
-  const [cohorts, setCohorts] = useState<any[]>([]);
 
   const logout = useCallback(() => {
     setUser({
@@ -104,12 +103,17 @@ export default function useUser({
   };
 
   const getCohort = async () => {
-    const res = await fetch(buildApiUrl('cohort'));
-    const { data } = await res.json();
-    if (data) {
-      setCohorts(data);
-    } else {
+    try {
+      const res = await fetch(buildApiUrl('cohort'));
+      const { data } = await res.json();
+      if (data) {
+        return data;
+      }
       toast.error('Unable to fetch cohorts');
+      return [];
+    } catch (error) {
+      toast.error('Unable to fetch cohorts');
+      return [];
     }
   };
 
@@ -143,20 +147,16 @@ export default function useUser({
     return res.json();
   }
   async function postFormData(path: string, body: FormData) {
+    const headers = new Headers();
+    headers.append('Authorization', `Bearer ${user?.token}`);
     const res = await fetch(buildApiUrl(path), {
       body,
-      method: 'put',
-      headers: {
-        Authorization: `Bearer ${user?.token}`,
-      },
+      method: 'post',
+      headers,
     });
 
     return res.json();
   }
-
-  useEffect(() => {
-    getCohort().then((r) => r);
-  }, []);
 
   useEffect(() => {
     // if no redirect needed, just return (example: already on /dashboard)
@@ -191,6 +191,6 @@ export default function useUser({
     postApi,
     postFormData,
     refetchUser,
-    cohorts,
+    getCohort,
   };
 }

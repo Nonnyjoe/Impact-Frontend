@@ -26,7 +26,7 @@ const CohortAction: React.FC<{ data: CohortData | TTableRow }> = ({ data }) => {
     const formData = new FormData();
     formData.append('csvFile', file);
     try {
-      const res = await postFormData('user/student-upload', formData);
+      const res = await postFormData('user/upload-preboarders', formData);
       const da = await res.json();
       console.log(da);
       setLoading(false);
@@ -65,43 +65,38 @@ const CohortAction: React.FC<{ data: CohortData | TTableRow }> = ({ data }) => {
         </Transition>
       </Menu>
 
-      <Modal
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        title={'Upload CSV'}
-
-      >
+      <Modal isOpen={isOpen} setIsOpen={setIsOpen} title={'Upload CSV'}>
         <div className="flex flex-col gap-y-[1vh]">
           <div>
             <input
-                type="file"
-                name="file"
-                id="file"
-                onChange={(e) => handleCSVRead(e)}
-                accept={'text/csv'}
+              type="file"
+              name="file"
+              id="file"
+              onChange={(e) => handleCSVRead(e)}
+              accept={'text/csv'}
             />
           </div>
 
           <button
-              className=" bg-w3b-red disabled:bg-w3b-light-red/60 text-white py-[2%] p-[3%] rounded-[0.3vw] hover:bg-w3b-red/60 flex gap-x-[1vw] justify-center"
-              disabled={!file}
-              onClick={handleCSVUpload}
+            className=" bg-w3b-red disabled:bg-w3b-light-red/60 text-white py-[2%] p-[3%] rounded-[0.3vw] hover:bg-w3b-red/60 flex gap-x-[1vw] justify-center"
+            disabled={!file}
+            onClick={handleCSVUpload}
           >
             {loading ? (
-                <>
-                  <TailSpin
-                      height="auto"
-                      width="20px"
-                      color="#fff"
-                      wrapperStyle={{}}
-                      wrapperClass=""
-                      visible={true}
-                      ariaLabel="circles-with-bar-loading"
-                  />
-                  <p className="">Uploading...</p>
-                </>
+              <>
+                <TailSpin
+                  height="auto"
+                  width="20px"
+                  color="#fff"
+                  wrapperStyle={{}}
+                  wrapperClass=""
+                  visible={true}
+                  ariaLabel="circles-with-bar-loading"
+                />
+                <p className="">Uploading...</p>
+              </>
             ) : (
-                <>Upload</>
+              <>Upload</>
             )}
           </button>
         </div>
