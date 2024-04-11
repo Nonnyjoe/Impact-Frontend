@@ -194,16 +194,18 @@ export async function logIn(req: Request, res: Response) {
 
     const user = (await UserService.getUserByEmail(email)) as unknown as UserInterface;
 
-    const preboarder = await PreboardService.getOnboarder(email);
+    // const preboarder = await PreboardService.getOnboarder(email);
 
     // to do
     // an admin do not need to be preboarded
 
-    if (!preboarder || (!preboarder.hasOnboarded && (!user?.role.super || !user?.role.admin)))
-      return res.status(StatusCode.BAD_REQUEST).json({
-        status: !!ResponseCode.SUCCESS,
-        message: 'You are not onboarded yet. Please onboard first.',
-      });
+    // if (!preboarder || (!preboarder.hasOnboarded && (!user?.role.super || !user?.role.admin)))
+    // if ((!user?.role.super || !user?.role.admin))
+    //   return res.status(StatusCode.BAD_REQUEST).json({
+    //     status: !!ResponseCode.SUCCESS,
+    //     // message: 'You are not onboarded yet. Please onboard first.',
+    //     message: 'You are not onboarded yet. Please onboard first.',
+    //   });
     const token = createToken({ email }, '48h');
 
     user.otp = undefined;
